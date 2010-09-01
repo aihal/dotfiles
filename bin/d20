@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#random number generator
+#to be used as a dice replacement
+#(real dice, for rpgs for example)
+
+use common::sense;
+
+#my $range = $ARGV[0];
+my $range = 20;
+my $rndnum = rand($range);
+print int($rndnum), "\n";

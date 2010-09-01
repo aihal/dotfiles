@@ -1,0 +1,29 @@
+#!/usr/bin/guile -s
+!#
+;;
+;; Script to handle some music related things for going to sleep
+;;
+(use-modules (ice-9 getopt-long))
+(define option-spec
+  '((time (single-char #\t) (value #t))
+    (help (single-char #\h) (value #f))))
+(define options (getopt-long (command-line) option-spec))
+
+(if (option-ref options 'time #f)
+    (define time-wanted (option-ref options 'time #f))
+    (define time-wanted "10m" ))
+
+(define is-it-mpd
+  (lambda () (cond
+    ((= (system "mpc | sed -ne '2 p' | grep playing>/dev/null") 0) #t)
+    (else #f))))
+(define is-it-mplayer
+  (lambda () (cond
+    ((= (system "pgrep mplayer>/dev/null") 0) #t)
+    (else #f))))
+(define gosleep
+  (lambda () (cond 
+  ((is-it-mpd) (system "mpc pause>/dev/null && ossvol -i 100>/dev/null"))
+  ((is-it-mplayer) (system "echo "quit" >> /home/ogion/.mplayer/pipe && ossvol -i 100>/dev/null")))))
+
+(system* "sleep" time-wanted)(gosleep)

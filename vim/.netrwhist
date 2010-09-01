@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/usr/share/conkeror/tests/simple'
+let g:netrw_dirhist_2='/home/ogion/configs_other_people/doy/conf/tex'
+let g:netrw_dirhist_3='/home/ogion/configs_other_people/doy/conf/urxvt'
+let g:netrw_dirhist_4='/var/www/zim/Home/NetteZitate'
+let g:netrw_dirhist_5='/var/www/zim/Home'
+let g:netrw_dirhist_6='/home/ogion/builds/kernel26-ck'

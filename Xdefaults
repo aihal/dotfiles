@@ -1,0 +1,99 @@
+!----------------------------------------------------------------------------
+! file:     ~/.Xdefaults
+! author:   Ogion
+! vim:enc=utf-8:ai:si:et:ts=4:sw=4:ft=xdefaults:
+!----------------------------------------------------------------------------
+!The colors 0-7 are the 'normal' colors, while colors 8-15 are their 'bright' counterparts (used for highlighting, etc.)
+
+
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintslight
+
+Xcursor*theme:      Vanilla-DMZ-AA
+!#include "/example/path"
+
+!urxvt*font:        xft:ProFont:pixelsize=14
+!urxvt*font:         xft:fixed:pixelsize=15:antialias=false
+urxvt*font:         xft:fixed:pixelsize=15:antialias=false
+!urxvt*font:         xft:inconsolata:pixelsize=15:antialias=false
+
+
+urxvt*background:   #000000
+urxvt*foreground:   #cccccc
+urxvt*scrollBar:    false
+urxvt*urgentOnBell: true
+
+
+!magenta
+!*color5:    #BA55D3
+!*color13:   #915EBA
+!#B770DB
+
+!!black 
+*color0 :   #222222
+*color8 :   #454545
+!!red
+*color1 :   #E22A5B
+*color9 :   #F92672
+!!green
+*color2 :   #84B81B
+*color10:   #A6E22E
+!!yellow
+*color3 :   #FD971F
+*color11:   #FDD31F
+!!blue
+*color4 :   #2B45D6
+*color12:   #4682B4
+!!magenta
+*color5 :   #B770DB
+*color13:   #AE81FF
+!!cyan
+*color6 :   #89b6e2
+*color14:   #46a4ff
+!!white
+*color7:    #FFFFFF
+*color15:   #FFFFFF
+
+!!!black 
+!*color0 :   #222222
+!*color8 :   #454545
+!!!red
+!*color1 :   #F92672
+!*color9 :   #F92672
+!!!green
+!*color2 :   #A6E22E
+!*color10:   #A6E22E
+!!!yellow
+!*color3 :   #FD971F
+!*color11:   #FD971F
+!!!blue
+!*color4 :   #4682B4
+!*color12:   #4682B4
+!!!magenta
+!*color5 :   #AE81FF
+!*color13:   #AE81FF
+!!!cyan
+!*color6 :   #89b6e2
+!*color14:   #46a4ff
+!!!white
+!*color7:    #FFFFFF
+!*color15:   #FFFFFF
+
+
+
+!URxvt.perl-ext-common: default,matcher
+!URxvt.urlLauncher: /usr/bin/firefox
+!URxvt.colorUL: #86a2be
+URxvt.perl-ext-common: url-select,keyboard-select
+URxvt.keysym.M-u:      perl:url-select:select_next
+URxvt.keysym.M-Escape:  perl:keyboard-select:activate
+
+
+URxvt.perl-ext:           default,matcher
+URxvt.urlLauncher:        firefox
+!URxvt.keysym.M-u:    perl:matcher
+!URxvt.matcher.button:     3
+URxvt.matcher.pattern:  \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
+!URxvt.matcher.pattern.2:  \\B(/\\S+?):(\\d+)(?=:|$)
+!URxvt.matcher.launcher.2: gvim +$2 $1
+

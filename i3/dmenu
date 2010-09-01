@@ -1,0 +1,13 @@
+bp
+bn
+d
+restart
+reload
+bb
+kill
+sl
+sk
+exec /home/ogion/bin/conkystatbar.sh
+exec leafpad
+sr
+bt

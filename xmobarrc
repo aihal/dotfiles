@@ -1,0 +1,20 @@
+Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 90
+       , lowerOnStart = True
+       , commands = [ Run Network "wlan0" ["-L","20","-H","132","-l", "green", "--normal","orange","--high","red"] 10
+                    , Run Network "eth0" ["-L","20","-H","132","-l", "green", "--normal","orange","--high","red"] 10 
+                    , Run Weather "EDGR" ["-t"," <tempC>C","-L","0","-H","20","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Cpu ["-t","<total>","-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","<usedratio>%"] 10
+                    , Run Battery [] 10
+                    , Run Swap [] 10
+                    , Run Date "%d %b %k:%M" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %cpu% | %memory% | %wlan0% | %battery% | <fc=#ee9a00>%date%</fc>"
+       }
+-- vim: ft=haskell

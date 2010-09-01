@@ -1,0 +1,33 @@
+#!/bin/bash
+# Script to make skeleton files
+# for certain programming languages
+
+[[ -n $1 ]] && filename=$1
+
+usage() {
+    echo This script will automatically put a set 
+    echo of header lines appropriate for the wanted 
+    echo language in the head of a new file, that is
+    echo to be given make_script as first argument.
+    echo The script guesses according to filename ending.
+}
+
+case $filename in 
+    *.pl)
+        echo '#!/usr/bin/perl' >> $filename
+        echo  >> $filename
+        echo '#use warnings;' >> $filename
+        echo '#use strict;' >> $filename
+        echo 'use common::sense;' >> $filename
+        echo >> $filename
+        ;;
+    *.sh)
+        echo '#!/bin/bash' >> $filename
+        echo "# - $filename" >> $filename
+        ;;
+    *)
+        echo "not yet implemented"
+        ;;
+esac
+
+[[ -f $filename ]] && chmod u+x $filename

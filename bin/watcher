@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+use common::sense;
+
+my $zusichtendes;
+$zusichtendes = $ARGV[0] if ($ARGV[0]) ;
+$zusichtendes = "/usr/bin/fortune" unless ($ARGV[0]);
+
+system("/usr/bin/clear");
+while(1) {
+        system("$zusichtendes");
+        my $eingabe;
+        $eingabe = <STDIN>;
+        exit 0 if $eingabe =~ /:q/;
+        system("/usr/bin/clear");
+}

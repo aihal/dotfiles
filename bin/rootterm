@@ -1,0 +1,2 @@
+#!/bin/dash
+urxvtc -e sudo su -

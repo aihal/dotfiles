@@ -1,0 +1,8 @@
+map ü :tabs<CR>
+map ö gT
+map ä gt
+set showtabline=0
+set defsearch=sg
+set guioptions-=r
+colorscheme ogion
+" vim: ft=vimperator
