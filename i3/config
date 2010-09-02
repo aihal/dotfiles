@@ -6,8 +6,10 @@
 # changed the movement keys from jkl; to hjkl
 
 #exec /home/ogion/bin/i3statbar.sh
-exec /home/ogion/bin/conkystatbar.sh
-exec /usr/bin/parcellite -nd
+#exec /home/ogion/bin/conkystatbar.sh
+exec /home/ogion/bin/trayer2
+exec /usr/bin/conky | /usr/bin/i3-wsbar -c "dzen2 -expand r -ta r -fn -*-profont-*-*-*-*-14-*-*-*-*-*-*-* -y 584 -x 250"
+exec /usr/bin/parcellite
 exec /usr/bin/unclutter
 
 # ISO 10646 = Unicode
@@ -28,6 +30,9 @@ bind Mod4+36 exec /usr/bin/urxvtc
 bind Mod4+56 exec /usr/bin/mpc prev
 bind Mod4+57 exec /usr/bin/mpc next
 bind Mod4+58 exec /usr/bin/mpc toggle
+# mod4+,/. volume down/up
+bind Mod4+59 exec /usr/bin/ossvol -d 2
+bind Mod4+60 exec /usr/bin/ossvol -i 2
 
 # most used dmenu
 bind Mod4+55 exec /home/ogion/bin/mostused_dmenu.sh
@@ -46,16 +51,19 @@ bind Mod4+Shift+33 exec /home/ogion/bin/scrot_ogi.sh
 
 
 ## Colors
-##   class                     border       background   text
-#client.focused            #9966CC      #9966CC      #000000
+##   class                border       background   text
+# Dark Grey with Orange
 client.focused            #DA6F00      #DA6F00      #000000
 client.focused_inactive   #333333      #333333      #999999
 client.unfocused          #333333      #333333      #999999
 client.urgent             #FF0000      #8C5665      #999999
-#bar.focused               #9966CC      #000000      #999999
 bar.focused               #DA6F00      #000000      #999999
 bar.unfocused             #333333      #000000      #999999
 bar.urgent                #FF0000      #000000      #999999
+
+# violet
+#client.focused            #9966CC      #9966CC      #000000
+#bar.focused               #9966CC      #000000      #999999
 
 
 #
@@ -68,12 +76,16 @@ new_container tabbed
 new_window bb
 workspace 5 output VGA1
 #workspace 2 www
-workspace_bar yes
+workspace_bar no
 
 # assigns
 assign Navigator → 2
+assign jumanji → 2
 assign sylpheed → 6
 assign gcolor2 → ~
+assign opera → 2
+assign sonata → ~
+assign gajim.py → ~
 
 # next workspace/prev workspace
 # with Mod4+u/i

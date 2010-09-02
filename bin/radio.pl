@@ -10,7 +10,8 @@ my %stations = (
 'dradio' => 'http://dradio.ic.llnwd.net/stream/dradio_dlf_m_a.ogg',
 'bbcworld' => 'mms://a973.l3944038972.c39440.g.lm.akamaistream.net/D/973/39440/v0001/reflector:38972',
 'radiopego' => 'http://www.radiopego.com:8000',
-'jazz24' => 'http://sc1.abacast.com:8236/'
+'jazz24' => 'http://sc1.abacast.com:8236/',
+'smoothjazz' => 'http://scfire-ntc-aa07.stream.aol.com/stream/1010/'
 );
 my @stationnames = keys %stations;
 my $mplayeroptions = "-input file=/home/ogion/.mplayer/pipe -msgcolor -msgmodule";

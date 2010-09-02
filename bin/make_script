@@ -25,6 +25,16 @@ case $filename in
         echo '#!/bin/bash' >> $filename
         echo "# - $filename" >> $filename
         ;;
+    *.scm)
+        echo '#!/usr/bin/guile -s' >> $filename
+        echo '!#' >> $filename
+        echo '' >> $filename
+        ;;
+    *.rb)
+        echo '#!/usr/bin/ruby' >> $filename
+        echo "# $filename" >> $filename
+        echo >> $filename
+        ;;
     *)
         echo "not yet implemented"
         ;;

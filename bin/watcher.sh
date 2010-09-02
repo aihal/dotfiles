@@ -15,5 +15,5 @@ do
     clear
     $prog
     read input
-    [[ $input =~ q ]] && break
+    [[ $input =~ "^q" ]] && break
 done

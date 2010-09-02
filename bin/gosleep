@@ -1,5 +1,6 @@
 #!/usr/bin/guile -s
 !#
+;; vim: ft=scheme
 ;;
 ;; Script to handle some music related things for going to sleep
 ;;

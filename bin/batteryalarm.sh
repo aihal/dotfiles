@@ -7,4 +7,4 @@ battery_alarm() {
     zenity --warning --text="Achtung Akku ist nur noch bei ${batterylevel}%"
 }
 
-[[ $batterylevel -le 10 ]] && battery_alarm
+[[ $batterylevel -le 15 ]] && battery_alarm

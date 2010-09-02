@@ -12,9 +12,8 @@ Xft.hintstyle:  hintslight
 Xcursor*theme:      Vanilla-DMZ-AA
 !#include "/example/path"
 
-!urxvt*font:        xft:ProFont:pixelsize=14
-!urxvt*font:         xft:fixed:pixelsize=15:antialias=false
 urxvt*font:         xft:fixed:pixelsize=15:antialias=false
+!urxvt*font:         xft:Linux Biolinum:pixelsize=15:antialias=true
 !urxvt*font:         xft:inconsolata:pixelsize=15:antialias=false
 
 
@@ -87,13 +86,11 @@ urxvt*urgentOnBell: true
 URxvt.perl-ext-common: url-select,keyboard-select
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.keysym.M-Escape:  perl:keyboard-select:activate
-
-
-URxvt.perl-ext:           default,matcher
+URxvt.perl-ext:           default
 URxvt.urlLauncher:        firefox
+!URxvt.matcher.pattern:  \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
 !URxvt.keysym.M-u:    perl:matcher
 !URxvt.matcher.button:     3
-URxvt.matcher.pattern:  \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
 !URxvt.matcher.pattern.2:  \\B(/\\S+?):(\\d+)(?=:|$)
 !URxvt.matcher.launcher.2: gvim +$2 $1
 

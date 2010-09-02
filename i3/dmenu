@@ -7,7 +7,10 @@ bb
 kill
 sl
 sk
-exec /home/ogion/bin/conkystatbar.sh
-exec leafpad
 sr
 bt
+kj
+ml
+exit
+kk
+sj
