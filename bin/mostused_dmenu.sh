@@ -3,7 +3,6 @@ IFS=$'\t\n'
 PATH=$PATH:/home/ogion/bin
 
 mostused="firefox
-conkystatbar.sh
 sylpheed
 ossxmix
 vimprobable2
