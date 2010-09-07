@@ -1,7 +1,7 @@
 !----------------------------------------------------------------------------
 ! file:     ~/.Xdefaults
 ! author:   Ogion
-! vim:enc=utf-8:ai:si:et:ts=4:sw=4:ft=xdefaults:
+! this was a vim modeline:enc=utf-8:ai:si:et:ts=4:sw=4:ft=xdefaults:
 !----------------------------------------------------------------------------
 !The colors 0-7 are the 'normal' colors, while colors 8-15 are their 'bright' counterparts (used for highlighting, etc.)
 
