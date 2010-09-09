@@ -416,6 +416,9 @@ speakermute() { ossmix jack.int-speaker.mute toggle }
 xrandrvga1() { xrandr --output VGA1 --auto --right-of LVDS1 }
 llg () { ls -lh --color=auto "$1" | grep -i "$2" }
 showcolors() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
+countdeps() {
+    LC_ALL=C pacman -Qi $1 | grep Required | sed -e 's/Required By    : \([a-z ]*\)/\1/' -e 's/  / /g' | wc -w
+}
 
 vimwhich() { 
     which $1 && vim `which $1`

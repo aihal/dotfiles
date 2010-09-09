@@ -14,6 +14,7 @@ runtime! archlinux.vim
 " For more option refer to /usr/share/vim/vimcurrent/vimrc_example.vim or the
 " vim manual
 
+au BufNewFile,BufRead PKGBUILD set ft=sh
 au BufNewFile,BufRead *.wiki set ft=creole
 au BufNewFile,BufRead *.t2t set ft=txt2tags
 au BufRead,BufNewFile /usr/local/nginx/conf/* set ft=nginx 

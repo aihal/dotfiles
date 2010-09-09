@@ -4,5 +4,6 @@ map ä gt
 set showtabline=0
 set defsearch=sg
 set guioptions-=r
+set complete=bh
 colorscheme ogion
 " vim: ft=vimperator

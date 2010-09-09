@@ -7,10 +7,11 @@
 
 #exec /home/ogion/bin/i3statbar.sh
 #exec /home/ogion/bin/conkystatbar.sh
-exec /home/ogion/bin/trayer2
-exec /usr/bin/conky | /usr/bin/i3-wsbar -c "dzen2 -expand r -ta r -fn -*-profont-*-*-*-*-14-*-*-*-*-*-*-* -y 584 -x 250"
+#exec /home/ogion/bin/trayer2
+#exec /usr/bin/conky | /usr/bin/i3-wsbar -c "dzen2 -expand r -ta r -fn -*-profont-*-*-*-*-14-*-*-*-*-*-*-* -y 584 -x 250"
+exec i3bar -c 'conky -c /home/ogion/.conkyrc_i3bar' -f '-*-profont-*-*-*-*-14-*-*-*-*-*-*-*'
 exec /usr/bin/parcellite
-exec /usr/bin/unclutter
+exec xcompmgr -cf -r 0 -D 6
 
 # ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
