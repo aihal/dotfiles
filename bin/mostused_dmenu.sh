@@ -3,6 +3,7 @@ IFS=$'\t\n'
 PATH=$PATH:/home/ogion/bin
 
 mostused="firefox
+luakit
 sylpheed
 ossxmix
 vimprobable2

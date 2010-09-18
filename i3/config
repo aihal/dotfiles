@@ -81,6 +81,7 @@ workspace_bar no
 
 # assigns
 assign Navigator → 2
+assign luakit → 2
 assign jumanji → 2
 assign sylpheed → 6
 assign gcolor2 → ~

@@ -18,7 +18,6 @@ au BufNewFile,BufRead PKGBUILD set ft=sh
 au BufNewFile,BufRead *.wiki set ft=creole
 au BufNewFile,BufRead *.t2t set ft=txt2tags
 au BufRead,BufNewFile /usr/local/nginx/conf/* set ft=nginx 
-"au BufNewFile,BufRead *.mdwn set ft=ikiwiki
 au BufNewFile,BufRead *conkyrc set ft=conkyrc
 au FileType pl,pm set filetype=perl
 
@@ -41,3 +40,23 @@ set smartindent
 set textwidth=0
 "set cursorline
 filetype plugin indent on
+
+"set guioptions=aegirL
+"set guioptions-=m
+"set guioptions-=T
+
+if has('gui_running')
+    set guicursor=a:blinkon0
+    colorscheme nightshade
+    set guifont=Monaco\ 10
+    set guioptions-=T
+    set guioptions+=g
+    set guioptions-=t
+    set guioptions-=m
+    set guioptions-=L
+    set guioptions-=l
+    set guioptions-=r
+    set guioptions-=R
+endif
+" stop visual mode from spamming X selection
+set clipboard-=autoselect
