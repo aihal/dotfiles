@@ -23,6 +23,10 @@ case $session in
 	dwm)
 		/home/ogion/bin/dwm_script.sh &
 		exec dwm;;
+        stumpwm)
+                exec stumpwm;;
+        musca)
+                exec musca;;
 	*)
 		exec $session;;
 esac

@@ -12,9 +12,9 @@ Xft.hintstyle:  hintslight
 Xcursor*theme:      Vanilla-DMZ-AA
 !#include "/example/path"
 
-urxvt*font:         xft:fixed:pixelsize=15:antialias=false
+!urxvt*font:         xft:fixed:pixelsize=15:antialias=false
+urxvt*font:         xft:dejavu sans mono:pixelsize=14:antialias=false
 !urxvt*font:         xft:Linux Biolinum:pixelsize=15:antialias=true
-!urxvt*font:         xft:inconsolata:pixelsize=15:antialias=false
 
 
 urxvt*background:   #000000
