@@ -9,7 +9,7 @@
 #exec /home/ogion/bin/conkystatbar.sh
 #exec /home/ogion/bin/trayer2
 #exec /usr/bin/conky | /usr/bin/i3-wsbar -c "dzen2 -expand r -ta r -fn -*-profont-*-*-*-*-14-*-*-*-*-*-*-* -y 584 -x 250"
-exec i3bar -c 'conky -c /home/ogion/.conkyrc_i3bar' -f '-*-profont-*-*-*-*-14-*-*-*-*-*-*-*'
+exec i3bar -c 'conky -c /home/ogion/.conkyrc_i3bar' -f '-*-profont-*-*-*-*-14-*-*-*-*-*-*-*' >/dev/null
 exec /usr/bin/parcellite
 exec xcompmgr -cf -r 0 -D 6
 
@@ -22,6 +22,10 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 ##
 #
 
+# Mod4+e opens gvim with the text from the xclipboard
+bind Mod4+26 exec gvim -c ':%d' -c ':normal "*p' /tmp/xclipboardvim
+# Mod4- calls transset-df toggle
+bind Mod4+61 exec transset-df -p
 # Mod4+Enter starts a new terminal
 #bind Mod4+36 exec /usr/bin/xterm  -C -fg white -bg black +sb
 bind Mod4+36 exec /usr/bin/urxvtc
@@ -84,6 +88,7 @@ assign Navigator → 2
 assign luakit → 2
 assign jumanji → 2
 assign sylpheed → 6
+assign gvim → ~
 assign gcolor2 → ~
 assign opera → 2
 assign sonata → ~
@@ -107,7 +112,7 @@ bind Mod4+39 s
 bind Mod4+25 T
 
 # Default (Mod4+e)
-bind Mod4+26 d
+#bind Mod4+26 d
 
 # Toggle tiling/floating of the current window (Mod4+Shift+Space)
 bind Mod4+Shift+65 t

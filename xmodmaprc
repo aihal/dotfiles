@@ -3,7 +3,7 @@ clear Lock
 add Control = Control_L
 !remove Lock = Caps_Lock
 !keysym Caps_Lock = Escape
-keysym Delete =
+!keysym Delete =
 keysym Insert =
 ! keycode 135 = Menu NoSymbol Menu
 ! keycode 118 = Insert NoSymbol Insert
