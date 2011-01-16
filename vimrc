@@ -22,8 +22,8 @@ au BufRead,BufNewFile /usr/local/nginx/conf/* set ft=nginx
 au BufNewFile,BufRead *conkyrc set ft=conkyrc
 au FileType pl,pm set filetype=perl
 
-au BufWritePost /tmp/xclipboardvim :%y+ | :!sleep 1
-"au BufWritePost /tmp/one :normal ggVG"*y
+"au BufWritePost /tmp/xclipboardvim :%y+ | :!sleep 1
+au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep 1
 "" example for calling an external command as a post-write hook
 "au BufWritePost /home/ogion/test/vimbla :!mpc toggle
 

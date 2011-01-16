@@ -4,6 +4,10 @@ add Control = Control_L
 !remove Lock = Caps_Lock
 !keysym Caps_Lock = Escape
 !keysym Delete =
-keysym Insert =
+!keysym Insert =
 ! keycode 135 = Menu NoSymbol Menu
-! keycode 118 = Insert NoSymbol Insert
+!! switch ' and #
+keycode  51 = apostrophe numbersign apostrophe numbersign rightsinglequotemark dead_breve rightsinglequotemark
+!keycode 118 = Insert NoSymbol Insert
+!! altrgr-shit-minus gives shit-insert for pasting
+keycode  61 = minus underscore minus underscore Insert Insert

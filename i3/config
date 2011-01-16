@@ -12,6 +12,7 @@
 exec i3bar -c 'conky -c /home/ogion/.conkyrc_i3bar' -f '-*-profont-*-*-*-*-14-*-*-*-*-*-*-*' >/dev/null
 exec /usr/bin/parcellite
 exec xcompmgr -cf -r 0 -D 6
+exec trayer3
 
 # ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -23,7 +24,8 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 #
 
 # Mod4+e opens gvim with the text from the xclipboard
-bind Mod4+26 exec gvim -c ':%d' -c ':normal "*p' /tmp/xclipboardvim
+#bind Mod4+26 exec gvim -c ':%d' -c ':normal "*p' /tmp/xclipboardvim
+bind Mod4+26 exec cp /dev/null /tmp/xclipboardvim && xclip -o > /tmp/xclipboardvim && gvim /tmp/xclipboardvim
 # Mod4- calls transset-df toggle
 bind Mod4+61 exec transset-df -p
 # Mod4+Enter starts a new terminal
@@ -93,6 +95,7 @@ assign gcolor2 → ~
 assign opera → 2
 assign sonata → ~
 assign gajim.py → ~
+assign psi → ~
 
 # next workspace/prev workspace
 # with Mod4+u/i
