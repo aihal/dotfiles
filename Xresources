@@ -17,18 +17,14 @@ urxvt*font:         xft:dejavu sans mono:pixelsize=14:antialias=false
 !urxvt*font:         xft:Linux Biolinum:pixelsize=15:antialias=true
 
 
-!urxvt*background:   #000000
-!urxvt*foreground:   #cccccc
+urxvt*background:   #000000
+urxvt*foreground:   #DADADA
+urxvt*cursorColor:  #DADADA
 urxvt*scrollBar:    false
 urxvt*urgentOnBell: true
 
-
-!magenta
-!*color5:    #BA55D3
-!*color13:   #915EBA
-!#B770DB
-
-!!!black 
+!my normal black background colors
+!!black 
 *color0 :   #222222
 *color8 :   #454545
 !!red
@@ -50,10 +46,32 @@ urxvt*urgentOnBell: true
 *color6 :   #89b6e2
 *color14:   #46a4ff
 !!white
-*color7:    #FFFFFF
-*color15:   #FFFFFF
+*color7:    #DADADA
+*color15:   #DADADA
 
-
+!!! trying out darker colors for a white background theme
+!!!black like above
+!!!red
+!*color1 : #D61C41
+!*color9 : #EF214F
+!!!green
+!*color2 : #289428
+!*color10: #39B939
+!!!yellow
+!*color3 : #D19F23
+!*color11: #E8DF2F
+!!!blue
+!*color4 : #263FC2
+!*color12: #396F9D
+!!!magenta
+!*color5 : #85599B
+!*color13: #8562C7
+!!!cyan
+!*color6 : #567DBB
+!*color14: #3B83D5
+!!!white
+!*color7 : #FFFFFF
+!*color15: #FFFFFF
 
 
 !URxvt.perl-ext-common: default,matcher
@@ -69,4 +87,3 @@ URxvt.urlLauncher:        firefox
 !URxvt.matcher.button:     3
 !URxvt.matcher.pattern.2:  \\B(/\\S+?):(\\d+)(?=:|$)
 !URxvt.matcher.launcher.2: gvim +$2 $1
-

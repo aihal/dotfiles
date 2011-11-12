@@ -1,11 +1,16 @@
-#!/usr/bin/perl
-#random number generator
-#to be used as a dice replacement
-#(real dice, for rpgs for example)
+#!/usr/bin/ruby
+# coding: utf-8
+# d20.rb
+# changed it from perl to ruby
 
-use common::sense;
+class Dice
+    def initialize
+        @range = 20
+    end
 
-#my $range = $ARGV[0];
-my $range = 20;
-my $rndnum = rand($range);
-print int($rndnum), "\n";
+    def roll
+        rand(@range)
+    end
+end
+
+puts Dice.new.roll
