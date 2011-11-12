@@ -358,8 +358,8 @@ alias ..='cd ..'
 alias ...='cd ../../'
 alias cd..='cd ..'
 alias cdd='cd /daten/'
-alias cddd='cd /daten/pub/downloads/dc++/Downloads/'
 alias cdscreens='cd ~/bilder/Screenshots/2011/'
+alias cdawesome="cd ~/.config/awesome/"
 alias cl='clear && l'
 alias cll='clear&&ll'
 alias cux='chmod u+x'
@@ -375,7 +375,6 @@ alias v='vim'
 alias d="dict"
 alias crontab='crontab -e'
 alias cds='cd ~/music'
-alias cdp='cd /home/rohan/programming/perl'
 alias mpv='mpc volume'
 alias cal='cal -m'
 alias cdb='cd ~/books/Autoren'
@@ -392,26 +391,30 @@ alias l='ls -CF --color=auto'
 alias la='ls -aCF --color=auto'
 alias ll="ls -lh --color=auto"
 alias sshraku="ssh blackhat.endoftheinternet.org"
-alias sshgont="ssh 192.168.0.1 -p 52222"
 alias -s PDF="zathura"
 alias -s pdf="zathura"
 alias vimzshrc="vim ~/.zshrc"
+alias vimsubtle="vim ~/.config/subtle/subtle.rb"
 alias vimvimrc="vim ~/.vimrc"
+alias vimawesome="vim ~/.config/awesome/rc.lua"
 alias vimi3="vim ~/.i3/config"
 alias vimxmonad="vim ~/.xmonad/xmonad.hs"
-alias vimzitate="vim /home/daten/www/zim/Home/NetteZitate.t2t"
+alias vimzitate="vim /home/ogion/www/NetteZitate.asciidoc"
+alias vimletslayer="vim ~/letsplayer"
+alias rmflash='rm -Rf ~/.macromedia ~/.adobe'
 alias spu="sudo pacman -U"
 alias xba="xbacklight"
 alias qiv="qiv -Rfmi"
 alias offlineimap='offlineimap -o'
 alias perleval="perl -E 'say eval while<>'"
+alias myrsync="rsync -avh --partial --progress"
+alias sx="sxiv -f"
 
 ## Functions ##
 zsh_stats() { history|awk '{print $2}'|grep -v zsh_stats|sort|uniq -c|sort -rn|head}
 mcd() { [ -n "$1" ] && mkdir -p "$@" && cd "$1"; }
 pacurl() { p -"$1" "$2" | grep "^URL" | sed -e 's/ //g' | cut -d ":" -f 2- | xclip -i }
 slurpurl() { /usr/bin/slurpy "$1" "$2" | grep "^URL" | sed -e 's/ //g' | cut -d ":" -f 2- | xclip -i }
-funfact() { wget randomfunfacts.com -qO- | sed -n "/<strong>/{s;^.*<i>\(.*\)</i>.*$;\1;p}" }
 myip() { ifdata -pa "$1" }
 speakermute() { ossmix jack.int-speaker.mute toggle }
 xrandrvga1() { xrandr --output VGA1 --auto --right-of LVDS1 }
@@ -419,6 +422,10 @@ llg () { ls -lh --color=auto "$1" | grep -i "$2" }
 showcolors() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 countdeps() {
     LC_ALL=C pacman -Qi $1 | grep Required | sed -e 's/Required By    : \([a-z ]*\)/\1/' -e 's/  / /g' | wc -w
+}
+
+search() {
+  pacman -Ss $@ ; rawr -s "$@"
 }
 
 vimwhich() { 
@@ -456,6 +463,7 @@ x () {
             *.tgz)      tar -zxvf $1        ;;
             *.zip)      unzip $1            ;;
             *.Z)        uncompress $1       ;;
+            *.7z)       7z e $1             ;;
             *.rar)      unrar x $1          ;;
             *)          echo "'$1' Error. Please go away" ;;
             esac
@@ -531,8 +539,10 @@ bindkey -e
 
 #testing for urxvt
 bindkey "\eOd" emacs-backward-word
+bindkey "\eOD" emacs-backward-word
 bindkey "\e\e[D" emacs-backward-word
 bindkey "\eOc" emacs-forward-word
+bindkey "\eOC" emacs-forward-word
 bindkey "\e\e[C" emacs-forward-word
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[8~" end-of-line

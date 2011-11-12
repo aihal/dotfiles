@@ -7,6 +7,7 @@ chargestate=$(echo $batterystate | cut -d ' ' -f 3 | tr -d ',')
 
 suspend_netbook() {
     mpc stop
+    killall ossxmix
     killall mplayer
     soundoff
     pm-suspend && soundon

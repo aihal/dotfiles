@@ -18,26 +18,31 @@ autocmd!
 au BufNewFile,BufRead PKGBUILD set ft=sh
 au BufNewFile,BufRead *.wiki set ft=creole
 au BufNewFile,BufRead *.t2t set ft=txt2tags
+au BufNewFile,BufRead *.thor set ft=ruby
 au BufRead,BufNewFile /usr/local/nginx/conf/* set ft=nginx 
 au BufNewFile,BufRead *conkyrc set ft=conkyrc
 au FileType pl,pm set filetype=perl
+au BufNewFile,BufRead *.asciidoc colorscheme emg | set ft=asciidoc | set textwidth=80
 
 "au BufWritePost /tmp/xclipboardvim :%y+ | :!sleep 1
 au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep 1
 "" example for calling an external command as a post-write hook
 "au BufWritePost /home/ogion/test/vimbla :!mpc toggle
 
-"colorscheme neverland
-colorscheme zenburn
+
+""neverland doesn't work quite right in tmux, stupid terminals and their
+""historical baggage
+set t_Co=265
+set background=light
+colorscheme emg
 filetype on
 filetype plugin on
-set t_Co=265
 syntax on
 set nonumber
 set showcmd
 set shortmess=aotTWI
 set expandtab
-set shiftwidth=4
+set shiftwidth=2
 set smarttab
 set showmatch
 set autoindent
@@ -51,23 +56,30 @@ filetype plugin indent on
 "set guioptions-=T
 
 if has('gui_running')
-    set guicursor=a:blinkon0
-"    colorscheme nightshade
-    colorscheme zenburn
-    set guifont=DejaVu\ Sans\ Mono\ 10
-    set guioptions-=T
-    set guioptions+=g
-    set guioptions-=t
-    set guioptions-=m
-    set guioptions-=L
-    set guioptions-=l
-    set guioptions-=r
-    set guioptions-=R
+  set background=light
+  colorscheme peaksea
+  set guicursor=a:blinkon0
+  set guifont=DejaVu\ Sans\ Mono\ 10
+  set guioptions-=T
+  set guioptions+=g
+  set guioptions-=t
+  set guioptions-=m
+  set guioptions-=L
+  set guioptions-=l
+  set guioptions-=r
+  set guioptions-=R
 endif
 " stop visual mode from spamming X selection
 set clipboard-=autoselect
 
+" mappings...
 "" ideas stolen from another vimrc
+nnoremap <Space> :
+" record little macros with qq, then play them with Q
+nnoremap Q @q
+" keep highlighting when doing indentation
+vmap > >gv
+vmap < <gv
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -75,7 +87,8 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :w<cr>
+nmap <leader>q :q<cr>
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vimrc
@@ -91,7 +104,7 @@ set whichwrap+=<,>,h,l
 
 set ignorecase "Ignore case when searching
 set smartcase
-set hlsearch "Highlight search things
+set nohlsearch "no Highlight search things
 set incsearch "Make search act like search in modern browsers
 
 set nolazyredraw "Don't redraw while executing macros

@@ -1,0 +1,78 @@
+#!/usr/bin/ruby
+# coding: utf-8
+# vim: ft=ruby
+# eieruhr
+
+#require 'RNotify'
+require 'slop'
+
+trap("SIGINT") { exit 0 }
+opts = Slop.parse :help => true do
+    on :s, :seconds, 'Wait for x seconds', :optional => false, :as => :integer
+    on :m, :minutes, 'Wait for x minutes', :optional => false, :as => :Integer
+    on :h, :hours, 'Wait for x hours', :optional => false, :as => :Integer
+    on :t, :type, 'The type of notification', :optional => true
+end
+
+class Eieruhr
+    def initialize(slopts)
+        @opts = slopts
+        @message = "Time over!"
+        @title = "Eieruhr"
+        @type = @opts[:type] || "notification"
+
+        @seconds = 0
+        @seconds += @opts[:seconds] if @opts[:seconds]
+        @seconds += @opts[:minutes]*60 if @opts[:minutes]
+        @seconds += @opts[:hours]*3600 if @opts[:hours]
+
+        # which mpd playlist to load
+        @playlist = "ogi"
+    end
+
+    def sleepit
+        system("date")
+        puts "Sleeping for " + @seconds.to_s + " seconds"
+        sleep @seconds
+        system("date")
+    end
+
+    def startmusic
+        # obviously, if you use alsa and not oss there will be another way,
+        # this ossmix command activates my notebook's built-in speakers
+        system("(ossmix jack.int-speaker.mode mix2 && mpc clear && mpc load #{@playlist} && mpc play) &>/dev/null")
+    end
+
+    def notify_me
+        # thus removing the dependency on RNotify
+        #Notify.init(@title)
+
+        #note = Notify::Notification.new(@title, @message, nil)
+        #note.urgency= Notify::Notification::URGENCY_CRITICAL
+        #note.timeout = Notify::Notification::EXPIRES_NEVER
+        #note.show
+        case @type
+        when "notification"
+          system(%q[notify-send -u critical -t 0 Eieruhr "Time's up! "])
+        when "yad"
+          system(%Q!yad --title "Eieruhr" --text "#{@message}" --button='gtk-ok:0'!)
+        else
+          puts "Don't have that type"
+          exit 1
+        end
+    end
+
+    def run
+        sleepit
+        startmusic
+        notify_me
+    end
+end
+
+my = Eieruhr.new(opts)
+my.run
+
+# This (exit 0) is necessary since otherwise the script would end with an exit 
+# status of 1, because we didn't uninit the Notify, nor did we close the notification
+# but since we want the notification to be up until clicked away...
+exit 0

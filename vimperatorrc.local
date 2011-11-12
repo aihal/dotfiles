@@ -1,9 +1,9 @@
 map ü :tabs<CR>
 map ö gT
 map ä gt
-set showtabline=0
+set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
 set defsearch=sg
-set guioptions-=r
-set complete=bh
-colorscheme ogion
+set complete=l
+set noautocomplete
+"colorscheme ogion
 " vim: ft=vimperator

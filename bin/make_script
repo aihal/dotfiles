@@ -25,6 +25,10 @@ case $filename in
         echo '#!/bin/bash' >> $filename
         echo "# - $filename" >> $filename
         ;;
+    *.fish)
+        echo '#!/usr/bin/fish' >> $filename
+        echo "# - $filename" >> $filename
+        ;;
     *.scm)
         echo '#!/usr/bin/guile -s' >> $filename
         echo '!#' >> $filename
@@ -32,7 +36,13 @@ case $filename in
         ;;
     *.rb)
         echo '#!/usr/bin/ruby' >> $filename
+        echo '# coding: utf-8' >> $filename
         echo "# $filename" >> $filename
+        echo >> $filename
+        ;;
+    *.lua)
+        echo '#!/usr/bin/lua -f' >> $filename
+        echo "-- $filename" >> $filename
         echo >> $filename
         ;;
     *)

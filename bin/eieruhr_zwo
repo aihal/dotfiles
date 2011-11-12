@@ -6,6 +6,7 @@ NUMVAL=$(echo $1 | sed -e 's/[a-z].*//')
 TIMEDESC=$(echo $1 | sed -e 's/[0-9]*//')
 
 [[ ! -n $TIMEDESC ]] && TIMEDESC="s"
+[[ ! -n $NUMVAL ]] && echo "Please use a correct time interval" && exit 1
 
 if [[ -e /home/ogion/mpd/mpd.pid ]]
  then 
@@ -19,8 +20,9 @@ if [[ -e /home/ogion/mpd/mpd.pid ]]
     *) echo "Please use a correct time designator (see man sleep)" && exit 1;;
    esac
 
-  sleep $1 && mpc play >/dev/null
+  sleep $1 && ossmix jack.int-speaker.mode mix2 && mpc toggle >/dev/null
   echo $(date)
+  notify-send -t 0 -i "/home/ogion/icons/candy_clock/candy_clock.png" -c warning "Time's Up! "
   echo "Time's up!" ; exit 0
  else
   echo "Please make sure mpd is running, idiot."

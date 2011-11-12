@@ -1,0 +1,6 @@
+#!/bin/bash
+# - clivewrapper
+
+echo Beginning, `date`
+clive $@ && notify-send "clivewrapper" "Download done"
+echo Done, `date`
