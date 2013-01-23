@@ -3,23 +3,42 @@
 # vim: ft=ruby
 # eieruhr
 
-#require 'RNotify'
+trap("SIGINT") { exit 0 }
 require 'slop'
 
-trap("SIGINT") { exit 0 }
-opts = Slop.parse :help => true do
-    on :s, :seconds, 'Wait for x seconds', :optional => false, :as => :integer
-    on :m, :minutes, 'Wait for x minutes', :optional => false, :as => :Integer
-    on :h, :hours, 'Wait for x hours', :optional => false, :as => :Integer
-    on :t, :type, 'The type of notification', :optional => true
+opts = Slop.parse do
+    on :s, :seconds=, 'Wait for x seconds', :optional => false, :as => :integer
+    on :m, :minutes=, 'Wait for x minutes', :optional => false, :as => :Integer
+    on :h, :hours=, 'Wait for x hours', :optional => false, :as => :Integer
+    on :x, :type=, 'The type of notification'
+    on :t, :text=, 'The text of the notification'
+    on :n, :nosound, "Don't turn on sound, just show notification"
+    on :q, :quiet, "Don't output anything"
+    on :help, "Print help"
+end
+
+#if opts[:seconds].class and opts[:minutes].class and opts[:hours].class == NilClass
+#  puts "At least one of seconds, minutes or hours has to be given an argument"
+#  exit 1
+#end
+
+if opts[:help]
+  puts "\
+eieruhr: waits for a specified amount of time and then starts music via mpd and \
+gives a popup notification via notify-send (optionally yad). Requires: \
+notify-send compatibility, mpd+mpc (plus a playlist called eieruhr), oss."
+  puts opts
+  exit 0
 end
 
 class Eieruhr
     def initialize(slopts)
         @opts = slopts
-        @message = "Time over!"
+        @message = @opts[:text] || "Time's up! "
         @title = "Eieruhr"
-        @type = @opts[:type] || "notification"
+        @type = @opts[:type] || "notify-send"
+        @nosound = @opts[:nosound] || false
+        @quiet = @opts[:quiet] || false
 
         @seconds = 0
         @seconds += @opts[:seconds] if @opts[:seconds]
@@ -27,52 +46,47 @@ class Eieruhr
         @seconds += @opts[:hours]*3600 if @opts[:hours]
 
         # which mpd playlist to load
-        @playlist = "ogi"
+        @playlist = "eieruhr"
     end
 
     def sleepit
-        system("date")
-        puts "Sleeping for " + @seconds.to_s + " seconds"
+        system("date") unless @quiet
+        puts "Sleeping for " + @seconds.to_s + " seconds" unless @quiet
         sleep @seconds
-        system("date")
+        system("date") unless @quiet
     end
 
     def startmusic
         # obviously, if you use alsa and not oss there will be another way,
         # this ossmix command activates my notebook's built-in speakers
-        system("(ossmix jack.int-speaker.mode mix2 && mpc clear && mpc load #{@playlist} && mpc play) &>/dev/null")
+        system("(ossmix jack.int-speaker.mode mix2 && \
+                 mpc clear && \
+                 mpc load #{@playlist} && \
+                 mpc play) &>/dev/null")
     end
 
     def notify_me
-        # thus removing the dependency on RNotify
-        #Notify.init(@title)
-
-        #note = Notify::Notification.new(@title, @message, nil)
-        #note.urgency= Notify::Notification::URGENCY_CRITICAL
-        #note.timeout = Notify::Notification::EXPIRES_NEVER
-        #note.show
         case @type
-        when "notification"
-          system(%q[notify-send -u critical -t 0 Eieruhr "Time's up! "])
+        when "notify-send"
+          system(%Q[notify-send -u critical -t 0 Eieruhr "#{Time.new.strftime("%H:%M:%S")}: #{@message} "])
         when "yad"
-          system(%Q!yad --title "Eieruhr" --text "#{@message}" --button='gtk-ok:0'!)
+          system(%Q!yad --title "Eieruhr" --text "#{Time.new.strftime("%H:%M:%S") + ": " + @message} " --button='gtk-ok:0'!)
         else
-          puts "Don't have that type"
+          puts "Don't have that type of notification"
           exit 1
         end
     end
 
     def run
         sleepit
-        startmusic
+        startmusic unless @nosound
         notify_me
     end
 end
 
 my = Eieruhr.new(opts)
+if my.instance_variable_get(:@seconds) == 0
+  puts "The total time has to be over 0 seconds"
+  exit 1
+end
 my.run
-
-# This (exit 0) is necessary since otherwise the script would end with an exit 
-# status of 1, because we didn't uninit the Notify, nor did we close the notification
-# but since we want the notification to be up until clicked away...
-exit 0
