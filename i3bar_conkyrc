@@ -1,0 +1,17 @@
+##############################################
+#  Settings
+##############################################
+background no
+out_to_x no
+out_to_console yes
+update_interval 2
+total_run_times 0
+uppercase no
+short_units yes
+use_spacer none
+if_up_strictness address
+##############################################
+#  Output
+##############################################
+TEXT
+${if_mpd_playing}mpd: ${mpd_smart} - ${mpd_status}${endif} :: cpu: ${cpu}% :: ram: $memperc% $mem :: swap: $swapperc% $swap :: ${time %a, %d.%m.%Y} :: ${time %H:%M}
