@@ -1,0 +1,180 @@
+#!/usr/bin/ruby
+# coding: utf-8
+# rawr_slop.rb
+
+require 'slop'
+require 'json'
+require 'colored'
+require 'curb'
+
+trap("SIGINT") {puts "Interrupting"; exit 1}
+
+opts = Slop.parse :help => true  do
+  on :v, :verbose, 'Enable verbosity'
+  on :s, :search=, 'Search for pkg(s) on AUR'
+  on :i, :info=, 'Give the info on pkg from AUR'
+  on :d, :download=, 'Download the local source tarball of pkg from AUR'
+  on :u, :update, 'Check your local foreign packages for updates on AUR'
+  on :D, :depsdown=, 'Download target package and its dependencies'
+end
+
+
+class Rawr
+  def initialize(slopts)
+    @opts = slopts
+
+  end
+
+  def build_rpc_uri(type,arg)
+    "https://aur.archlinux.org/rpc.php?type=#{type}&arg=#{arg}"
+  end
+
+  def curl_aur(type,arg)
+    my = Curl::Easy.new(build_rpc_uri(type,arg))
+    my.perform
+    return my.body_str
+  end
+
+  def info(pkg)
+    answer = JSON.parse(curl_aur("info", pkg))
+    return answer
+  end
+
+  def search
+    pkg = @opts[:search]
+    if pkg.is_a?(String) and pkg.split(" ").length == 1
+      if pkg.length <= 2
+        puts "Please use searchterms longer than 2 letters"
+        exit 1
+      end
+      answer = JSON.parse(curl_aur("search", pkg))
+      if answer["type"] == "error"
+        print "No result found for ".red + pkg.bold + "\n"
+        exit 0
+      elsif answer["type"] == "search"
+        print_search(answer["results"])
+      end
+    elsif pkg.is_a?(String) and pkg.split(" ").length >= 2
+      searchterms = pkg.split(" ")
+      searchterms.each {|x|
+        if x.length <= 2
+          puts "Please use searchterms longer than 2 letters"
+          exit 1
+        end
+      } 
+
+      result_list = []
+
+      searchterms.each do |x|
+        answer = JSON.parse(curl_aur("search",x))
+        if answer["type"] == "error"
+          print "No result found for ".red + x.bold + "\n"
+          exit 0
+        else
+          result_list << answer["results"]
+        end
+      end
+
+      result_list.flatten!
+      result_list.delete_if {|x| result_list.count(x) < 2}.uniq!
+
+      print_search(result_list)
+
+    end
+  end
+
+  def download(x, abortonerror = true)
+    pkg = x
+    answer = info(pkg)
+    if answer["type"] == "error"
+      puts "No such package on AUR".red
+      exit 1 if abortonerror == true
+      return
+    end
+
+    link = "https://aur.archlinux.org" + answer["results"]["URLPath"]
+
+    short = answer["results"]["Name"]
+    system(%Q!curl -so #{short}.tar.gz #{link} && tar -zxf #{short}.tar.gz && rm #{short}.tar.gz!)
+
+    print short.green + " has been downloaded to " + short + "\n"
+  end
+
+  def update
+    local_versions = %x!pacman -Qm!.split("\n").each_with_object({}) {|name,h| x , y = name.split; h["#{x}"] = y}
+    local_versions.each_pair do |x,y|
+      pkg_info = info(x)
+      if pkg_info["type"] == "error"
+        puts "No result for #{x} on AUR".red
+        next
+      end
+
+      remote_version = pkg_info["results"]["Version"].chomp
+      compared = `vercmp #{remote_version} #{y}`.chomp
+
+      case compared
+      when "-1"
+        puts "local version of #{x} is newer!".green
+      when "0"
+        # pkg versions are identical
+      when "1"
+        puts "Package #{x} has a newer version on AUR (local ver: #{y} AUR version: #{remote_version})"
+      end
+
+    end
+    exit 0
+  end
+
+  def print_search(answer)
+    answer.each do |x|
+      puts "#{x["Name"].bold}  ::  #{x["Description"]}"
+    end
+  end
+
+  def print_info
+    answer = info(@opts[:info])
+
+    if answer["type"] == "error"
+      puts "No such pkg on AUR!".red
+      exit 1
+    end
+
+    answer["results"].each_pair {|x,y|
+      if x == "FirstSubmitted" or x == "LastModified"
+        puts "#{x.bold}  ::  #{Time.at(y.to_i)}"
+        next
+      end
+      puts "#{x.bold}  ::  #{y}"
+    }
+    puts "#{"AURUrl".bold}  ::  https://aur.archlinux.org/packages.php?ID=#{answer["results"]["ID"]}"
+    puts
+  end
+end
+
+myrawr = Rawr.new(opts)
+myrawr.print_info if opts[:info]
+myrawr.search if opts[:search]
+if opts[:depsdown]
+  # alright, this works now but is a bit ugly
+  # in its output, download and info 's "not found"
+  # messages mainly
+  pkg = opts[:depsdown]
+  myrawr.download(pkg)
+  deps = IO.readlines("./#{pkg}/PKGBUILD").each_with_object([]) do |x,array|
+    if x =~ /^\s*(dep|makedep)/
+      array << x.scan(/'(.*?)'/)
+    end
+  end
+  deps.flatten!
+  Dir.mkdir("#{pkg}/deps")
+  Dir.chdir("#{pkg}/deps")
+
+  deps.each do |x|
+    unless system("pacman -Qq #{x}") or system("pacman -Si #{x}")
+      myrawr.download(x,false)
+    end
+  end
+end
+
+myrawr.download(opts[:download]) if opts[:download]
+myrawr.update if opts[:update]
