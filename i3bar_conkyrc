@@ -14,4 +14,4 @@ if_up_strictness address
 #  Output
 ##############################################
 TEXT
-${if_mpd_playing}mpd: ${mpd_smart} - ${mpd_status}${endif} :: cpu: ${cpu}% :: ram: $memperc% $mem :: swap: $swapperc% $swap :: ${time %a, %d.%m.%Y} :: ${time %H:%M}
+${if_mpd_playing}mpd: ${mpd_smart 30} - ${mpd_status} ${mpd_percent}%${endif} :: cpu: ${cpu}% :: ram: $memperc% $mem :: swap: $swapperc% $swap :: ${time %a, %d.%m.%Y} :: ${time %H:%M}
