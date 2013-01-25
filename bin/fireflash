@@ -1,0 +1,37 @@
+#!/usr/bin/ruby
+# coding: utf-8
+# fireflash
+
+if ARGV[0]
+  filename = ARGV[0]
+  if system("stat #{filename} &>/dev/null")
+    puts %Q|File "#{filename}" already exists|
+    exit 1
+  end
+else
+  printonly = true
+end
+
+class String
+  def onlyOneLine?
+    self.match("\n") ? false : true
+  end
+end
+
+pid = `ps aux | grep -v grep | grep 'plugin-container' | awk '{print $2}'`.chomp
+exit 1 if pid.empty?
+
+listing = `ls -lh --color=auto /proc/#{pid}/fd/ | grep 'tmp/Flash'`.chomp
+if listing.onlyOneLine?
+  link = listing.split[8]
+  if printonly
+    print "/proc/#{pid}/fd/#{link}"
+  else
+    system(%Q|cp /proc/#{pid}/fd/#{link} "#{filename}"|)
+    system(%Q|ls -lh --color=auto "#{filename}"|)
+  end
+else
+  puts listing
+  puts "/proc/#{pid}/fd/"
+  exit 1
+end

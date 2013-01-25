@@ -2,7 +2,7 @@ map ü :tabs<CR>
 map ö gT
 map ä gt
 set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
-set defsearch=sg
+set defsearch=sp
 set complete=l
 set noautocomplete
 "colorscheme ogion

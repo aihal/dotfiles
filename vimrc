@@ -34,7 +34,7 @@ au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep
 ""historical baggage
 set t_Co=265
 set background=light
-colorscheme emg
+colorscheme peaksea
 filetype on
 filetype plugin on
 syntax on
@@ -56,8 +56,8 @@ filetype plugin indent on
 "set guioptions-=T
 
 if has('gui_running')
-  set background=light
-  colorscheme peaksea
+  set background=dark
+  colorscheme nightshade_print
   set guicursor=a:blinkon0
   set guifont=DejaVu\ Sans\ Mono\ 10
   set guioptions-=T
@@ -89,6 +89,7 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
+nmap <leader>x :!./%<cr>
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vimrc
