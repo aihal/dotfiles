@@ -1,0 +1,100 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os, argparse
+
+def clean():
+    os.system("tc qdisc del dev wlan0 root")
+    os.system("tc qdisc del dev wlan0 ingress")
+
+def shape(upspeed,downspeed):
+
+    # clean up first
+    os.system("tc qdisc del dev wlan0 root 2> /dev/null > /dev/null")
+    os.system("tc qdisc del dev wlan0 ingress 2> /dev/null > /dev/null")
+
+    # install root HTB, point default traffic to 1:20:
+
+    os.system("tc qdisc add dev wlan0 root handle 1: htb default 20")
+
+    # shape everything at $UPLINK speed - this prevents huge queues in your
+    # DSL modem which destroy latency:
+
+    os.system("tc class add dev wlan0 parent 1: classid 1:1 htb rate %skbit burst 6k" % upspeed)
+
+    # high prio class 1:10:
+
+    os.system("tc class add dev wlan0 parent 1:1 classid 1:10 htb rate %skbit \
+       burst 6k prio 1" % upspeed)
+
+    # bulk & default class 1:20 - gets slightly less traffic, 
+    # and a lower priority:
+
+    os.system("tc class add dev wlan0 parent 1:1 classid 1:20 htb rate %skbit \
+       burst 6k prio 2" % (upspeed * 9 / 10))
+
+    # both get Stochastic Fairness:
+    os.system("tc qdisc add dev wlan0 parent 1:10 handle 10: sfq perturb 10")
+    os.system("tc qdisc add dev wlan0 parent 1:20 handle 20: sfq perturb 10")
+
+    # TOS Minimum Delay (ssh, NOT scp) in 1:10:
+    os.system("tc filter add dev wlan0 parent 1:0 protocol ip prio 10 u32 \
+          match ip tos 0x10 0xff  flowid 1:10")
+
+    # ICMP (ip protocol 1) in the interactive class 1:10 so we 
+    # can do measurements & impress our friends:
+    os.system("tc filter add dev wlan0 parent 1:0 protocol ip prio 10 u32 \
+        match ip protocol 1 0xff flowid 1:10")
+    # To speed up downloads while an upload is going on, put ACK packets in
+    # the interactive class:
+
+    os.system("tc filter add dev wlan0 parent 1: protocol ip prio 10 u32 \
+       match ip protocol 6 0xff \
+       match u8 0x05 0x0f at 0 \
+       match u16 0x0000 0xffc0 at 2 \
+       match u8 0x10 0xff at 33 \
+       flowid 1:10")
+
+    # rest is 'non-interactive' ie 'bulk' and ends up in 1:20
+
+
+    ########## downlink #############
+    # slow downloads down to somewhat less than the real speed  to prevent 
+    # queuing at our ISP. Tune to see how high you can set it.
+    # ISPs tend to have *huge* queues to make sure big downloads are fast
+    #
+    # attach ingress policer:
+
+    os.system("tc qdisc add dev wlan0 handle ffff: ingress")
+
+    # filter *everything* to it (0.0.0.0/0), drop everything that's
+    # coming in too fast:
+
+    os.system("tc filter add dev wlan0 parent ffff: protocol ip prio 50 u32 match ip src \
+       0.0.0.0/0 police rate %skbit burst 10k drop flowid :1" % downspeed)
+
+
+
+# parsing cli arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("--shape", help="shape traffic, downspeed in kilobtes necessary", type=int)
+parser.add_argument("--clean", help="clean all shaping rules", action='store_true')
+args = parser.parse_args()
+
+# setting variables
+uplimit = 100
+if args.shape:
+    downlimit = args.shape*8
+
+# clean and quit if so desired
+if args.clean:
+    print("Cleaning shaping rules…")
+    clean()
+    exit(0)
+
+# do traffic shaping if so desired
+if args.shape:
+    print("Shaping… limiting downspeed to %sKB/s" % args.shape)
+    shape(uplimit,downlimit)
+    exit(0)
+
