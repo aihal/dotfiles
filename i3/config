@@ -44,10 +44,10 @@ bindsym Mod4+comma exec amixer set Master -q 5%-
 bindsym Mod4+period exec amixer set Master -q 5%+
 bindsym Mod4+minus exec /home/ogion/bin/eee_external_audio_toggle.rb
 bindsym Mod4+Shift+minus exec notify-send -t 2000 "`mpc | head -n 1`"
-bindsym Mod4+e exec "cp /dev/null /tmp/xclipboardvim ; xclip -o > /tmp/xclipboardvim ; gvim /tmp/xclipboardvim"
 bindsym Mod4+r exec i3-input
-bindsym Mod4+z exec i3lock -i /home/ogion/bilder/Wallpaper/wallpaper32.png
+bindsym Mod4+z exec i3lock -i /home/ogion/bilder/Wallpaper/Snow_Leopard_smaller.png
 bindsym Mod4+Shift+z exec "sudo /root/ogisuspend.sh"
+bindsym Mod4+d exec dwb
 
 ## vim-like mark and goto:
 ##Mark a container with a single character:
@@ -137,14 +137,6 @@ bindsym Mod4+i workspace next_on_output
 bindsym Mod4+u workspace prev_on_output
 bindsym Mod4+Escape workspace back_and_forth
 
-# reload the configuration file
-bindsym Mod4+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-# i use mod-r -> i3-input for this stuff anyway
-#bindsym Mod4+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
 ## resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -224,3 +216,17 @@ assign [class="psi"] → 8
 
 # specific rules
 for_window [class="Speedcrunch"] floating enable
+
+
+# mode stuff
+
+mode "copypasta" {
+  bindsym e exec "cp /dev/null /tmp/xclipboardvim ; xclip -o > /tmp/xclipboardvim ; gvim /tmp/xclipboardvim" ; mode "default"
+  bindsym l exec edit-clipboard.rb link ; mode "default"
+  bindsym t exec edit-clipboard.rb text ; mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym Mod4+Shift+e mode "copypasta"

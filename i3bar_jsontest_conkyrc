@@ -10,7 +10,10 @@ cpu_avg_samples 2
 #[{"full_text": "mpd: ${mpd_smart 30} - ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
 
 TEXT
-[{"full_text": "mpd: ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
+[{"full_text": "Bogota: ${tztime America/Bogota %H:%M}"},
+{"full_text": "NYC: ${tztime America/New_York %H:%M}"},
+{"full_text": "Malaysia: ${tztime Asia/Kuala_Lumpur %H:%M}"},
+{"full_text": "mpd: ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
 {"full_text": "cpu: ${cpu}%", "color":"\#D61C41"},
 {"full_text": "ram: $mem swap: $swap","color":"\#289428"},
 {"full_text": "${time %a, %d.%m.%Y}"},
