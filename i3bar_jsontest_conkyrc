@@ -16,6 +16,7 @@ TEXT
 {"full_text": "mpd: ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
 {"full_text": "cpu: ${cpu}%", "color":"\#D61C41"},
 {"full_text": "ram: $mem swap: $swap","color":"\#289428"},
+{"full_text": "Speaker:${exec amixer get Speaker | tail -n 1 | cut -d ' ' -f 9}"},
 {"full_text": "${time %a, %d.%m.%Y}"},
 {"full_text": "${time %H:%M}"}
 ],
