@@ -1,0 +1,13 @@
+#!/bin/bash
+# - bin/startkiosk
+
+i3-msg '
+  workspace 11 ;
+  bar mode invisible ;
+  mode "kiosk";
+  exec sonata;
+  exec qasmixer;
+  exec xclock -digital -render;
+  exec sleep 5 && i3-msg "[class="Sonata"] focus" && i3-msg "layout splith";
+  exec killall xautolock;
+'

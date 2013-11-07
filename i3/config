@@ -95,7 +95,8 @@ bindsym Mod4+f fullscreen
 bindsym Mod4+s layout stacking
 bindsym Mod4+w layout tabbed
 # used to be win+e, but need that for my traditional pasteedit-gvim
-bindsym Mod4+v layout toggle split
+# well, now i need +v :P
+#bindsym Mod4+v layout toggle split
 
 # toggle tiling / floating
 bindsym Mod4+Shift+space floating toggle
@@ -196,8 +197,9 @@ bar {
 
 
 # autostart
-exec --no-startup-id parcellite
 exec --no-startup-id sh /home/ogion/.fehbg
+exec --no-startup-id parcellite
+exec --no-startup-id volumeicon
 
 
 
@@ -211,11 +213,11 @@ workspace_auto_back_and_forth no
 # assigns
 assign [class="Firefox"] → 2
 assign [class="Opera"] → 2
-
 assign [class="psi"] → 8
 
 # specific rules
 for_window [class="Speedcrunch"] floating enable
+for_window [class="XClock"] floating enable
 
 
 # mode stuff
@@ -227,6 +229,28 @@ mode "copypasta" {
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
+  bindsym Mod4+m exec mpc toggle
 }
 
 bindsym Mod4+Shift+e mode "copypasta"
+
+#various extra bindings
+# baustelle for now
+#bindsym Mod4+e mode "extra"
+#
+#mode "extra" {
+#  bindsym a exec i3-input -F 'exec  some append to file that is in zim for notes/todo stuff
+
+
+# implementing a kiosk mode, to effectively lock out my i3 session but still allow a couple of things
+# like having a mpd client open, hide the statusbar (to disallow workspace switching)
+# a clock, some other windows possibly in prearranged layout
+bindsym Mod4+Shift+v exec /home/ogion/bin/startkiosk
+
+mode "kiosk" {
+  bindsym Mod4+e exec (SUDO_ASKPASS="/home/ogion/bin/yadaskpassword" sudo -k -A true && /home/ogion/bin/endkiosk)
+
+# still in here for debugging, will remove for a final version
+  bindsym Mod4+r exec i3-input
+}
+
