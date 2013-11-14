@@ -75,11 +75,8 @@ compinit
 
 # {{{ 'hash' some often used directories
 #d# start
-hash -d doc=/usr/share/doc
-hash -d log=/var/log
-hash -d www=/var/www                                                                                            
-hash -d builds=$HOME/builds
-hash -d bin=$HOME/bin
+#example:
+#hash -d bin=$HOME/bin
 #d# end
 # }}}
 
@@ -92,7 +89,9 @@ hash -d bin=$HOME/bin
 WORDCHARS='*?_[]~=&;!#$%^(){}'
 #WORDCHARS='${WORDCHARS:s@/@}'
 
+## Allow comments even in interactive shells
 setopt INTERACTIVE_COMMENTS
+# don't kill programs& if exiting the shell
 setopt nohup
 
 # history
@@ -101,7 +100,7 @@ HISTSIZE=5000
 SAVEHIST=10000
 setopt extended_history
 setopt histignorealldups
-setopt append_history autocd extendedglob nomatch notify
+setopt inc_append_history autocd extendedglob nomatch notify
 setopt noclobber
 unsetopt beep
 
@@ -116,31 +115,6 @@ setopt nocheckjobs
 
 ## alert me if something failed
 setopt printexitvalue
-
-## Allow comments even in interactive shells
-#setopt interactivecomments
-
-
-## compsys related snippets ##
-
-## changed completer settings
-#zstyle ':completion:*' completer _complete _correct _approximate
-#zstyle ':completion:*' expand prefix suffix
-
-## another different completer setting: expand shell aliases
-#zstyle ':completion:*' completer _expand_alias _complete _approximate
-
-## to have more convenient account completion, specify your logins:
-#my_accounts=(
-# {grml,grml1}@foo.invalid
-# grml-devel@bar.invalid
-#)
-#other_accounts=(
-# {fred,root}@foo.invalid
-# vera@bar.invalid
-#)
-#zstyle ':completion:*:my-accounts' users-hosts $my_accounts
-#zstyle ':completion:*:other-accounts' users-hosts $other_accounts
 
 # {{{ completion system
 
@@ -274,54 +248,10 @@ if_not_loaded()
 }
 
 ################## COMPLETION ###################
-#setopt always_to_end
-#setopt complete_in_word
-#setopt list_packed
-#setopt no_menu_complete
-#
-#autoload -U compinit && compinit
-#if_not_loaded zsh/complist && zmodload zsh/complist
-#
-## general completion technique
-#zstyle ':completion:*' completer \
-#    _force_rehash _complete _list _oldlist _expand _ignored _match \
-#    _correct _approximate _prefix
-#
-## completion caching
-#zstyle ':completion:*' use-cache 'yes'
-#zstyle ':completion:*' cache-path ~/.zshcache
-#
-## completion with globbing
-#zstyle ':completion:*' glob 'yes'
-#
-## selecting completion by cursor
-#zstyle ':completion:*' menu select=long-list select=3
-#
-## colors in completion
-#case $OSTYPE in
-#    linux*)
-#        eval $(dircolors)
-#        ;;
-#    freebsd*)
-#        LS_COLORS=$colour
-#        ;;
-#esac
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-#
-## formatting and messages
-#zstyle ':completion:*' verbose 'yes'
-#zstyle ':completion:*:descriptions' format "%B-- %d --%b"
-#zstyle ':completion:*:messages' format "%B--${green} %d ${nocolor}--%b"
-#zstyle ':completion:*:warnings' format "%B--${red} no match for: %d ${nocolor}--%b"
-#zstyle ':completion:*:corrections' format "%B--${yellow} %d ${nocolor}-- (errors %e)%b"
-#zstyle ':completion:*' group-name ''
-#
-## show sections in manuals
-#zstyle ':completion:*:manuals' separate-sections 'yes'
-#
-## describe options
-#zstyle ':completion:*:options' description 'yes'
-#zstyle ':completion:*:options' auto-description '%d' 
+# this stuff is too complicated for my motivation, 
+# it was commented out for so long, clearly i don't 
+# need it, so i kicked it out. If i need it, it i's 
+# in the git hitsory of this file
 
 
 ### set colors for use in prompts
@@ -347,19 +277,19 @@ fi
 
 #
 
-
+# Go stuff
+source ~/.zsh_go
+source /etc/profile.d/go.sh
 
 ## aliases ##
 
 ## Normal aliases, added by Ogion
 
-alias battery="cat /proc/acpi/battery/BAT0/state"
 alias ..='cd ..'
 alias ...='cd ../../'
 alias cd..='cd ..'
-alias cdd='cd /daten/'
-alias cdscreens='cd ~/bilder/Screenshots/2011/'
-alias cdawesome="cd ~/.config/awesome/"
+alias cdscreens='cd ~/bilder/Screenshots/2013/'
+alias cdtv="cd ~/video/tv/"
 alias cl='clear && l'
 alias cll='clear&&ll'
 alias cux='chmod u+x'
@@ -368,58 +298,58 @@ alias du='du -h'
 alias du0='du --max-depth 0'
 alias du1='du --max-depth 1'
 alias free='free -m'
-alias m='man'
-alias mplayer='mplayer -idx -fs -stop-xscreensaver -msgcolor -msgmodule'
-alias psauxg='ps aux | grep -v grep | grep'
+alias mplayer='mpv -idx -fs --stop-screensaver -msgcolor -msgmodule'
+alias mpv='mpv -idx -fs --stop-screensaver -msgcolor -msgmodule'
+alias locate="locate -i"
 alias v='vim'
-alias d="dict"
 alias crontab='crontab -e'
-alias cds='cd ~/music'
-alias mpv='mpc volume'
 alias cal='cal -m'
-alias cdb='cd ~/books/Autoren'
-alias toggle='mpc toggle'
-alias next='mpc next'
+alias cdb='cd ~/books/'
 alias ph='ping heise.de'
+alias pingrouter='ping 192.168.0.1'
 alias gpv=gpicview
 alias p=pacman
-alias s="slurpy -c"
-alias c=clyde
 alias grep="grep --color"
 alias scpresume="rsync --partial --progress --rsh=ssh"
 alias l='ls -CF --color=auto'
 alias la='ls -aCF --color=auto'
 alias ll="ls -lh --color=auto"
-alias sshraku="ssh blackhat.endoftheinternet.org"
+alias sshraku="ssh lolwut.nl"
 alias -s PDF="zathura"
 alias -s pdf="zathura"
 alias vimzshrc="vim ~/.zshrc"
-alias vimsubtle="vim ~/.config/subtle/subtle.rb"
 alias vimvimrc="vim ~/.vimrc"
-alias vimawesome="vim ~/.config/awesome/rc.lua"
 alias vimi3="vim ~/.i3/config"
-alias vimxmonad="vim ~/.xmonad/xmonad.hs"
 alias vimzitate="vim /home/ogion/www/NetteZitate.asciidoc"
-alias vimletslayer="vim ~/letsplayer"
+alias vimletsplayer="vim ~/documents/letsplayer"
 alias rmflash='rm -Rf ~/.macromedia ~/.adobe'
 alias spu="sudo pacman -U"
-alias xba="xbacklight"
 alias qiv="qiv -Rfmi"
 alias offlineimap='offlineimap -o'
-alias perleval="perl -E 'say eval while<>'"
 alias myrsync="rsync -avh --partial --progress"
 alias sx="sxiv -f"
+alias vimtodo="vim ~/todo"
+alias units="units -v"
+alias wget="wget -c"
+
+# oink
+alias killall5="echo HAHAHA you did not really just do that, did you idiot"
 
 ## Functions ##
-zsh_stats() { history|awk '{print $2}'|grep -v zsh_stats|sort|uniq -c|sort -rn|head}
+psauxg() { ps aux | grep -v grep | grep "$@" }
+  compdef _pgrep psauxg
+
 mcd() { [ -n "$1" ] && mkdir -p "$@" && cd "$1"; }
-pacurl() { p -"$1" "$2" | grep "^URL" | sed -e 's/ //g' | cut -d ":" -f 2- | xclip -i }
-slurpurl() { /usr/bin/slurpy "$1" "$2" | grep "^URL" | sed -e 's/ //g' | cut -d ":" -f 2- | xclip -i }
+  compdef _mkdir mcd
+
+pacurl() { p -Si "$@" | grep "^URL" | sed -e 's/ //g' | cut -d ":" -f 2- }
+
 myip() { ifdata -pa "$1" }
-speakermute() { ossmix jack.int-speaker.mute toggle }
+
 xrandrvga1() { xrandr --output VGA1 --auto --right-of LVDS1 }
-llg () { ls -lh --color=auto "$1" | grep -i "$2" }
+
 showcolors() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
+
 countdeps() {
     LC_ALL=C pacman -Qi $1 | grep Required | sed -e 's/Required By    : \([a-z ]*\)/\1/' -e 's/  / /g' | wc -w
 }
@@ -435,20 +365,8 @@ filewhich() {
     which $1 && file `which $1`
 }
 
-vimrcconf() {
-if [[ `whoami` == "root" ]]; then
-        vim /etc/rc.conf
-elif [[ `whoami` == "ogion" ]]; then
-        sudo vim /etc/rc.conf
-fi
-}
-
-rcd() {
-if [[ `whoami` == "root" ]]; then
-        /etc/rc.d/"$1" "$2"
-elif [[ `whoami` == "ogion" ]]; then
-        sudo /etc/rc.d/"$1" "$2"
-fi
+whoowns() {
+  pacman -Qo `which $1`
 }
 
 x () {
@@ -470,52 +388,9 @@ x () {
             else
             echo "'$1' is not a valid file"
   fi
-  }
-
-# END FUNCTIONS
-
-
-DIRSTACKSIZE=${DIRSTACKSIZE:-20}
-DIRSTACKFILE=${DIRSTACKFILE:-${HOME}/.zdirs}
-
-dirjump() {
-    emulate -L zsh
-    autoload -U colors
-    local color=$fg_bold[blue]
-    integer i=0
-    dirs -p | while read dir; do
-        local num="${$(printf "%-4d " $i)/ /.}"
-        printf " %s  $color%s$reset_color\n" $num $dir
-        (( i++ ))
-    done
-    integer dir=-1
-    read -r 'dir?Jump to directory: ' || return
-    (( dir == -1 )) && return
-    if (( dir < 0 || dir >= i )); then
-        echo d: no such directory stack entry: $dir
-        return 1
-    fi
-    cd ~$dir
 }
 
-
-## miscellaneous code ##
-
-## Some quick Perl-hacks aka /useful/ oneliner
-#bew() { perl -le 'print unpack "B*","'$1'"' }
-#web() { perl -le 'print pack "B*","'$1'"' }
-#hew() { perl -le 'print unpack "H*","'$1'"' }
-#weh() { perl -le 'print pack "H*","'$1'"' }
-#pversion()    { perl -M$1 -le "print $1->VERSION" } # i. e."pversion LWP -> 5.79"
-#getlinks ()   { perl -ne 'while ( m/"((www|ftp|http):\/\/.*?)"/gc ) { print $1, "\n"; }' $* }
-#gethrefs ()   { perl -ne 'while ( m/href="([^"]*)"/gc ) { print $1, "\n"; }' $* }
-#getanames ()  { perl -ne 'while ( m/a name="([^"]*)"/gc ) { print $1, "\n"; }' $* }
-#getforms ()   { perl -ne 'while ( m:(\</?(input|form|select|option).*?\>):gic ) { print $1, "\n"; }' $* }
-#getstrings () { perl -ne 'while ( m/"(.*?)"/gc ) { print $1, "\n"; }' $*}
-#getanchors () { perl -ne 'while ( m/«([^«»\n]+)»/gc ) { print $1, "\n"; }' $* }
-#showINC ()    { perl -e 'for (@INC) { printf "%d %s\n", $i++, $_ }' }
-#vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
-#vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
+# END FUNCTIONS
 
 # key bindings
 
@@ -592,3 +467,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 
 ## END OF FILE #################################################################
+
+# OPAM configuration
+. /home/ogion/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
