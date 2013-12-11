@@ -1,11 +1,18 @@
 #!/usr/bin/ruby
 # coding: utf-8
 # rawr_slop.rb
+#
+#
+# another interesting bit: https://www.archlinux.org/packages/community/i686/moreutils/files/json/
+# for some program that lets you list the files of not yet installed packages
+# https://aur.archlinux.org/rpc.php for minimal documentation on aur
 
 require 'slop'
 require 'json'
 require 'colored'
 require 'curb'
+
+require 'awesome_print'
 
 trap("SIGINT") {puts "Interrupting"; exit 1}
 
@@ -48,10 +55,11 @@ class Rawr
         exit 1
       end
       answer = JSON.parse(curl_aur("search", pkg))
-      if answer["type"] == "error"
+      if answer["resultcount"] == 0
         print "No result found for ".red + pkg.bold + "\n"
         exit 0
-      elsif answer["type"] == "search"
+      #elsif answer["type"] == "search"
+      else
         print_search(answer["results"])
       end
     elsif pkg.is_a?(String) and pkg.split(" ").length >= 2
@@ -67,7 +75,7 @@ class Rawr
 
       searchterms.each do |x|
         answer = JSON.parse(curl_aur("search",x))
-        if answer["type"] == "error"
+        if answer["resultcount"] == 0
           print "No result found for ".red + x.bold + "\n"
           exit 0
         else
@@ -86,7 +94,7 @@ class Rawr
   def download(x, abortonerror = true)
     pkg = x
     answer = info(pkg)
-    if answer["type"] == "error"
+    if answer["resultcount"] == 0
       puts "No such package on AUR".red
       exit 1 if abortonerror == true
       return
@@ -104,11 +112,12 @@ class Rawr
     local_versions = %x!pacman -Qm!.split("\n").each_with_object({}) {|name,h| x , y = name.split; h["#{x}"] = y}
     local_versions.each_pair do |x,y|
       pkg_info = info(x)
-      if pkg_info["type"] == "error"
+      if pkg_info["resultcount"] == 0
         puts "No result for #{x} on AUR".red
         next
       end
 
+      #ap pkg_info
       remote_version = pkg_info["results"]["Version"].chomp
       compared = `vercmp #{remote_version} #{y}`.chomp
 
@@ -134,7 +143,7 @@ class Rawr
   def print_info
     answer = info(@opts[:info])
 
-    if answer["type"] == "error"
+    if answer["resultcount"] == 0
       puts "No such pkg on AUR!".red
       exit 1
     end
