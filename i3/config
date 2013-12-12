@@ -44,7 +44,7 @@ bindsym Mod4+comma exec amixer set Master -q 5%-
 bindsym Mod4+period exec amixer set Master -q 5%+
 # used to be eee_external_audio_toggle.rb
 bindsym Mod4+minus exec /home/ogion/bin/alsaToggleSpeaker
-bindsym Mod4+Shift+minus exec notify-send -t 2000 "`mpc | head -n 1`"
+bindsym Mod4+Shift+minus exec notify-send -t 2000 "$(mpc current --format  %title%)"
 bindsym Mod4+r exec i3-input
 bindsym Mod4+z exec i3lock -i /home/ogion/bilder/Wallpaper/Snow_Leopard_smaller.png
 bindsym Mod4+Shift+z exec "sudo /root/ogisuspend.sh"
@@ -170,7 +170,7 @@ bindsym Mod4+Shift+r mode "resize"
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
-bindsym Mod4+x move workspace to output right
+#bindsym Mod4+x move workspace to output right
 
 # class                 border  backgr. text    indicator
 #client.focused          #4c7899 #92AFDE #000000 #2e9ef4
@@ -221,6 +221,7 @@ assign [class="Sylpheed"] → 7
 # specific rules
 for_window [class="Speedcrunch"] floating enable
 for_window [class="XClock"] floating enable
+for_window [title="(?i)Event Tester"] floating enable
 
 
 # mode stuff
@@ -239,10 +240,17 @@ bindsym Mod4+Shift+e mode "copypasta"
 
 #various extra bindings
 # baustelle for now
-#bindsym Mod4+e mode "extra"
+bindsym Mod4+x mode "extra"
 #
-#mode "extra" {
-#  bindsym a exec i3-input -F 'exec  some append to file that is in zim for notes/todo stuff
+mode "extra" {
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  #
+  bindsym w exec surf http://www.aemet.es/es/eltiempo/observacion/radar; mode "default"
+  bindsym s exec surf; mode "default"
+  bindsym minus exec /home/ogion/bin/choose_from_mpd_playlist.rb; mode "default"
+  bindsym t exec urxvtc; mode "default"
+}
 
 
 # implementing a kiosk mode, to effectively lock out my i3 session but still allow a couple of things
