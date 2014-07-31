@@ -1,0 +1,90 @@
+#!/usr/bin/ruby
+# coding: utf-8
+# ogish
+
+require "readline"
+trap("INT") {puts}
+
+class String
+  def bold
+    "\033[1m#{self}\033[22m"
+  end
+end
+
+
+class Clivewrapper
+  def initialize
+    @format = "medium_mp4_i18_360p"
+  end
+  attr_accessor :format
+  def checkformats(url)
+    system(%W|clivewrapper -S '#{url}'|.join(" "))
+  end
+  def download(url)
+    system(%W|clivewrapper -s #{@format} '#{url}'|.join(" "))
+  end
+end
+
+
+class NilClass
+  def call(*args)
+    nil
+  end
+end
+
+## main toplevel command Hash
+toplevelCommands = Hash.new do |hash,key|
+  if key == "help"
+    puts "List of available commands: "+hash.keys.join(", ")+". Available modes (subshells): clive"
+  elsif key == nil
+    nil
+  else
+    puts %W|I don't know "#{key}", try "help"|.join(" ")
+  end
+end
+toplevelCommands["cd"] = Proc.new do |dir|
+    begin
+      Dir.chdir(dir)
+    rescue Errno::ENOENT
+      puts "The directory specified does not exist, check your spelling."
+    end
+end
+toplevelCommands["!"] = Proc.new do |arg|
+  system(arg.join(" "))
+end
+
+## clive command Hash
+clive = Clivewrapper.new
+cliveCommands = Hash.new do |hash,key|
+  if key == "help"
+    puts "Available commands: "+hash.keys.join(", ")+". Or input a single youtube url to download."
+  else
+    Proc.new {|url| clive.download(url)}
+  end
+end
+cliveCommands["changeformat"] = Proc.new {|fmt| clive.format = fmt}
+cliveCommands["showformat"] = Proc.new {puts clive.format}
+cliveCommands["checkformats"] = Proc.new {|url| clive.checkformats(url)}
+cliveCommands["cd"] = toplevelCommands["cd"]
+
+
+### Start of processing
+while buf = Readline.readline("#{Dir.pwd}> ".bold, true)
+
+  if buf == "clive"
+    while subbuf = Readline.readline("#{Dir.pwd} clive» ".bold, true)
+
+      if subbuf.split.length < 1 or subbuf.split.length > 2
+        puts "check your input. try 'help'"
+      else
+        cliveCommands[subbuf.split[0]].call(subbuf.split.last)
+      end
+    end; puts
+
+  elsif buf =~ /\Acd /
+    toplevelCommands["cd"].call(buf.split[1])
+  else
+    toplevelCommands[buf.split[0]].call(buf.split.drop(1))
+  end
+
+end; puts
