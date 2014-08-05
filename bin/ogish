@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 # coding: utf-8
 # ogish
+# TODO let commands called by system throw a notify-send error message if exited != 0
 
 require "readline"
 trap("INT") {puts}
@@ -25,10 +26,15 @@ class Clivewrapper
   end
 end
 
-
 class NilClass
   def call(*args)
     nil
+  end
+end
+
+class String
+  def join(*args)
+    self
   end
 end
 
@@ -66,18 +72,21 @@ cliveCommands["changeformat"] = Proc.new {|fmt| clive.format = fmt}
 cliveCommands["showformat"] = Proc.new {puts clive.format}
 cliveCommands["checkformats"] = Proc.new {|url| clive.checkformats(url)}
 cliveCommands["cd"] = toplevelCommands["cd"]
+cliveCommands["!"] = toplevelCommands["!"]
 
 
 ### Start of processing
 while buf = Readline.readline("#{Dir.pwd}> ".bold, true)
+  buf.strip!
 
   if buf == "clive"
     while subbuf = Readline.readline("#{Dir.pwd} clive» ".bold, true)
+      subbuf.strip!
 
-      if subbuf.split.length < 1 or subbuf.split.length > 2
+      if ( subbuf.split.length < 1 or subbuf.split.length > 2 ) and subbuf.split[0] != "!"
         puts "check your input. try 'help'"
       else
-        cliveCommands[subbuf.split[0]].call(subbuf.split.last)
+        cliveCommands[subbuf.split[0]].call(subbuf.split.drop(1))
       end
     end; puts
 
