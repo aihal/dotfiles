@@ -7,9 +7,8 @@ require "readline"
 trap("INT") {puts}
 
 class String
-  def bold
-    "\033[1m#{self}\033[22m"
-  end
+  def bold; "\033[1m#{self}\033[22m"; end
+  def green; "\033[32m#{self}\033[0m"; end
 end
 
 
@@ -76,17 +75,17 @@ cliveCommands["!"] = toplevelCommands["!"]
 
 
 ### Start of processing
-while buf = Readline.readline("#{Dir.pwd}> ".bold, true)
+while buf = Readline.readline("#{Dir.pwd.green}\n> ".bold, true)
   buf.strip!
 
   if buf == "clive"
-    while subbuf = Readline.readline("#{Dir.pwd} clive» ".bold, true)
+    while subbuf = Readline.readline("#{Dir.pwd.green}\nclive» ".bold, true)
       subbuf.strip!
 
-      if ( subbuf.split.length < 1 or subbuf.split.length > 2 ) and subbuf.split[0] != "!"
-        puts "check your input. try 'help'"
+      if subbuf.split.length == 1
+        cliveCommands[subbuf.split[0]].call(subbuf.split[0])
       else
-        cliveCommands[subbuf.split[0]].call(subbuf.split.drop(1))
+        cliveCommands[subbuf.split[0]].call(subbuf.split.drop(1).join(" "))
       end
     end; puts
 
