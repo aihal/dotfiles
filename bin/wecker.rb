@@ -36,7 +36,7 @@ class Wecker
   def askforDateandTime
     @chosen_day = `yad --calendar --text="Wähle den Tag aus für den einmaligen Weckvorgang (der heutige Tag ist automatisch ausgewählt)" --title="Einmaliger Wecker"`.chomp
     exit 0 if @chosen_day == ""
-    @chosen_hour = `yad --entry --text="Gebe die Weckuhrzeit an, in HH:MM (Stunde:Minute) Format:" --title="Weckuhrzeit"`.chomp
+    @chosen_hour = `yad --entry --text="Gib die Weckuhrzeit an, in HH:MM (Stunde:Minute) Format:" --title="Weckuhrzeit"`.chomp
     while true
       break if @chosen_hour =~ /\A\d\d:\d\d\Z/
       exit 0 if @chosen_hour == ""
