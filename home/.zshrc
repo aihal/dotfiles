@@ -331,6 +331,7 @@ alias sx="sxiv -f"
 alias vimtodo="vim ~/todo"
 alias units="units -v"
 alias wget="wget -c"
+alias h=homeshick
 
 # oink
 alias killall5="echo HAHAHA you did not really just do that, did you idiot"
