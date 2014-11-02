@@ -75,13 +75,14 @@ cliveCommands["!"] = toplevelCommands["!"]
 
 
 ### Start of processing
-while buf = Readline.readline("#{Dir.pwd.green}\n> ".bold, true)
+while buf = Readline.readline("#{Dir.pwd}".green+"\n> ".bold, true)
   buf.strip!
 
   if buf == "clive"
-    while subbuf = Readline.readline("#{Dir.pwd.green}\nclive» ".bold, true)
+    while subbuf = Readline.readline("#{Dir.pwd}".green+"\nclive» ".bold, true)
       subbuf.strip!
 
+      next if subbuf == ""
       if subbuf.split.length == 1
         cliveCommands[subbuf.split[0]].call(subbuf.split[0])
       else

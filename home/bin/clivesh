@@ -1,0 +1,30 @@
+#!/usr/bin/ruby
+require 'readline'
+
+class String
+  def bold
+    "\033[1m#{self}\033[22m"
+  end
+  def start_with?(little_string)
+    little_string.empty? || match(/\A#{Regexp.escape(little_string)}/)
+  end
+end
+
+# makes ruby itself ignore the ctrl-c and allows it being passed to the childprogram
+trap("INT") {}
+
+cliveformat = "medium_mp4_i18_360p"
+clivecmd = "clivewrapper -s #{cliveformat} "
+
+while input = Readline.readline("Link [format is #{cliveformat}]: ".bold, true)
+  if input == "quit"
+    exit 0
+  elsif input.start_with?("changeformat")
+    cliveformat = input.split[1] 
+    clivecmd = "clivewrapper -s #{cliveformat} "
+  elsif input.start_with?("checkformats")
+    system( "clivewrapper -S " + "'" + input.split[1] + "'" )
+  elsif input.start_with?("http://youtu")
+    system( clivecmd + "'" + input + "'" )
+  end
+end

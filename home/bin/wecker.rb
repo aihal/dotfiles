@@ -17,7 +17,8 @@ class Wecker
     day = @chosen_day.split(".")[0]
     month = @chosen_day.split(".")[1]
     weekday = "*"
-    command = "(ossmix jack.int-speaker.mode mix2 && mpc clear && mpc load ogi && mpc play)"
+    #command = "(ossmix jack.int-speaker.mode mix2 && mpc clear && mpc load ogi && mpc play)"
+    command = "(amixer set Speaker unmute && amixer set Master -q 70 && mpc play)"
 
     return [minute,hour,day,month,weekday,command].join(" ")
   end

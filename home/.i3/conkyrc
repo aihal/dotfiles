@@ -2,21 +2,21 @@ background no
 out_to_console yes
 out_to_x no
 own_window no
-update_interval 2
+update_interval 10
 total_run_times 0
 short_units yes
 pad_percents 3
 cpu_avg_samples 2
 #[{"full_text": "mpd: ${mpd_smart 30} - ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
+#{"full_text": "cpu: ${cpu}%", "color":"\#D61C41"},
+#{"full_text": "mpd: ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
+#{"full_text": "Bogota: ${tztime America/Bogota %H:%M}"},
 
 TEXT
-[{"full_text": "Bogota: ${tztime America/Bogota %H:%M}"},
-{"full_text": "NYC: ${tztime America/New_York %H:%M}"},
+[{"full_text": "NYC: ${tztime America/New_York %H:%M}"},
 {"full_text": "Malaysia: ${tztime Asia/Kuala_Lumpur %H:%M}"},
-{"full_text": "mpd: ${mpd_status} ${mpd_percent}%","color":"\#85599B"},
-{"full_text": "cpu: ${cpu}%", "color":"\#D61C41"},
+{"full_text": "London: ${tztime Europe/London %H:%M}"},
 {"full_text": "ram: $mem swap: $swap","color":"\#289428"},
-{"full_text": "Speaker:${exec amixer get Speaker | tail -n 1 | cut -d ' ' -f 9}"},
 {"full_text": "${time %a, %d.%m.%Y}"},
 {"full_text": "${time %H:%M}"}
 ],

@@ -11,11 +11,12 @@ xmodmap ~/.xmodmaprc
 urxvtd -q -f -o
 anamnesis --start
 # config moved to ~/.config/dunst/dunstrc
-dunst &
-compton -cCGf -i 0.8 -e 0.8  --sw-opti -o 0.0 -D 3 &
+# gets started automatically by dbus
+#dunst &
+#compton -cCGf -i 0.8 -e 0.8  --sw-opti -o 0.0 -D 3 &
 xset s off
 xset -dpms
-[[ -x /usr/bin/xautolock ]] && xautolock -time 50 -locker /usr/bin/i3lock -detectsleep &
+#[[ -x /usr/bin/xautolock ]] && xautolock -time 50 -locker /usr/bin/i3lock -detectsleep &
 
 
 [[ -n $1 ]] && session=$1 || session=i3

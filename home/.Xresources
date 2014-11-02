@@ -8,82 +8,149 @@
 
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintslight
-
 Xcursor*theme:      Vanilla-DMZ-AA
-!#include "/example/path"
-
-!urxvt*font:         xft:fixed:pixelsize=15:antialias=false
 urxvt*font:         xft:dejavu sans mono:pixelsize=14:antialias=false
-!urxvt*font:         xft:Linux Biolinum:pixelsize=15:antialias=true
-
-
-urxvt*background:   #000000
-urxvt*foreground:   #DADADA
-urxvt*cursorColor:  #DADADA
-urxvt*scrollBar:    false
 urxvt*urgentOnBell: true
-
-!my normal black background colors
-!!black 
-*color0 :   #222222
-*color8 :   #454545
-!!red
-*color1 :   #E22A5B
-*color9 :   #F92672
-!!green
-*color2 :   #84B81B
-*color10:   #A6E22E
-!!yellow
-*color3 :   #FD971F
-*color11:   #FDD31F
-!!blue
-*color4 :   #2B45D6
-*color12:   #4682B4
-!!magenta
-*color5 :   #B770DB
-*color13:   #AE81FF
-!!cyan
-*color6 :   #89b6e2
-*color14:   #46a4ff
-!!white
-*color7:    #DADADA
-*color15:   #DADADA
-
-!!! trying out darker colors for a white background theme
-!!!black like above
-!!!red
-!*color1 : #D61C41
-!*color9 : #EF214F
-!!!green
-!*color2 : #289428
-!*color10: #39B939
-!!!yellow
-!*color3 : #D19F23
-!*color11: #E8DF2F
-!!!blue
-!*color4 : #263FC2
-!*color12: #396F9D
-!!!magenta
-!*color5 : #85599B
-!*color13: #8562C7
-!!!cyan
-!*color6 : #567DBB
-!*color14: #3B83D5
-!!!white
-!*color7 : #FFFFFF
-!*color15: #FFFFFF
-
+urxvt*scrollBar:    false
 
 !URxvt.perl-ext-common: default,matcher
 !URxvt.urlLauncher: /usr/bin/firefox
 !URxvt.colorUL: #86a2be
-URxvt.perl-ext-common: url-select,keyboard-select
+URxvt.perl-ext-common: default,url-select,keyboard-select
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.keysym.M-Escape:  perl:keyboard-select:activate
-URxvt.perl-ext:           default
-URxvt.urlLauncher:        firefox
+URxvt.url-select.launcher:        firefox -new-tab
 !URxvt.matcher.pattern:  \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
 !URxvt.keysym.M-u:    perl:matcher
 !URxvt.matcher.button:     3
 !URxvt.matcher.pattern.2:  \\B(/\\S+?):(\\d+)(?=:|$)
 !URxvt.matcher.launcher.2: gvim +$2 $1
+
+!!! rofi - dmenu replacement and i3 window switcher
+rofi.switchers:        window,run,ssh
+rofi.opacity:          100
+rofi.width:            100
+rofi.lines:            15
+rofi.columns:          1
+rofi.font:             mono12
+rofi.fg:               #222222
+rofi.bg:               #f2f1f0
+rofi.hlfg:             #ffffff
+rofi.hlbg:             #005577
+rofi.bc:               black
+rofi.bw:               0
+rofi.location:         2
+rofi.padding:          3
+rofi.yoffset:          0
+rofi.xoffset:          0
+rofi.fixed-num-lines:  false
+rofi.hmode:            false
+rofi.terminal:         urxvtc
+rofi.ssh-client:       ssh
+rofi.ssh-command:      {terminal} -e {ssh-client} {host}
+rofi.run-command:      {cmd}
+rofi.run-shell-command:  {terminal} -e {cmd}
+rofi.disable-history:  true
+rofi.levenshtein-sort: false
+rofi.key:              F12
+rofi.rkey:             mod1+F2
+rofi.skey:             mod1+F3
+
+
+
+
+!!!!!!!!!!!!!!!!!!my normal black background colors
+
+!urxvt*cursorColor:  #DADADA
+!urxvt*background:   #000000
+!urxvt*foreground:   #DADADA
+!
+!!!black 
+!*color0 :   #222222
+!*color8 :   #454545
+!!!red
+!*color1 :   #E22A5B
+!*color9 :   #F92672
+!!!green
+!*color2 :   #84B81B
+!*color10:   #A6E22E
+!!!yellow
+!*color3 :   #FD971F
+!*color11:   #FDD31F
+!!!blue
+!*color4 :   #2B45D6
+!*color12:   #4682B4
+!!!magenta
+!*color5 :   #B770DB
+!*color13:   #AE81FF
+!!!cyan
+!*color6 :   #89b6e2
+!*color14:   #46a4ff
+!!!white
+!*color7:    #DADADA
+!*color15:   #DADADA
+
+!!!!!!!!!!!!!!!!!!!!!!!! trying out darker colors for a white background theme
+
+urxvt*cursorColor:  #567b83
+! these two are for vim colorscheme neverland
+urxvt*background:   #000000
+urxvt*foreground:   #C1C1C1
+!urxvt*background:   #DADADA
+!urxvt*foreground:   #000000
+
+!!black like above
+*color0 : #222222
+*color8 : #454545
+!!red
+*color1 : #D61C41
+*color9 : #EF214F
+!!green
+*color2 : #289428
+*color10: #39B939
+!!yellow
+*color3 : #D19F23
+*color11: #E8DF2F
+!!blue
+*color4 : #263FC2
+*color12: #396F9D
+!!magenta
+*color5 : #85599B
+*color13: #8562C7
+!!cyan
+*color6 : #567DBB
+*color14: #3B83D5
+!!white
+*color7 : #FFFFFF
+*color15: #FFFFFF
+
+
+!! Mashup colors
+!*foreground:        #B2A191
+!*background:        #171717
+!*borderColor:       #171717
+!*cursorColor:       #C7A551
+!!black
+!*color0:            #202020
+!*color8:            #404040
+!!red
+!*color1:            #BF3F34
+!*color9:            #FF6C5F
+!!green
+!*color2:            #707D22
+!*color10:           #B8CA4B
+!!yellow
+!*color3:            #BF7A29
+!*color11:           #C7A551
+!!blue
+!*color4:            #627A92
+!*color12:           #95B9DE
+!!magenta
+!*color5:            #75507B
+!*color13:           #AD7FA8
+!!cyan
+!*color6:            #757978
+!*color14:           #9FA590
+!!white
+!*color7:            #B2A191
+!*color15:           #E8D0C3

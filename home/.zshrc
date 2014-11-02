@@ -67,7 +67,7 @@ precmd() {
 ##########
 
 
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/bin:~/programming/newlisp/bin
 export PAGER="/bin/less"
 autoload -U compinit
 compinit
@@ -277,10 +277,6 @@ fi
 
 #
 
-# Go stuff
-source ~/.zsh_go
-source /etc/profile.d/go.sh
-
 ## aliases ##
 
 ## Normal aliases, added by Ogion
@@ -288,7 +284,7 @@ source /etc/profile.d/go.sh
 alias ..='cd ..'
 alias ...='cd ../../'
 alias cd..='cd ..'
-alias cdscreens='cd ~/bilder/Screenshots/2013/'
+alias cdscreens='cd ~/bilder/Screenshots/2014/'
 alias cdtv="cd ~/video/tv/"
 alias cl='clear && l'
 alias cll='clear&&ll'
@@ -298,8 +294,8 @@ alias du='du -h'
 alias du0='du --max-depth 0'
 alias du1='du --max-depth 1'
 alias free='free -m'
-alias mplayer='mpv -idx -fs --stop-screensaver -msgcolor -msgmodule'
-alias mpv='mpv -idx -fs --stop-screensaver -msgcolor -msgmodule'
+alias mplayer='echo use mpv instead'
+alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --no-input-joystick --volume=100'
 alias locate="locate -i"
 alias v='vim'
 alias crontab='crontab -e'
@@ -314,7 +310,8 @@ alias scpresume="rsync --partial --progress --rsh=ssh"
 alias l='ls -CF --color=auto'
 alias la='ls -aCF --color=auto'
 alias ll="ls -lh --color=auto"
-alias sshraku="ssh lolwut.nl"
+#alias sshraku="ssh lolwut.nl"
+alias  sshraku="ssh 94.213.236.128"
 alias -s PDF="zathura"
 alias -s pdf="zathura"
 alias vimzshrc="vim ~/.zshrc"
@@ -336,6 +333,22 @@ alias wget="wget -c"
 alias killall5="echo HAHAHA you did not really just do that, did you idiot"
 
 ## Functions ##
+
+plzs() {
+  grep -i "$1" ~/bin/plz.csv
+}
+
+howmanyfiles() {
+  find . -follow -maxdepth 1 -type f | wc -l
+}
+
+tclsh() {
+  rlwrap -pBlue -m -q'"' tclsh $@
+}
+modifiedEtcFiles() {
+  pacman -Qii 2>/dev/null | egrep "\<MODIFIED\>" | cut -f 2
+}
+
 psauxg() { ps aux | grep -v grep | grep "$@" }
   compdef _pgrep psauxg
 
@@ -355,7 +368,7 @@ countdeps() {
 }
 
 search() {
-  pacman -Ss $@ ; rawr -s "$@"
+  pacman -Ss $@ ; lawr -s "$@"
 }
 
 vimwhich() { 
@@ -468,5 +481,5 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 ## END OF FILE #################################################################
 
-# OPAM configuration
-. /home/ogion/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# zsh-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

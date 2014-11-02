@@ -1,0 +1,153 @@
+#!/usr/bin/newlisp
+# vim:ft=newlisp
+
+# make ctrl-c exit instead of calling the debugger
+(constant 'SIGINT 2)
+(define (ctrlC-handler) (begin (println "Aborting… ") (exit)))
+(signal SIGINT 'ctrlC-handler)
+
+# defines
+(define (die msg) (begin (println msg)(exit 1)))
+(setq actions (list))
+(constant 'aur-base-url "https://aur.archlinux.org")
+
+# define options
+(module "getopts.lsp")
+
+(shortopt "h" (getopts:usage) nil "Print this help message")
+(longopt "help" (getopts:usage) nil "Print this help message")
+#(longopt  "verbose" (++ myVerbose) nil "Be verbose")
+#(shortopt "v"       (++ myVerbose) nil "Be verbose")
+(longopt  "update" (extend actions (list (list "update" (list "true")))) nil "Check for updates")
+(shortopt "u"      (extend actions (list (list "update" (list "true")))) nil "Check for updates")
+(longopt  "search" (extend actions (list (list "search" (list getopts:arg)))) "term" "Search for term(s)")
+(shortopt "s"      (extend actions (list (list "search" (list getopts:arg)))) "term" "Search for term(s)")
+(longopt  "info"   (extend actions (list (list "info" (list getopts:arg)))) "pkg(s)" "Info single package.")
+(shortopt "i"      (extend actions (list (list "info" (list getopts:arg)))) "pkg(s)" "Info single package.")
+(longopt  "down" (extend actions   (list (list "down" (list getopts:arg)))) "pkg(s)" "Download single package.")
+(shortopt "d"    (extend actions   (list (list "down" (list getopts:arg)))) "pkg(s)" "Download single package.")
+
+# parsing the options
+(setq restArgs (getopts (2 (main-args))))
+
+# allowing one and only one major action
+(let (n (length actions))
+  (case n
+    (0 (die "You need to at least supply one action (info, search, down, update)!"))
+    (1 (setq selection (actions 0)))
+    (true (die "Only one action at a time (info, search, down, update)!"))))
+
+# adding superfluous arguments to the single major option
+# how they handle a list is up to the individual function
+(if restArgs (extend (selection 1) restArgs))
+
+# slection at this point is: (action ("arg" "anotherarg" "etc"))
+# where action is one of the following strings: update info search down
+
+# helper functions
+(define (build-rpc-uri type arglist)
+  (cond 
+    ((= type "search")
+      (string aur-base-url "/rpc.php?type=" type "&arg=" (arglist 0)))
+    ((or (= type "info") (= type "down"))
+      (string "https://aur.archlinux.org/rpc.php?type=multiinfo"
+        (join (let ((l (list))) (dolist (e arglist) (extend l (list (string "&arg\\[\\]=" e)))) l))))))
+
+# get raw json from build-rpc-uri and parse it
+# return a list: ( ( (pkgname)(pkgetc)(…) ) ( (nextpkg)(next…) ) )
+(define (parse-aur-json sel)
+  (if (= (sel 0) "search")
+    (let ( (pkglist (sel 1)) (type "search") (mylist (list)) )
+      (dolist (e pkglist)
+        (let ((json (json-parse ((exec (string {curl -s "} (build-rpc-uri type (list e)) {"})) 0))))
+          (extend mylist (lookup "results" json)))
+      )
+          #(intersect (bla 2 1) (zwo 2 1))
+      (unique mylist))
+    #else
+    # wtf i don't understand why i had this line here? or did the json from aur change?
+    #debugging((json-parse ((exec (string {curl -s "} (build-rpc-uri (sel 0) (sel 1)) {"}) ) 0)) 2 1)
+    (lookup "results" (json-parse ((exec (string {curl -s "} (build-rpc-uri (sel 0) (sel 1)) {"}) ) 0)))
+  )
+)
+
+### ansi color escapes for the terminals
+### use via: (println (string RED "mytext" UNCOLOR))
+(constant 'BOLD "[1m")
+(constant 'UNBOLD "[0m")
+(constant 'UNCOLOR "[39m")
+(constant 'BLACK "[30m")
+(constant 'RED "[31m")
+(constant 'GREEN "[32m")
+(constant 'YELLOW "[33m")
+(constant 'BLUE "[34m")
+(constant 'MAGENTA "[35m")
+(constant 'CYAN "[36m")
+(constant 'WHITE "[37m")
+(constant 'DEFAULT "[38m")
+
+(define (prettyPrintSearch pkg)
+  (begin
+    (println (format "%-30s %s" (string BOLD (lookup "Name" pkg) UNBOLD) (lookup "Description" pkg)))
+))
+
+(define (prettyPrintInfo pkg)
+  (setf (lookup "FirstSubmitted" pkg) (date $it))
+  (setf (lookup "LastModified" pkg) (date $it))
+  (push (list "AURUrl" (string "https://aur.archlinux.org/packages.php?ID=" (lookup "ID" pkg))) pkg -1)
+  (dolist (e pkg)
+    (println (format "%-30s %s" (string BOLD (e 0) UNBOLD) (string (e 1)))))
+  (println)
+)
+
+### main functions
+
+# Checking for updated packages
+(define (aurUpdates) (println "I am checking for updates, not implemented yet!"))
+
+# search AUR for packages
+(define (aurSearch) 
+  (begin
+    (setq searchResults '())
+    (setq searchJson (parse-aur-json selection))
+    # sort packages by the name of the package
+    (sort searchJson (fn (x y) (< (x 2 1) (y 2 1))))
+    (dolist (e searchJson)
+      (prettyPrintSearch e))
+))
+
+# Look up detailed info on package(s)
+(define (aurInfo) 
+  (begin
+    (setq infoResults (parse-aur-json selection))
+    (dolist (e infoResults)
+      (prettyPrintInfo e))
+))
+
+# download package tarball(s), untar them into subfolders
+(define (aurDownload)
+  (begin
+    (setq multijson (parse-aur-json (list "info" (selection 1))))
+    (setq downurls '())
+    (dolist (e multijson)
+      (extend downurls (list (list (lookup "Name" e) (string aur-base-url (lookup "URLPath" e))))))
+    (dolist (e downurls)
+      (begin 
+        (print "Downloading " (e 0) " … ")
+        (exec (string "curl -s '" (e 1) "' | tar -zxf -"))
+        (println "done.")
+        ))
+))
+
+
+# Do eet!
+(let (n (selection 0))
+  (case n
+    ("update" (aurUpdates))
+    ("search" (aurSearch))
+    ("info" (aurInfo))
+    ("down" (aurDownload))
+    # the following should not happen
+    (true (println "It was something else, namely: " selection))))
+
+(exit)

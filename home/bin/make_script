@@ -13,6 +13,14 @@ usage() {
 }
 
 case $filename in 
+    *.lsp)
+        echo '#!/usr/bin/newlisp' >> $filename
+        echo '# vim:ft=newlisp' >> $filename
+        echo >> $filename
+        echo >> $filename
+        echo >> $filename
+        echo '(exit)' >> $filename
+        ;;
     *.pl)
         echo '#!/usr/bin/perl' >> $filename
         echo  >> $filename
@@ -43,6 +51,11 @@ case $filename in
     *.lua)
         echo '#!/usr/bin/lua -f' >> $filename
         echo "-- $filename" >> $filename
+        echo >> $filename
+        ;;
+      *.py)
+        echo '#!/usr/bin/python' >> $filename
+        echo "# $filename" >> $filename
         echo >> $filename
         ;;
     *)

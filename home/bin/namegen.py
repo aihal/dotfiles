@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 from random import choice
 import sys, getopt, re
 

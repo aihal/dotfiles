@@ -2,5 +2,6 @@
 # - clivewrapper
 
 echo Beginning, `date`
-clive $@ && notify-send "clivewrapper" "Download done"
+# --get-with 'wget -c %u' 
+cclive -c $@ && notify-send "clivewrapper" "Download done"
 echo Done, `date`

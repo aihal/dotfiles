@@ -19,10 +19,15 @@ au BufNewFile,BufRead PKGBUILD set ft=sh
 au BufNewFile,BufRead *.wiki set ft=creole
 au BufNewFile,BufRead *.t2t set ft=txt2tags
 au BufNewFile,BufRead *.thor set ft=ruby
+au BufNewFile,BufRead *.slim set ft=slim
 au BufRead,BufNewFile /usr/local/nginx/conf/* set ft=nginx 
 au BufNewFile,BufRead *conkyrc set ft=conkyrc
 au FileType pl,pm set filetype=perl
-au BufNewFile,BufRead *.asciidoc colorscheme emg | set ft=asciidoc | set textwidth=80
+au BufNewFile,BufRead *.asciidoc colorscheme zenburn | set ft=asciidoc | set textwidth=80
+au BufNewFile,BufRead *.go set tabstop=8 | set noexpandtab
+au BufNewFile,BufRead *.lua colorscheme zenburn
+au BufNewFile,BufRead *.lsp set ft=newlisp
+au BufNewFile,BufRead *.nim set ft=nimrod
 
 "au BufWritePost /tmp/xclipboardvim :%y+ | :!sleep 1
 au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep 1
@@ -32,9 +37,10 @@ au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep
 
 ""neverland doesn't work quite right in tmux, stupid terminals and their
 ""historical baggage
-set t_Co=265
-set background=light
-colorscheme peaksea
+"set t_Co=265
+set background=dark
+colorscheme jellyx
+"colorscheme neverland
 filetype on
 filetype plugin on
 syntax on
@@ -56,8 +62,9 @@ filetype plugin indent on
 "set guioptions-=T
 
 if has('gui_running')
-  set background=dark
-  colorscheme nightshade_print
+  set background=light
+  colorscheme lucius
+  "colorscheme neverland
   set guicursor=a:blinkon0
   set guifont=DejaVu\ Sans\ Mono\ 10
   set guioptions-=T
@@ -68,6 +75,7 @@ if has('gui_running')
   set guioptions-=l
   set guioptions-=r
   set guioptions-=R
+  set guioptions-=a
 endif
 " stop visual mode from spamming X selection
 set clipboard-=autoselect
@@ -92,7 +100,7 @@ nmap <leader>q :q<cr>
 nmap <leader>x :!./%<cr>
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost vimrc source ~/.vimrc
+autocmd! BufWritePost vimrc source ~/.vimrc
 
 " Set 7 lines to the curors - when moving vertical..
 set so=3

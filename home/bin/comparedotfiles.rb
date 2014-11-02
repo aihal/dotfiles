@@ -56,7 +56,6 @@ filehash = {
     '/home/ogion/dotfiles/dotfiles/vim/colors/README.txt' => '/home/ogion/.vim/colors/README.txt',
     '/home/ogion/dotfiles/dotfiles/vim/doc/abolish.txt' => '/home/ogion/.vim/doc/abolish.txt',
     '/home/ogion/dotfiles/dotfiles/vim/doc/surround.txt' => '/home/ogion/.vim/doc/surround.txt',
-    '/home/ogion/dotfiles/dotfiles/vim/doc/tags' => '/home/ogion/.vim/doc/tags',
     '/home/ogion/dotfiles/dotfiles/vim/ftdetect/pdc.vim' => '/home/ogion/.vim/ftdetect/pdc.vim',
     '/home/ogion/dotfiles/dotfiles/vim/ftdetect/tmux.vim' => '/home/ogion/.vim/ftdetect/tmux.vim',
     '/home/ogion/dotfiles/dotfiles/vimperator/colors/ogion.vimp' => '/home/ogion/.vimperator/colors/ogion.vimp',

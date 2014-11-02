@@ -1,0 +1,21 @@
+#!/usr/bin/newlisp
+# vim:ft=newlisp
+
+(if (= '() (2 (main-args)))
+  (begin (println "You have to specify a command!")(exit 1))
+  (set 'command (join (2 (main-args)) " "))
+)
+
+(! "clear")
+(catch (while true
+          (begin 
+            (! "clear")
+            (println (first (exec command)))
+            (println)
+            (print "New command, q for quit or empty for rerun » ")
+            (setf line (read-line))
+            (if (= "q" line) (throw "done"))
+            (if (!= "" line) (setf command line))
+         ))
+)
+(exit)

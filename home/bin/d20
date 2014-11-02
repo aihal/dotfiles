@@ -1,0 +1,15 @@
+#!/usr/bin/ruby
+# coding: utf-8
+# d20.rb
+
+class Dice
+    def initialize
+        @range = 20
+    end
+
+    def roll
+        rand(@range)
+    end
+end
+
+puts Dice.new.roll
