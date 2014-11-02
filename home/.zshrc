@@ -67,7 +67,10 @@ precmd() {
 ##########
 
 
-export PATH=$PATH:~/bin:~/programming/newlisp/bin
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+# This has to come before compinit for zsh to pick up homeshick completion
+fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
+export PATH=$PATH:~/bin
 export PAGER="/bin/less"
 autoload -U compinit
 compinit
