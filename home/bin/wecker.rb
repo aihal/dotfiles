@@ -64,6 +64,8 @@ class Wecker
     end
 
     # ask for a text for the notification
+    # TODO: shell-escape the text! Otherwise the notify-send might error out or
+    #       even potentially the whole crontab line become something different…
     @notification_text = `yad --entry --entry-text="Weckzeit abgelaufen" --text="Bitte einen Text für die Benachrichtigung eingeben" --title="Textbenachrichtigung"`.chomp
   end
 
