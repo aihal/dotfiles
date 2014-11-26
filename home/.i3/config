@@ -69,10 +69,10 @@ bindsym Mod4+k focus up
 bindsym Mod4+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod4+Left focus left
-bindsym Mod4+Down focus down
-bindsym Mod4+Up focus up
-bindsym Mod4+Right focus right
+bindsym Mod4+Left  focus output left
+bindsym Mod4+Down  focus output down
+bindsym Mod4+Up    focus output up
+bindsym Mod4+Right focus output right
 
 # move focused window
 bindsym Mod4+Shift+h move left
@@ -81,10 +81,10 @@ bindsym Mod4+Shift+k move up
 bindsym Mod4+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod4+Shift+Left move left
-bindsym Mod4+Shift+Down move down
-bindsym Mod4+Shift+Up move up
-bindsym Mod4+Shift+Right move right
+bindsym Mod4+Shift+Left  move container to output left
+bindsym Mod4+Shift+Down  move container to output down
+bindsym Mod4+Shift+Up    move container to output up
+bindsym Mod4+Shift+Right move container to output right
 
 # split in horizontal orientation
 # weird but since i use hjkl not jkl; on a german keyboard...
