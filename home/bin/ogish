@@ -1,7 +1,12 @@
 #!/usr/bin/ruby
 # coding: utf-8
 # ogish
-# TODO let commands called by system throw a notify-send error message if exited != 0
+# TODO: let commands called by system throw a notify-send error message if exited != 0
+# TODO: replace clive with youtube-dl
+# TODO: make a mpv subshell to watch videos instead of downloading them
+# TODO: persistent history on disk?
+
+puts "Have to replace cclive/clivewrapper with youtube-dl" ; exit 0
 
 require "readline"
 trap("INT") {puts}
