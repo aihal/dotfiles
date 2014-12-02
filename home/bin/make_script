@@ -32,6 +32,7 @@ case $filename in
     *.sh)
         echo '#!/bin/bash' >> $filename
         echo "# - $filename" >> $filename
+        echo "IFS=\"\`printf '\n\t'\`\"" >> $filename
         ;;
     *.fish)
         echo '#!/usr/bin/fish' >> $filename
