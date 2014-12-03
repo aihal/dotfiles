@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/ogion/documents/canasta-testing'
-let g:netrw_dirhist_2='/home/ogion/.coccinella'
-let g:netrw_dirhist_3='/home/ogion/documents/Verwaltungsinformatik/Stellenangebote/BundesBehörden/Bafin'
-let g:netrw_dirhist_4='/home/ogion/mpd'
