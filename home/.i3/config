@@ -268,7 +268,7 @@ mode "extra" {
   bindsym s exec surf; mode "default"
   bindsym minus exec /home/ogion/bin/dplay.lsp; mode "default"
   bindsym t exec urxvtc; mode "default"
-  bindsym b exec urxvtc -e bwm-ng -o plain; mode "default"
+  bindsym b exec urxvtc -e bwm-ng; mode "default"
   bindsym d exec dwb; mode "default"
   bindsym Shift+d exec luakit; mode "default"
   bindsym p exec dmenu -i -l 10 < /home/ogion/bin/plz.csv; mode "default"
