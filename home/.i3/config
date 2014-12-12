@@ -48,18 +48,14 @@ bindsym Mod4+comma exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks
 bindsym Mod4+period exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
 bindsym Mod4+minus exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
 bindsym Mod4+Shift+minus exec notify-send -t 2000 "Current song in mpd: " "$(mpc current --format  %file%)"
-#bindsym Mod4+Shift+minus exec notify-send -t 2000 "$(cmus-remote -Q | grep "^tag title" | cut -d ' ' -f 3-)"
-bindsym Mod4+r exec i3-input
-bindsym Mod4+z exec i3lock -i /home/ogion/bilder/Wallpaper/Snow_Leopard_smaller.png
-bindsym Mod4+Shift+z exec "sudo /root/ogisuspend.sh"
 bindsym Mod4+t exec surf http://127.0.0.1/cgitesting/todo.cgi
 bindsym Mod4+Shift+t exec gvim ~/www/cgitesting/todo.css ~/www/todo.mkd -c 'split | bn'
 
-## vim-like mark and goto:
-##Mark a container with a single character:
-bindsym Mod4+Shift+y exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
-##Go to the container marked with above example:
-bindsym Mod4+y exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Go to: '
+### vim-like mark and goto, never used it, so i'm freeing up mod4+y:
+###Mark a container with a single character:
+#bindsym Mod4+Shift+y exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+###Go to the container marked with above example:
+#bindsym Mod4+y exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Go to: '
 
 
 # change focus
@@ -177,9 +173,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-## needed for run, aka i3-input, can use mouse for resizing instead
-bindsym Mod4+Shift+r mode "resize"
-
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
 #bindsym Mod4+x move workspace to output right
@@ -244,6 +237,33 @@ for_window [class="Leafpad"] floating enable
 
 # mode stuff
 
+# exit menu
+
+mode "exit" {
+  bindsym e exit
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+# i3 mode menu
+
+set $i3menu "i3 top-menu: (R)esize, (E)xit, (X) run i3 command"
+bindsym Mod4+y mode $i3menu
+
+mode $i3menu {
+  bindsym r mode "resize"
+  bindsym e mode "exit"
+  bindsym x exec i3-input; mode "default"
+  bindsym z exec i3lock -i /home/ogion/bilder/Wallpaper/Snow_Leopard_smaller.png
+  bindsym Shift+z exec "sudo /root/ogisuspend.sh"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym Mod4+Shift+e mode "copypasta"
+
 mode "copypasta" {
   bindsym e exec "cp /dev/null /tmp/xclipboardvim ; xclip -o > /tmp/xclipboardvim ; gvim /tmp/xclipboardvim" ; mode "default"
   bindsym l exec edit-clipboard.lsp link ; mode "default"
@@ -255,8 +275,6 @@ mode "copypasta" {
   bindsym Escape mode "default"
   bindsym Mod4+m exec mpc toggle
 }
-
-bindsym Mod4+Shift+e mode "copypasta"
 
 #various extra bindings
 bindsym Mod4+x mode "extra"

@@ -10,4 +10,9 @@ anamnesis --start
 xset s off
 xset -dpms
 
+unset LC_ALL
+export LANG=de_DE.UTF-8
+export LC_MESSAGES=C
+export LC_TIME=de_DE.UTF-8
+
 exec i3
