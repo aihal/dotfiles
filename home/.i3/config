@@ -224,8 +224,8 @@ mode "extra" {
   bindsym Shift+d exec luakit; mode "default"
   bindsym p exec dmenu -i -l 10 < /home/ogion/bin/plz.csv; mode "default"
   bindsym l exec rofi -now; mode "default"
-  bindsym t exec surf http://127.0.0.1/cgitesting/todo.cgi
-  bindsym Shift+t exec gvim ~/www/cgitesting/todo.css ~/www/todo.mkd -c 'split | bn'
+  bindsym t exec surf http://127.0.0.1/cgitesting/todo.cgi; mode "default"
+  bindsym Shift+t exec gvim ~/www/cgitesting/todo.css ~/www/todo.mkd -c 'split | bn'; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
