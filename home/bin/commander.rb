@@ -17,12 +17,11 @@ class Commander
         @action_4 = "Beende einen rsync download.\nErst diese Option versuchen, um traffic auf null zu bekommen,\nwenn das nicht hilft, dann die 'Netzwerk ausschalten' Option."
         @action_5 = "Zeige Netzwerktraffic"
         @action_6 = "Stelle einen einmaligen Wecker"
-        @action_7 = "Zeige eine Liste an geöffneten Fenstern"
         @action_8 = "Stelle einen einmaligen Wecker mit eigenem Wecktextpopup"
     end
 
     def askuser
-        @choice = `yad --width=800 --height=350 --title="#{@title}" --text="#{@text}" --list --separator '' --column "Aktion" "#{@action_0}" "#{@action_7}" "#{@action_5}" "#{@action_1}" "#{@action_2}" "#{@action_3}" "#{@action_4}" "#{@action_6}"`.chomp
+        @choice = `yad --width=800 --height=350 --title="#{@title}" --text="#{@text}" --list --separator '' --column "Aktion" "#{@action_0}" "#{@action_5}" "#{@action_1}" "#{@action_2}" "#{@action_3}" "#{@action_4}" "#{@action_6}"`.chomp
     end
 
     def doit
@@ -48,8 +47,6 @@ class Commander
             system("urxvtc -e bwm-ng")
         when @action_6
             system("/home/ogion/bin/wecker.rb")
-        when @action_7
-            system("rofi -now")
         end
     end
 end
