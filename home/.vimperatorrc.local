@@ -4,7 +4,7 @@ map ö gT
 map ä gt
 map <S-ö> :tabmove -1<CR>
 map <S-ä> :tabmove +1<CR>
-set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
+set toolbars=addons,nobookmarks,menu,navigation,tabs
 set defsearch=sp
 set complete=l
 set noautocomplete

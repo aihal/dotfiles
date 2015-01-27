@@ -77,8 +77,8 @@ def shape(upspeed,downspeed):
 
 # parsing cli arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--shape", help="shape traffic, downspeed in kilobtes necessary", type=int)
-parser.add_argument("--clean", help="clean all shaping rules", action='store_true')
+parser.add_argument("-s", "--shape", help="shape traffic, downspeed in kilobtes necessary", type=int)
+parser.add_argument("-c", "--clean", help="clean all shaping rules", action='store_true')
 args = parser.parse_args()
 
 # setting variables

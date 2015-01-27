@@ -1,6 +1,8 @@
 #!/bin/bash
 # Script to make skeleton files
 # for certain programming languages
+set -o nounset
+set -o errexit
 
 [[ -n $1 ]] && filename=$1
 
@@ -32,6 +34,8 @@ case $filename in
     *.sh)
         echo '#!/bin/bash' >> $filename
         echo "# - $filename" >> $filename
+        echo "set -o nounset" >> $filename
+        echo "set -o errexit" >> $filename
         echo "IFS=\"\`printf '\n\t'\`\"" >> $filename
         ;;
     *.fish)

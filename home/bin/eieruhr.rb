@@ -3,92 +3,70 @@
 # vim: ft=ruby
 # eieruhr
 
-trap("SIGINT") { exit 0 }
-require 'slop'
+trap("SIGINT") { exit 1 }
+require 'optparse'
 
-opts = Slop.parse do
-    on :s, :seconds=, 'Wait for x seconds', :optional => false, :as => :integer
-    on :m, :minutes=, 'Wait for x minutes', :optional => false, :as => :Integer
-    on :h, :hours=, 'Wait for x hours', :optional => false, :as => :Integer
-    on :x, :type=, 'The type of notification'
-    on :t, :text=, 'The text of the notification'
-    on :n, :nosound, "Don't turn on sound, just show notification"
-    on :q, :quiet, "Don't output anything"
-    on :help, "Print help"
+options = { :seconds => 0.0 ,
+            :minutes => 0.0 ,
+            :hours => 0.0 ,
+            :text => "Time's up¡",
+            :nosound => false,
+            :quiet => false }
+
+parser = OptionParser.new do |opts|
+  opts.banner = "eieruhr: waits for a specified amount of time and then starts music via mpd and gives a popup notification via notify-send (optionally yad). Requires: notify-send compatibility, mpd+mpc (plus a playlist called eieruhr)."
+  opts.on("-h","--help","Display this help screen") {puts opts; exit 0}
+  opts.on("-s","--seconds NUMBER",Float,'Wait for x seconds') {|s| options[:seconds] = s}
+  opts.on("-m", "--minutes NUMBER", Float, 'Wait for x minutes') {|m| options[:minutes] = m}
+  opts.on("--hours NUMBER", Float, 'Wait for x hours') {|h| options[:hours] = h}
+  opts.on("-t", "--text TEXT", 'The text of the notification') {|text| options[:text] = text}
+  opts.on("-n", "--nosound", "Don't start music") {options[:nosound] = true}
+  opts.on("-q", "--quiet", "Don't output anything, don't notify") {options[:quiet] = true}
 end
 
-#if opts[:seconds].class and opts[:minutes].class and opts[:hours].class == NilClass
-#  puts "At least one of seconds, minutes or hours has to be given an argument"
-#  exit 1
-#end
-
-if opts[:help]
-  puts "\
-eieruhr: waits for a specified amount of time and then starts music via mpd and \
-gives a popup notification via notify-send (optionally yad). Requires: \
-notify-send compatibility, mpd+mpc (plus a playlist called eieruhr), oss."
-  puts opts
-  exit 0
-end
+parser.parse!
 
 class Eieruhr
-    def initialize(slopts)
-        @opts = slopts
-        @message = @opts[:text] || "Time's up! "
-        @title = "Eieruhr"
-        @type = @opts[:type] || "notify-send"
-        @nosound = @opts[:nosound] || false
-        @quiet = @opts[:quiet] || false
+  def initialize(x)
+    @opts = x
+    @title = "Eieruhr"
 
-        @seconds = 0
-        @seconds += @opts[:seconds] if @opts[:seconds]
-        @seconds += @opts[:minutes]*60 if @opts[:minutes]
-        @seconds += @opts[:hours]*3600 if @opts[:hours]
+    @seconds = 0.0 + (@opts[:seconds]) + (@opts[:minutes]*60) + (@opts[:hours]*3600)
 
-        # which mpd playlist to load
-        @playlist = "eieruhr"
-    end
+    @playlist = "eieruhr"
+  end
 
-    def sleepit
-        system("date") unless @quiet
-        puts "Sleeping for " + @seconds.to_s + " seconds" unless @quiet
-        sleep @seconds
-        system("date") unless @quiet
-    end
+  attr_accessor :seconds
 
-    def startmusic
-        # obviously, if you use alsa and not oss there will be another way,
-        # this ossmix command activates my notebook's built-in speakers
-        # ossmix jack.int-speaker.mode mix2
-        # the alsa alternative: amixer set Speaker unmute
-        system("(amixer set Speaker unmute && \
-                 mpc clear && \
-                 mpc load #{@playlist} && \
-                 mpc play) &>/dev/null")
-    end
+  def sleepit
+    # using the date command to get a localized version of the time
+    system("date") unless @opts[:quiet]
+    puts "Sleeping for " + @seconds.to_s + " seconds" unless @opts[:quiet]
+    sleep @seconds
+    system("date") unless @opts[:quiet]
+  end
 
-    def notify_me
-        case @type
-        when "notify-send"
-          system(%Q[notify-send -u critical -t 0 Eieruhr "#{Time.new.strftime("%H:%M:%S")}: #{@message} "])
-        when "yad"
-          system(%Q!yad --title "Eieruhr" --text "#{Time.new.strftime("%H:%M:%S") + ": " + @message} " --button='gtk-ok:0'!)
-        else
-          puts "Don't have that type of notification"
-          exit 1
-        end
-    end
+  def startmusic
+    system("(amixer set Speaker unmute && \
+             mpc clear && \
+             mpc load #{@playlist} && \
+             mpc play) &>/dev/null")
+  end
 
-    def run
-        sleepit
-        startmusic unless @nosound
-        notify_me
-    end
+  def notify_me
+    system(%Q[notify-send -u critical -t 0 #{@title} "#{Time.new.strftime("%H:%M:%S")}: #{@opts[:text]} "])
+  end
+
+  def run
+    sleepit
+    startmusic unless @opts[:nosound]
+    notify_me unless @opts[:quiet]
+  end
 end
 
-my = Eieruhr.new(opts)
-#if my.instance_variable_get(:@seconds) == 0
-#  puts "The total time has to be over 0 seconds"
-#  exit 1
-#end
+my = Eieruhr.new(options)
+if my.seconds <= 0.0
+  puts "The total time has to be over 0 seconds"
+  exit 1
+end
 my.run
