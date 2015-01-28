@@ -164,6 +164,7 @@ for_window [class="Gcolor2"] floating enable
 for_window [class="Wine"] floating enable
 for_window [class="Gsimplecal"] floating enable
 for_window [class="Leafpad"] floating enable
+for_window [class="(?i)xvt"] border none
 
 
 ### modes
