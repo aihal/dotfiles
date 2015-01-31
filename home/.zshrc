@@ -339,6 +339,10 @@ alias killall5="echo HAHAHA you did not really just do that, did you idiot"
 
 ## Functions ##
 
+yout() {
+  youtube-dl $@ ; notify-send -u critical youtubedl
+}
+
 plzs() {
   grep -i "$1" ~/bin/plz.csv
 }
