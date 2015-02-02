@@ -11,7 +11,11 @@ ARGV.each do |target|
     begin
       page = open(target) {|x| x.read}
     rescue OpenURI::HTTPError
-      STDERR.puts "httperror » retrying"
+      #handle a sort of 404 differently from others?
+      #if mistakenly given a link that works but has 
+      #no actual video links. possibly have to handle
+      #this further down during parsing
+      STDERR.puts "httperror » retrying " + target
       redo
     else
       break

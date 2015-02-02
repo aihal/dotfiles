@@ -1,0 +1,9 @@
+#!/bin/bash
+# - ffopen
+set -o nounset
+set -o errexit
+IFS="`printf '\n\t'`"
+
+# this is for newsbeuter, i'm sick of firefox's constant error messages
+# GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+echo opening $1 && firefox -new-tab $1 2>/dev/null
