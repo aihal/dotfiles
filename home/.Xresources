@@ -16,10 +16,10 @@ URxvt.url-select.launcher:        firefox -new-tab
 
 urxvt*cursorColor:  #567b83
 ! change the following four lines to switch between dark and light background theme
-!urxvt*background:   #000000
-!urxvt*foreground:   #C1C1C1
-urxvt*background:   #DADADA
-urxvt*foreground:   #000000
+urxvt*background:   #000000
+urxvt*foreground:   #C1C1C1
+!urxvt*background:   #B5B5B5
+!urxvt*foreground:   #000000
 
 !!black like above
 *color0 : #222222

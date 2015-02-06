@@ -1,4 +1,6 @@
-map ü :tabs<CR>
+"map ü :tabs<CR>
+"map ü :execute "!notify-send  -t 1000 'fftitle' '" + document.title + "'"<CR>
+map ü :echo document.title<CR>
 map B :buffer! #<CR>
 map ö gT
 map ä gt

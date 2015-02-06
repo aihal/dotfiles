@@ -167,5 +167,3 @@ function! VisualSearch(direction) range
 endfunction
 
 """""""""""""""""""""""
-
-

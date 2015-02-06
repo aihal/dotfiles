@@ -5,6 +5,8 @@
 require 'nokogiri'
 require 'open-uri'
 
+links = []
+
 ARGV.each do |target|
 
   while true
@@ -29,8 +31,8 @@ ARGV.each do |target|
 
 
   while true
-    begin
-      page2 = open("http://watchseries.ag#{l.first.attr('href')}") {|x| x.read}
+    begin# .attr breaks here if there are no video.tt links on the page, could catch that above
+      page2 = open("http://watchseries.ag#{l.first.attr('href')}") {|x| x.read} 
     rescue OpenURI::HTTPError
       STDERR.puts "httperror » retrying"
       redo
@@ -41,6 +43,8 @@ ARGV.each do |target|
   doc2 = Nokogiri::HTML.parse(page2)
   l2 = doc2.css("a").map {|link| link}
   l2.select! {|x| x.attr("class") == "myButton"}
-  puts l2.first.attr("href")
+  links << l2.first.attr("href")
 
 end#ARGV.each
+
+puts links

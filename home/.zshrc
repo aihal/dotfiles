@@ -2,6 +2,15 @@
 # Mödified by Ogion
 ################################################################################
 
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=100000
+setopt extended_history
+setopt histignorealldups
+setopt inc_append_history autocd extendedglob nomatch notify
+setopt noclobber
+unsetopt beep
 
 autoload -U colors && colors
 if [[ $UID -eq 0 ]] ; then
@@ -97,15 +106,6 @@ setopt INTERACTIVE_COMMENTS
 # don't kill programs& if exiting the shell
 setopt nohup
 
-# history
-HISTFILE=~/.zsh_history
-HISTSIZE=5000
-SAVEHIST=10000
-setopt extended_history
-setopt histignorealldups
-setopt inc_append_history autocd extendedglob nomatch notify
-setopt noclobber
-unsetopt beep
 
 REPORTTIME=5       # report about cpu-/system-/user-time of command if running longer than 5 seconds
 
