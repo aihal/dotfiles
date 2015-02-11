@@ -14,58 +14,69 @@ usage() {
     echo The script guesses according to filename ending.
 }
 
-case $filename in 
+case "$filename" in 
     *.lsp)
-        echo '#!/usr/bin/newlisp' >> $filename
-        echo '# vim:ft=newlisp' >> $filename
-        echo >> $filename
-        echo >> $filename
-        echo >> $filename
-        echo '(exit)' >> $filename
+        echo '#!/usr/bin/newlisp' >> "$filename"
+        echo '# vim:ft=newlisp' >> "$filename"
+        echo >> "$filename"
+        echo >> "$filename"
+        echo >> "$filename"
+        echo '(exit)' >> "$filename"
         ;;
     *.pl)
-        echo '#!/usr/bin/perl' >> $filename
-        echo  >> $filename
-        echo '#use warnings;' >> $filename
-        echo '#use strict;' >> $filename
-        echo 'use common::sense;' >> $filename
-        echo >> $filename
+        echo '#!/usr/bin/perl' >> "$filename"
+        echo  >> "$filename"
+        echo '#use warnings;' >> "$filename"
+        echo '#use strict;' >> "$filename"
+        echo 'use common::sense;' >> "$filename"
+        echo >> "$filename"
         ;;
     *.sh)
-        echo '#!/bin/bash' >> $filename
-        echo "# - $filename" >> $filename
-        echo "set -o nounset" >> $filename
-        echo "set -o errexit" >> $filename
-        echo "IFS=\"\`printf '\n\t'\`\"" >> $filename
+        echo '#!/bin/bash' >> "$filename"
+        echo "# - $filename" >> "$filename"
+        echo "set -o nounset" >> "$filename"
+        echo "set -o errexit" >> "$filename"
+        echo "IFS=\"\`printf '\n\t'\`\"" >> "$filename"
         ;;
     *.fish)
-        echo '#!/usr/bin/fish' >> $filename
-        echo "# - $filename" >> $filename
+        echo '#!/usr/bin/fish' >> "$filename"
+        echo "# - $filename" >> "$filename"
         ;;
     *.scm)
-        echo '#!/usr/bin/guile -s' >> $filename
-        echo '!#' >> $filename
-        echo '' >> $filename
+        echo '#!/usr/bin/guile -s' >> "$filename"
+        echo '!#' >> "$filename"
+        echo '' >> "$filename"
         ;;
     *.rb)
-        echo '#!/usr/bin/ruby' >> $filename
-        echo '# coding: utf-8' >> $filename
-        echo "# $filename" >> $filename
-        echo >> $filename
+        echo '#!/usr/bin/ruby' >> "$filename"
+        echo '# coding: utf-8' >> "$filename"
+        echo "# $filename" >> "$filename"
+        echo >> "$filename"
         ;;
     *.lua)
-        echo '#!/usr/bin/lua -f' >> $filename
-        echo "-- $filename" >> $filename
-        echo >> $filename
+        echo '#!/usr/bin/lua -f' >> "$filename"
+        echo "-- $filename" >> "$filename"
+        echo >> "$filename"
         ;;
       *.py)
-        echo '#!/usr/bin/python' >> $filename
-        echo "# $filename" >> $filename
-        echo >> $filename
+        echo '#!/usr/bin/python' >> "$filename"
+        echo "# $filename" >> "$filename"
+        echo >> "$filename"
+        ;;
+      *.nim)
+        echo 'import os' >> "$filename"
+        echo "# $filename" >> "$filename"
+        echo  >> "$filename"
+        echo "const source = slurp(\"./$filename\")" >> "$filename"
+        echo 'let a = commandLineParams()' >> "$filename"
+        echo 'if a[0] == "--source" or a[0] == "-s":' >> "$filename"
+        echo '  echo source' >> "$filename"
+        echo '  quit 0' >> "$filename"
+        echo  >> "$filename"
         ;;
     *)
         echo "not yet implemented"
         ;;
 esac
 
-[[ -f $filename ]] && chmod u+x $filename
+[[ -f "$filename" ]] && chmod u+x "$filename"

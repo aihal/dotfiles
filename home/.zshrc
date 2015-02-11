@@ -21,6 +21,7 @@ fi
 
 # ls colors
 eval $(dircolors -b) 
+export CLICOLOR=1
 
 
 function zrcautoload() {
