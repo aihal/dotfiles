@@ -334,6 +334,9 @@ alias units="units -v"
 alias wget="wget -c"
 alias h=homeshick
 alias compton="compton -cCGf -i 0.8 -e 0.8  --sw-opti -o 0.0 -D 3 " # just an infodump
+alias mv="mv -i"
+alias rm="rm -i"
+alias cp="cp -i"
 
 # oink
 alias killall5="echo HAHAHA you did not really just do that, did you idiot"
