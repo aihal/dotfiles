@@ -28,10 +28,13 @@ ARGV.each do |target|
 
   l = doc.css("a").map {|link| link}
   l.select! {|x| x.attr("title") == "video.tt"}
-
+  if l == [] # preventing undef. method errors in the next whileloop
+    STDERR.print "No result for: ", target, "\n"
+    next
+  end
 
   while true
-    begin# .attr breaks here if there are no video.tt links on the page, could catch that above
+    begin
       page2 = open("http://watchseries.ag#{l.first.attr('href')}") {|x| x.read} 
     rescue OpenURI::HTTPError
       STDERR.puts "httperror » retrying"
