@@ -5,6 +5,10 @@ set -o nounset
 set -o errexit
 
 [[ -n $1 ]] && filename=$1
+if [[ -f $filename ]]; then
+  echo "File exists already"
+  exit 1
+fi
 
 usage() {
     echo This script will automatically put a set 
