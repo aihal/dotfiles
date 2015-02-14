@@ -89,7 +89,9 @@ compinit
 # {{{ 'hash' some often used directories
 #d# start
 #example:
-#hash -d bin=$HOME/bin
+hash -d bin=$HOME/bin
+hash -d tv=$HOME/video/tv
+hash -d screens=$HOME/bilder/Screenshots/2015
 #d# end
 # }}}
 
@@ -288,7 +290,7 @@ fi
 alias ..='cd ..'
 alias ...='cd ../../'
 alias cd..='cd ..'
-alias cdscreens='cd ~/bilder/Screenshots/2014/'
+alias cdscreens='cd ~/bilder/Screenshots/2015/'
 alias cdtv="cd ~/video/tv/"
 alias cl='clear && l'
 alias cll='clear&&ll'
