@@ -101,8 +101,9 @@ hash -d screens=$HOME/bilder/Screenshots/2015
 ## define word separators (for stuff like backward-word, forward-word, backward-kill-word,..)
 #WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>' # the default
 #WORDCHARS=.
-WORDCHARS='*?_[]~=&;!#$%^(){}'
+#WORDCHARS='*?_[]~=&;!#$%^(){}'
 #WORDCHARS='${WORDCHARS:s@/@}'
+WORDCHARS='_-*~'
 
 ## Allow comments even in interactive shells
 setopt INTERACTIVE_COMMENTS
