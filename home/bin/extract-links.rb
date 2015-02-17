@@ -6,6 +6,7 @@ require 'nokogiri'
 require 'open-uri'
 
 links = []
+videohost = ENV["VIDEOHOST"] || "video.tt"
 
 ARGV.each do |target|
 
@@ -27,7 +28,7 @@ ARGV.each do |target|
   doc = Nokogiri::HTML.parse(page)
 
   l = doc.css("a").map {|link| link}
-  l.select! {|x| x.attr("title") == "video.tt"}
+  l.select! {|x| x.attr("title") == videohost }
   if l == [] # preventing undef. method errors in the next whileloop
     STDERR.print "No result for: ", target, "\n"
     next
