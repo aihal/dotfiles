@@ -350,6 +350,14 @@ yout() {
   youtube-dl $@ ; notify-send -u critical youtubedl
 }
 
+# Pressing meta-y or ESC-y will input "yout $(xclip -o)" into the current commandline
+yout-helper() {
+  BUFFER="yout $(xclip -o | tr '\n' ' ')"
+  CURSOR="$#BUFFER"
+}
+zle -N yout-helper
+bindkey "^[y" yout-helper
+
 plzs() {
   grep -i "$1" ~/bin/plz.csv
 }
