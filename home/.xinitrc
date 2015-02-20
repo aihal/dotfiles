@@ -6,9 +6,10 @@ xrdb -merge ~/.Xresources
 setxkbmap de
 xmodmap ~/.xmodmaprc
 urxvtd -q -f -o
-anamnesis --start
+anamnesis --start &
 xset s off
 xset -dpms
+sh /home/ogion/.fehbg &
 
 unset LC_ALL
 export LANG=de_DE.UTF-8
