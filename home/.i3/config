@@ -113,30 +113,29 @@ mode "resize" {
 }
 
 # class                 border  backgr. text    indicator
-#client.focused          #4c7899 #92AFDE #000000 #2e9ef4
-client.focused          #4c7899 #567DBB #000000 #2e9ef4
+#client.focused          #4c7899 #567DBB #000000 #2e9ef4
+client.focused          #E57910 #E57910 #ffffff #292d2e
 client.focused_inactive #333333 #5f676a #ffffff #484e50
-client.unfocused        #333333 #222222 #888888 #292d2e
+client.unfocused        #4B3621 #4B3621 #000000 #2e9ef4
 client.urgent           #2f343a #900000 #ffffff #900000
 
 # Start i3bar to display a workspace bar
 bar {
-        #status_command ~/bin/i3bar_conky_json.sh
         status_command i3blocks -c /home/ogion/.i3/i3blocks.conf
-        font pango:Linux Biolinum 12
+        font pango:Dejavu Sans Mono 9
         mode dock
         position top
         tray_output LVDS1
         workspace_buttons yes
-# bright color scheme
-#        colors {
-#          background #DADADA
-#          statusline #000000
-#          focused_workspace  #4c7899 #567DBB #ffffff
-#          active_workspace   #333333 #567DBB #ffffff
-#          inactive_workspace #333333 #5F676A #000000
-#          urgent_workspace   #2f343a #900000 #ffffff
-#        }
+# brown, grey and orange color scheme
+        colors {
+          background #464646
+          statusline #FFFFFF
+          focused_workspace  #E57910 #E57910 #ffffff
+          active_workspace   #4B3621 #4B3621 #ffffff
+          inactive_workspace #4B3621 #4B3621 #000000
+          urgent_workspace   #2f343a #900000 #ffffff
+        }
 }
 
 
