@@ -1,0 +1,11 @@
+#!/bin/sh
+
+volume=$(amixer get Master | tail -n 1 | cut -d ' ' -f 6 | tr -d '[]')
+
+#speakers=$(amixer get Speaker | tail -n 1 | rev|cut -f1 -d' ' | rev)
+speakers=$(amixer get Speaker | tail -n 1)
+speakers=${speakers##* }
+
+echo $volume $speakers
+echo $volume $speakers
+echo "#FA7D04"

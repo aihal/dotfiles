@@ -140,7 +140,7 @@ bar {
 
 
 # autostart
-exec --no-startup-id sh /home/ogion/.fehbg
+#exec --no-startup-id sh /home/ogion/.fehbg
 exec --no-startup-id parcellite
 
 
