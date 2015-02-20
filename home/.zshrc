@@ -340,6 +340,7 @@ alias compton="compton -cCGf -i 0.8 -e 0.8  --sw-opti -o 0.0 -D 3 " # just an in
 alias mv="mv -i"
 alias rm="rm -i"
 alias cp="cp -i"
+alias gits="git status"
 
 # oink
 alias killall5="echo HAHAHA you did not really just do that, did you idiot"
