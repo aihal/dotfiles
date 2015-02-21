@@ -235,7 +235,7 @@ bindkey '^Xe' edit-command-line
                             zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
 
 
-# }}} end completion system
+## }}} end completion system
 
 ### set colors for use in prompts
 if zrcautoload colors && colors 2>/dev/null ; then 
@@ -258,11 +258,7 @@ else
     NO_COLOUR=$'%{\e[0m%}'
 fi
 
-#
-
-## aliases ##
-
-## Normal aliases, added by Ogion
+### aliases
 
 alias ..='cd ..'
 alias ...='cd ../../'
@@ -303,13 +299,13 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias gits="git status"
 
-## Functions ##
+### Functions
 
 yout() {
   youtube-dl $@ ; notify-send -u critical youtubedl
 }
 
-# Pressing meta-y or ESC-y will input "yout $(xclip -o)" into the current commandline
+## Pressing meta-y or ESC-y will input "yout $(xclip -o)" into the current commandline
 yout-helper() {
   BUFFER="yout $(xclip -o | tr '\n' ' ')"
   CURSOR="$#BUFFER"
@@ -389,29 +385,12 @@ x () {
   fi
 }
 
-# END FUNCTIONS
+### END FUNCTIONS
 
-# key bindings
+## key bindings
 
 bindkey -e
 
-#bindkey "\e[1~": beginning-of-line
-#bindkey "\e[4~": end-of-line
-#bindkey "\e[5~": beginning-of-history
-#bindkey "\e[6~": end-of-history
-#bindkey "\e[7~": beginning-of-line
-#bindkey "\e[3~": delete-char
-#bindkey "\e[2~": quoted-insert
-#bindkey "\e[5C": forward-word
-#bindkey "\e[5D": backward-word
-#bindkey "\e\e[C": forward-word
-#bindkey "\e\e[D": backward-word
-#bindkey "\e[1;5C": forward-word
-#bindkey "\e[1;5D": backward-word
-#bindkey '5D' emacs-backward-word
-#bindkey '5C' emacs-forward-word
-
-#testing for urxvt
 bindkey "\eOd" emacs-backward-word
 bindkey "\eOD" emacs-backward-word
 bindkey "\e\e[D" emacs-backward-word
@@ -420,42 +399,30 @@ bindkey "\eOC" emacs-forward-word
 bindkey "\e\e[C" emacs-forward-word
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[8~" end-of-line
-
-# for inside tmux
+## for inside tmux
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
-
-# # for rxvt
-#bindkey "\e[8~" end-of-line
-#bindkey "\e[7~" beginning-of-line
-# # for non RH/Debian xterm, can't hurt for RH/Debian xterm
-#bindkey "\eOH" beginning-of-line
-#bindkey "\eOF" end-of-line
-# # for freebsd console
-#bindkey "\e[H" beginning-of-line
-#bindkey "\e[F" end-of-line
-# # completion in the middle of a line
 bindkey '^i' expand-or-complete-prefix
-
 bindkey  "\e[A"    history-search-backward
 bindkey  "\e[B"    history-search-forward
 
 #zle-keymap-select () {
-#if [ $KEYMAP = vicmd ]; then
-#echo -ne "\033]12;Red\007"
-#else
-#echo -ne "\033]12;Grey\007"
-#fi
+#  if [ $KEYMAP = vicmd ]; then
+#    echo -ne "\033]12;Red\007"
+#  else
+#    echo -ne "\033]12;Grey\007"
+#  fi
 #}
 #zle -N zle-keymap-select
 #zle-line-init () {
-#zle -K viins
-#echo -ne "\033]12;Grey\007"
+#  zle -K viins
+#  echo -ne "\033]12;Grey\007"
 #}
 #zle -N zle-line-init
 #bindkey -v
+#bindkey '^r' history-incremental-search-backward
 
-# support colors in less
+## support colors in less
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
 export LESS_TERMCAP_me=$'\E[0m'
@@ -464,6 +431,19 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-# zsh-syntax-highlighting
+## zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+## colors for zsh-syntax-highlighting
+ZSH_HIGHLIGHT_STYLES[default]='fg=cyan,bold' #base1
+ZSH_HIGHLIGHT_STYLES[alias]='fg=white'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[function]='fg=white'
+ZSH_HIGHLIGHT_STYLES[command]='fg=white'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=white'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=green,bold' #base01
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue,bold' #base0
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue,bold' #base0
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=red,bold' #orange
 
