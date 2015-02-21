@@ -9,7 +9,8 @@ urxvtd -q -f -o
 anamnesis --start &
 xset s off
 xset -dpms
-sh /home/ogion/.fehbg &
+#sh /home/ogion/.fehbg &
+habak -mp 144,0 -hi '/home/ogion/bilder/Personen/ea79a41584a6bae4c30ec6556cc1f25b.jpg' &
 
 unset LC_ALL
 export LANG=de_DE.UTF-8

@@ -82,6 +82,7 @@ source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 export PATH=$PATH:~/bin
 export PAGER="/bin/less"
+export EDITOR=vim
 autoload -U compinit
 compinit
 #promptinit
