@@ -108,9 +108,12 @@ WORDCHARS='_-*~'
 
 ## Allow comments even in interactive shells
 setopt INTERACTIVE_COMMENTS
-# don't kill programs& if exiting the shell
+## don't kill programs& if exiting the shell
 setopt nohup
-
+## dont warn me about bg processes when exiting
+setopt nocheckjobs
+## alert me if something failed
+setopt printexitvalue
 
 REPORTTIME=5       # report about cpu-/system-/user-time of command if running longer than 5 seconds
 
@@ -118,11 +121,6 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^Xe' edit-command-line
 
-## dont warn me about bg processes when exiting
-setopt nocheckjobs
-
-## alert me if something failed
-setopt printexitvalue
 
 # {{{ completion system
 
@@ -237,30 +235,7 @@ setopt printexitvalue
                             zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
 
 
-# }}}
-_force_rehash()
-{
-    (( CURRENT == 1 )) && rehash
-    return 1
-}
-
-if_not_loaded()                                                                                                 
-{
-    module=$(zmodload -L | grep $1) 
-        
-    if [[ -z $module ]]; then
-        return 0
-    else
-        return 1
-    fi  
-}
-
-################## COMPLETION ###################
-# this stuff is too complicated for my motivation, 
-# it was commented out for so long, clearly i don't 
-# need it, so i kicked it out. If i need it, it i's 
-# in the git hitsory of this file
-
+# }}} end completion system
 
 ### set colors for use in prompts
 if zrcautoload colors && colors 2>/dev/null ; then 
@@ -294,34 +269,22 @@ alias ...='cd ../../'
 alias cd..='cd ..'
 alias cdscreens='cd ~/bilder/Screenshots/2015/'
 alias cdtv="cd ~/video/tv/"
-alias cl='clear && l'
-alias cll='clear&&ll'
 alias cux='chmod u+x'
 alias df='df -h'
 alias du='du -h'
 alias du0='du --max-depth 0'
 alias du1='du --max-depth 1'
 alias free='free -m'
-alias mplayer='echo use mpv instead'
 alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --no-input-joystick --volume=100'
-alias locate="locate -i"
-alias v='vim'
 alias crontab='crontab -e'
-alias cal='cal -m'
-alias cdb='cd ~/books/'
 alias ph='ping heise.de'
-alias pingrouter='ping 192.168.0.1'
-alias gpv=gpicview
 alias p=pacman
 alias grep="grep --color"
-alias scpresume="rsync --partial --progress --rsh=ssh"
 alias l='ls -CF --color=auto'
 alias la='ls -aCF --color=auto'
 alias ll="ls -lh --color=auto"
 #alias sshraku="ssh lolwut.nl"
 alias  sshraku="ssh 94.213.236.128"
-alias -s PDF="zathura"
-alias -s pdf="zathura"
 alias vimzshrc="vim ~/.zshrc"
 alias vimvimrc="vim ~/.vimrc"
 alias vimi3="vim ~/.i3/config"
@@ -329,22 +292,16 @@ alias vimzitate="vim /home/ogion/www/NetteZitate.asciidoc"
 alias vimletsplayer="vim ~/documents/letsplayer"
 alias rmflash='rm -Rf ~/.macromedia ~/.adobe'
 alias spu="sudo pacman -U"
-alias qiv="qiv -Rfmi"
-alias offlineimap='offlineimap -o'
 alias myrsync="rsync -avh --partial --progress"
 alias sx="sxiv -f"
-alias vimtodo="vim ~/todo"
 alias units="units -v"
 alias wget="wget -c"
 alias h=homeshick
-alias compton="compton -cCGf -i 0.8 -e 0.8  --sw-opti -o 0.0 -D 3 " # just an infodump
+#alias compton="compton -cCGf -i 0.8 -e 0.8  --sw-opti -o 0.0 -D 3 " # just an infodump
 alias mv="mv -i"
 alias rm="rm -i"
 alias cp="cp -i"
 alias gits="git status"
-
-# oink
-alias killall5="echo HAHAHA you did not really just do that, did you idiot"
 
 ## Functions ##
 
@@ -360,6 +317,12 @@ yout-helper() {
 zle -N yout-helper
 bindkey "^[y" yout-helper
 
+waitany() {
+  while [[ ( -d /proc/$1 ) && ( -z `/usr/bin/grep zombie /proc/$1/status` ) ]]; do
+    sleep 1
+  done
+}
+
 plzs() {
   grep -i "$1" ~/bin/plz.csv
 }
@@ -371,6 +334,7 @@ howmanyfiles() {
 tclsh() {
   rlwrap -pBlue -m -q'"' tclsh $@
 }
+
 modifiedEtcFiles() {
   pacman -Qii 2>/dev/null | egrep "\<MODIFIED\>" | cut -f 2
 }
@@ -381,11 +345,7 @@ psauxg() { ps aux | grep -v grep | grep "$@" }
 mcd() { [ -n "$1" ] && mkdir -p "$@" && cd "$1"; }
   compdef _mkdir mcd
 
-pacurl() { p -Si "$@" | grep "^URL" | sed -e 's/ //g' | cut -d ":" -f 2- }
-
 myip() { ifdata -pa "$1" }
-
-xrandrvga1() { xrandr --output VGA1 --auto --right-of LVDS1 }
 
 showcolors() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
@@ -504,8 +464,6 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-
-## END OF FILE #################################################################
-
 # zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
