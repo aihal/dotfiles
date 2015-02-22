@@ -2,6 +2,7 @@
 # Mödified by Ogion
 ################################################################################
 
+zmodload zsh/datetime
 # history
 HISTFILE=~/.zsh_history
 HISTSIZE=50000
@@ -76,10 +77,16 @@ precmd() {
 
 ##########
 
-
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+function homeshick() {
+  if [ "$1" = "cd" ] && [ -n "$2" ]; then
+    cd "$HOME/.homesick/repos/$2"
+  else
+    $HOME/.homesick/repos/homeshick/bin/homeshick "$@"
+  fi
+}
 # This has to come before compinit for zsh to pick up homeshick completion
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
+
 export PATH=$PATH:~/bin
 export PAGER="/bin/less"
 export EDITOR=vim
