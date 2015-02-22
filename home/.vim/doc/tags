@@ -23,6 +23,15 @@ surround-mappings	surround.txt	/*surround-mappings*
 surround-replacements	surround.txt	/*surround-replacements*
 surround-targets	surround.txt	/*surround-targets*
 surround.txt	surround.txt	/*surround.txt*
+taskpaper	taskpaper.txt	/*taskpaper*
+taskpaper-config	taskpaper.txt	/*taskpaper-config*
+taskpaper-customize	taskpaper.txt	/*taskpaper-customize*
+taskpaper-install	taskpaper.txt	/*taskpaper-install*
+taskpaper-licence	taskpaper.txt	/*taskpaper-licence*
+taskpaper-mappings	taskpaper.txt	/*taskpaper-mappings*
+taskpaper-plugin	taskpaper.txt	/*taskpaper-plugin*
+taskpaper-syntax	taskpaper.txt	/*taskpaper-syntax*
+taskpaper.txt	taskpaper.txt	/*taskpaper.txt*
 vs	surround.txt	/*vs*
 yS	surround.txt	/*yS*
 ySS	surround.txt	/*ySS*
