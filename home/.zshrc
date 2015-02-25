@@ -312,14 +312,6 @@ yout() {
   youtube-dl $@ ; notify-send -u critical youtubedl
 }
 
-## Pressing meta-y or ESC-y will input "yout $(xclip -o)" into the current commandline
-yout-helper() {
-  BUFFER="yout $(xclip -o | tr '\n' ' ')"
-  CURSOR="$#BUFFER"
-}
-zle -N yout-helper
-bindkey "^[y" yout-helper
-
 waitany() {
   while [[ ( -d /proc/$1 ) && ( -z `/usr/bin/grep zombie /proc/$1/status` ) ]]; do
     sleep 1
@@ -397,6 +389,25 @@ x () {
 ## key bindings
 
 bindkey -e
+
+## Pressing meta-y or ESC-y will input "yout $(xclip -o)" into the current commandline
+yout-helper() {
+  BUFFER="yout $(xclip -o | tr '\n' ' ')"
+  CURSOR="$#BUFFER"
+}
+zle -N yout-helper
+bindkey "^[y" yout-helper
+youtube-helper() {
+  local -a links
+  links=($(xclip -o))
+  # this seems hacky, is there a better way to wrap elements of an array in quotes?
+  local i; for i in {1..$#links}; do links[$i]=\'$links[$i]\'; done; unset i
+  BUFFER="yout -f 18 $links"
+  CURSOR="$#BUFFER"
+  unset links
+}
+zle -N youtube-helper
+bindkey "^[Y" youtube-helper
 
 bindkey "\eOd" emacs-backward-word
 bindkey "\eOD" emacs-backward-word
