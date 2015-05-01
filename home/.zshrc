@@ -360,10 +360,6 @@ filewhich() {
     echo =$1 && file =$1
 }
 
-whoowns() {
-  pacman -Qo =$1
-}
-
 x () {
     if [ -f $1 ]; then
             case $1 in
