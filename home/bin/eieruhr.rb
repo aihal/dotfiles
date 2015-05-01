@@ -47,10 +47,9 @@ class Eieruhr
   end
 
   def startmusic
-    system("(amixer set Speaker unmute && \
-             mpc clear && \
-             mpc load #{@playlist} && \
-             mpc play) &>/dev/null")
+    `amixer set Speaker unmute`
+    `mpc load #{@playlist}` if `mpc playlist` == ""
+    `mpc play`
   end
 
   def notify_me

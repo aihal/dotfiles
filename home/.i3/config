@@ -15,6 +15,9 @@ bindsym Mod4+t exec urxvtc
 # kill focused window
 bindsym Mod4+Shift+q kill
 
+# lock screen
+bindsym XF86Launch3 exec i3lock
+
 # start dmenu (a program launcher)
 bindsym Mod4+c exec /home/ogion/bin/ogidmenu.sh
 bindsym Mod4+p exec notify-send -t 1000 "transitional dummy" "use mod4+c instead"

@@ -100,6 +100,7 @@ compinit
 hash -d bin=$HOME/bin
 hash -d tv=$HOME/video/tv
 hash -d screens=$HOME/bilder/Screenshots/2015
+hash -d fanfic=$HOME/documents/fanfic
 #d# end
 # }}}
 
@@ -278,7 +279,7 @@ alias du='du -h'
 alias du0='du --max-depth 0'
 alias du1='du --max-depth 1'
 alias free='free -m'
-alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --no-input-joystick --volume=100'
+alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --volume=100'
 alias crontab='crontab -e'
 alias ph='ping heise.de'
 alias p=pacman
@@ -353,14 +354,14 @@ search() {
 }
 
 vimwhich() { 
-    which $1 && vim `which $1`
+    echo =$1 && vim =$1
 }
 filewhich() { 
-    which $1 && file `which $1`
+    echo =$1 && file =$1
 }
 
 whoowns() {
-  pacman -Qo `which $1`
+  pacman -Qo =$1
 }
 
 x () {
