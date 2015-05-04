@@ -10,7 +10,7 @@ anamnesis --start &
 xset s off
 xset -dpms
 #sh /home/ogion/.fehbg &
-habak -mp 212,0 -hi '/home/ogion/bilder/Personen/neu/amy_graine___master_of_white_magic_by_tjota-d8kqtsz.png'&
+habak -mp 212,0 -hi '/home/ogion/bilder/Personen/amy_graine___master_of_white_magic_by_tjota-d8kqtsz.png'&
 
 unset LC_ALL
 export LANG=de_DE.UTF-8
