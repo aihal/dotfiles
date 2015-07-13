@@ -279,7 +279,7 @@ alias du='du -h'
 alias du0='du --max-depth 0'
 alias du1='du --max-depth 1'
 alias free='free -m'
-alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --volume=100'
+#alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --volume=100' # outsourced to config
 alias crontab='crontab -e'
 alias ph='ping heise.de'
 alias p=pacman
