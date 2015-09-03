@@ -60,6 +60,9 @@ bindsym Mod4+f fullscreen
 # toggle tiling / floating
 bindsym Mod4+Shift+space floating toggle
 
+# focus parent container
+bindsym Mod4+a focus parent
+
 # change focus between tiling / floating windows
 bindsym Mod4+space focus mode_toggle
 
@@ -195,7 +198,7 @@ mode $i3menu {
   bindsym e mode $exitmenu
   bindsym x exec i3-input; mode "default"
 
-  bindsym z workspace empty; exec i3lock -i /home/ogion/bilder/Personen/e-lee-the-squire-top-third.png; mode "default"
+  bindsym z workspace empty; exec i3lock -i '/home/ogion/bilder/Natur/Imagem16(1).png'; mode "default"
   bindsym Shift+z exec "sudo /root/ogisuspend.sh"; mode "default"
   bindsym b border toggle
   bindsym l layout toggle
