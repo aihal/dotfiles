@@ -1,6 +1,9 @@
 #!/usr/bin/newlisp
 # vim:ft=newlisp
 
+(println "AUR is now AUR4 and git-based. I doubt the old way is still working, this needs to be reworked :/")
+(exit)
+
 # make ctrl-c exit instead of calling the debugger
 (constant 'SIGINT 2)
 (define (ctrlC-handler) (begin (println "Aborting… ") (exit)))
