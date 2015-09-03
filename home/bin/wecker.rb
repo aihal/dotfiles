@@ -23,7 +23,8 @@ class Wecker
 
     # we don't care about what day of the week it is
     weekday = "*"
-    command = %Q|(amixer set Speaker unmute && amixer set Master -q 70 && mpc play; DISPLAY=":0" notify-send -u critical "weckeradd" "#{@notification_text}")|
+    #command = %Q|(amixer set Speaker unmute && amixer set Master -q 70 && mpc play; DISPLAY=":0" notify-send -u critical "weckeradd" "#{@notification_text}")|
+    command = %Q|(mpc play; DISPLAY=":0" notify-send -u critical "weckeradd" "#{@notification_text}")|
 
     return [minute,hour,day,month,weekday,command].join(" ")
   end
