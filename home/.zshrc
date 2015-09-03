@@ -399,7 +399,7 @@ youtube-helper() {
   links=($(xclip -o))
   # this seems hacky, is there a better way to wrap elements of an array in quotes?
   local i; for i in {1..$#links}; do links[$i]=\'$links[$i]\'; done; unset i
-  BUFFER="yout -f 18 $links"
+  BUFFER="yout -f 22 $links"
   CURSOR="$#BUFFER"
   unset links
 }
@@ -414,6 +414,7 @@ bindkey "\eOC" emacs-forward-word
 bindkey "\e\e[C" emacs-forward-word
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[8~" end-of-line
+bindkey "\e[3~" delete-char
 ## for inside tmux
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
