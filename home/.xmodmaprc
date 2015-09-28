@@ -12,4 +12,4 @@ keycode  51 = apostrophe numbersign apostrophe numbersign rightsinglequotemark d
 !!! menu key as compose key
 !keycode 135 = Multi_key
 !! menu key as Insert key
-keycode 135 = Insert Insert
+!keycode 135 = Insert Insert
