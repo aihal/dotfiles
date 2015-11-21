@@ -6,7 +6,7 @@ require 'nokogiri'
 require 'open-uri'
 
 links = []
-videohost = ENV["VIDEOHOST"] || "vidzi.tv"
+videohost = ENV["VIDEOHOST"] || "nowvideo.eu"
 
 ARGV.each do |target|
 

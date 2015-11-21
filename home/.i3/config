@@ -201,7 +201,7 @@ mode $i3menu {
   bindsym e mode $exitmenu
   bindsym x exec i3-input; mode "default"
 
-  bindsym z workspace empty; exec i3lock -i '/home/ogion/bilder/Natur/Imagem16(1).png'; mode "default"
+  bindsym z workspace empty; exec i3lock -u -i '/home/ogion/bilder/Natur/Imagem16(1).png'; mode "default"
   bindsym Shift+z exec "sudo /root/ogisuspend.sh"; mode "default"
   bindsym b border toggle
   bindsym l layout toggle
