@@ -1,25 +1,24 @@
 #!/usr/bin/ruby
-# setbackground
+# bgImg
+# relies on "identify" and "convert" from imagemagick
+# this also relies on the existance of the directory  "/home/ogion/bilder/Wallpaper/resized/"
+# as a target directory for resized images
+# and feh to set the background
 
 if ARGV.length == 0
   puts "needs an image as argument, aborting..."
   exit 1
 end
 
-targetPath = "/home/ogion/bilder/Wallpaper/resized/"
 originalImage = ARGV[0]
 targetDir="/home/ogion/bilder/Wallpaper/resized/"
 
 screenGeometry = [0,0]
 originalImageGeometry = [0,0]
 
-def getScreenGeometry
-  
-end
-
 def getImageGeometry(img)
   output = ""
-  output=`identify '#{img}' 2>/dev/null` #  | rev | cut -d' ' -f7 | rev
+  output=`identify '#{img}' 2>/dev/null`
   if $?.exitstatus == 1
     return [1, ""]
   else
@@ -28,8 +27,6 @@ def getImageGeometry(img)
   end
 end
 
-######
-#
 imgIdentify = getImageGeometry(originalImage)
 if imgIdentify[0] == 1
   puts "The image is either no image, doesn't exist or some other error occurred. Aborting..."
@@ -55,12 +52,11 @@ if originalImageSize*100 > diskFreeSpace
   exit 1
 end
 
-
 # figure out if image needs scaling down, if so, calculate factor
 xImg,yImg = originalImageGeometry
 xScreen,yScreen = screenGeometry
 
-# get the smallest of teh two relations, because that will be the
+# get the smallest of the two relations, because that will be the
 # smallest we will have to make the image
 factor = [xScreen/xImg, yScreen/yImg].min
 
