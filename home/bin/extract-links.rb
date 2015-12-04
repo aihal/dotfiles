@@ -6,7 +6,8 @@ require 'nokogiri'
 require 'open-uri'
 
 links = []
-videohost = ENV["VIDEOHOST"] || "nowvideo.eu"
+videohost = ENV["VIDEOHOST"] || "vidzi"
+
 
 ARGV.each do |target|
 
@@ -36,7 +37,8 @@ ARGV.each do |target|
 
   while true
     begin
-      page2 = open("http://watchseries.ag#{l.first.attr('href')}") {|x| x.read} 
+      #page2 = open("http://watchseries.lt#{l.first.attr('href')}") {|x| x.read} 
+      page2 = open("http://watchseries.lt#{l.last.attr('href')}") {|x| x.read} 
     rescue OpenURI::HTTPError
       STDERR.puts "httperror » retrying"
       redo

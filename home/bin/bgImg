@@ -1,0 +1,74 @@
+#!/usr/bin/ruby
+# setbackground
+
+if ARGV.length == 0
+  puts "needs an image as argument, aborting..."
+  exit 1
+end
+
+targetPath = "/home/ogion/bilder/Wallpaper/resized/"
+originalImage = ARGV[0]
+targetDir="/home/ogion/bilder/Wallpaper/resized/"
+
+screenGeometry = [0,0]
+originalImageGeometry = [0,0]
+
+def getScreenGeometry
+  
+end
+
+def getImageGeometry(img)
+  output = ""
+  output=`identify '#{img}' 2>/dev/null` #  | rev | cut -d' ' -f7 | rev
+  if $?.exitstatus == 1
+    return [1, ""]
+  else
+    output = output.chomp.split(" ")[-7]
+    return [0, output]
+  end
+end
+
+######
+#
+imgIdentify = getImageGeometry(originalImage)
+if imgIdentify[0] == 1
+  puts "The image is either no image, doesn't exist or some other error occurred. Aborting..."
+  exit 1
+else
+  originalImageGeometry = imgIdentify[1].split("x").map!{|x| x.to_f}
+end
+
+screenGeometry = `DISPLAY=:0 xrandr | grep '*+' | cut -d' ' -f4`.split("x").map! {|x| x.to_f}
+# after having verified the source image..
+target=targetDir + screenGeometry.join("x") + "_" + File.basename(originalImage)
+if FileTest.exists?(target)
+  system("feh --bg-center #{target}")
+  exit 0
+end
+
+# original image size in KB
+originalImageSize=FileTest.size(originalImage)
+# checking target disk space in KB
+diskFreeSpace=`df -B1 #{targetDir}`.split("\n").last.split[3].to_i
+if originalImageSize*100 > diskFreeSpace
+  puts "target disk almost full, aborting..."
+  exit 1
+end
+
+
+# figure out if image needs scaling down, if so, calculate factor
+xImg,yImg = originalImageGeometry
+xScreen,yScreen = screenGeometry
+
+# get the smallest of teh two relations, because that will be the
+# smallest we will have to make the image
+factor = [xScreen/xImg, yScreen/yImg].min
+
+# finally, do something with the information
+if factor < 1
+  system("convert -resize #{factor*100}% #{originalImage} #{target}")
+  system("feh --bg-center #{target}")
+else
+  system("feh --bg-center '#{originalImage}'")
+end
+
