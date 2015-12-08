@@ -15,9 +15,6 @@ bindsym Mod4+t exec urxvtc
 # kill focused window
 bindsym Mod4+Shift+q kill
 
-# lock screen
-bindsym XF86Launch3 exec i3lock
-
 # start dmenu (a program launcher)
 bindsym Mod4+c exec /home/ogion/bin/ogidmenu.sh
 bindsym Mod4+p exec notify-send -t 1000 "transitional dummy" "use mod4+c instead"
@@ -201,7 +198,7 @@ mode $i3menu {
   bindsym e mode $exitmenu
   bindsym x exec i3-input; mode "default"
 
-  bindsym z workspace empty; exec i3lock -u -i '/home/ogion/bilder/Natur/Imagem16(1).png'; mode "default"
+  bindsym z workspace empty; exec i3lock -u -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ); mode "default"
   bindsym Shift+z exec "sudo /root/ogisuspend.sh"; mode "default"
   bindsym b border toggle
   bindsym l layout toggle

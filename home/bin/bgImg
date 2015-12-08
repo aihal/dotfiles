@@ -29,7 +29,7 @@ end
 
 imgIdentify = getImageGeometry(originalImage)
 if imgIdentify[0] == 1
-  puts "The image is either no image, doesn't exist or some other error occurred. Aborting..."
+  puts "The file is either no image, doesn't exist or some other error occurred. Aborting..."
   exit 1
 else
   originalImageGeometry = imgIdentify[1].split("x").map!{|x| x.to_f}
@@ -37,15 +37,15 @@ end
 
 screenGeometry = `DISPLAY=:0 xrandr | grep '*+' | cut -d' ' -f4`.split("x").map! {|x| x.to_f}
 # after having verified the source image..
-target=targetDir + screenGeometry.join("x") + "_" + File.basename(originalImage)
+target=targetDir + screenGeometry.join("x") + "_" + File.basename(originalImage, '.*') + ".png"
 if FileTest.exists?(target)
   system("feh --bg-center #{target}")
   exit 0
 end
 
-# original image size in KB
+# original image size in Byte
 originalImageSize=FileTest.size(originalImage)
-# checking target disk space in KB
+# checking target disk space in Byte
 diskFreeSpace=`df -B1 #{targetDir}`.split("\n").last.split[3].to_i
 if originalImageSize*100 > diskFreeSpace
   puts "target disk almost full, aborting..."
@@ -63,8 +63,10 @@ factor = [xScreen/xImg, yScreen/yImg].min
 # finally, do something with the information
 if factor < 1
   system("convert -resize #{factor*100}% #{originalImage} #{target}")
+  system("mogrify #{target} -gravity center -background black -extent #{xScreen}x#{yScreen} #{target}")
   system("feh --bg-center #{target}")
 else
+  # also needs to become a png and so on for i3lock
   system("feh --bg-center '#{originalImage}'")
 end
 
