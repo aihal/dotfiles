@@ -1,6 +1,7 @@
-keycode 66 = Control_L
+!keycode 66 = Control_L
+keycode 66 = Insert
 clear Lock
-add Control = Control_L
+!add Control = Control_L
 
 !! caps as Escape key
 !remove Lock = Caps_Lock
@@ -8,8 +9,9 @@ add Control = Control_L
 
 !! switch ' and #
 keycode  51 = apostrophe numbersign apostrophe numbersign rightsinglequotemark dead_breve rightsinglequotemark
+!keycode  35 = plus asterisk dead_tilde dead_macron
 
 !!! menu key as compose key
-!keycode 135 = Multi_key
+keycode 135 = Multi_key
 !! menu key as Insert key
 !keycode 135 = Insert Insert
