@@ -8,11 +8,10 @@ xmodmap ~/.xmodmaprc
 urxvtd -q -f -o
 xset s off
 xset -dpms
-bgImg $(tail -n 1 ~/.fehbg | cut -d' ' -f 6-) &
-#habak -mp 212,0 -hi '/home/ogion/bilder/Personen/amy_graine___master_of_white_magic_by_tjota-d8kqtsz.png'&
-# i added these for gnome's evolution, which i'm not using at the moment, so..
-#eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-#export SSH_AUTH_SOCK
+#bgImg $(tail -n 1 ~/.fehbg | cut -d' ' -f 6-) &
+sh ~/.fehbg
+
+dunst&
 
 unset LC_ALL
 export LANG=de_DE.UTF-8
