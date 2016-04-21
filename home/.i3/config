@@ -32,6 +32,16 @@ bindsym Mod4+period exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks
 bindsym Mod4+minus exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
 bindsym Mod4+Shift+minus exec notify-send -t 2000 "Current song in mpd: " "$(mpc current --format  %file%)"
 
+# XF86 Funktionstasten, der Lenovo M30 hat die Folgenden:
+bindsym XF86AudioMute exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioRaiseVolume exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
+
+bindsym XF86TouchpadOff exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned off"
+bindsym XF86TouchpadOn  exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned on"
+
+bindsym XF86WLAN  exec notify-send -t 1000 "AirplaneModeToggle" "Airplanemode has been toggled"
+
 # change focus
 bindsym Mod4+h focus left
 bindsym Mod4+j focus down
@@ -131,13 +141,12 @@ bar {
         font pango:Dejavu Sans Mono 9
         mode dock
         position top
-#the following line on a notebook
-        #tray_output LVDS1
-        tray_output eDP-0
+        tray_output eDP1
         workspace_buttons yes
 # brown, grey and orange color scheme
         colors {
-          background #464646
+          #background #464646
+          background #000000
           statusline #FFFFFF
           focused_workspace  #E57910 #E57910 #ffffff
           active_workspace   #4B3621 #4B3621 #ffffff
@@ -150,6 +159,9 @@ bar {
 # autostart
 #exec --no-startup-id sh /home/ogion/.fehbg
 exec --no-startup-id parcellite
+exec --no-startup-id blueman-applet
+exec --no-startup-id udiskie -t
+exec --no-startup-id mpd ~/mpd/mpd.conf
 
 
 # setting up workspaces
@@ -172,15 +184,18 @@ for_window [class="Wine"] floating enable
 for_window [class="Gsimplecal"] floating enable
 for_window [class="Leafpad"] floating enable
 for_window [class="(?i)xvt"] border none
+for_window [class="Steam"] floating enable
+for_window [class="(?i)Speedcrunch"] floating enable
+for_window [class="(?i)Speedcrunch"] border none
+for_window [class="(?i)sylpheed"] border none
 
 
 ### modes
 
-# exit menu
+# restarti3menu
 
-set $exitmenu "exit menu: (e) exit, (r) restart, (l) reload"
-mode $exitmenu {
-  bindsym e exit; mode "default"
+set  $restarti3menu "restarti3menu: (r) restart, (l) reload"
+mode $restarti3menu {
   bindsym r restart; mode "default"
   bindsym l reload; mode "default"
 
@@ -190,7 +205,7 @@ mode $exitmenu {
 
 # i3 mode menu
 
-set $i3menu "i3 top-menu: (R)esize, (E)xit, (X) run i3 command"
+set $i3menu "i3 top-menu: (r)esize, r(e)starti3menu, (x) run i3 command"
 bindsym Mod4+y mode $i3menu
 
 mode $i3menu {
@@ -199,7 +214,7 @@ mode $i3menu {
   bindsym x exec i3-input; mode "default"
 
   bindsym z workspace empty; exec i3lock -u -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ); mode "default"
-  bindsym Shift+z exec "sudo /root/ogisuspend.sh"; mode "default"
+  bindsym Shift+z exec i3lock -u -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ); exec systemctl suspend; mode "default"
   bindsym b border toggle
   bindsym l layout toggle
 
@@ -213,8 +228,6 @@ mode "copypasta" {
   bindsym e exec "cp /dev/null /tmp/xclipboardvim ; xclip -o > /tmp/xclipboardvim ; gvim /tmp/xclipboardvim" ; mode "default"
   bindsym l exec edit-clipboard.lsp link ; mode "default"
   bindsym t exec edit-clipboard.lsp text ; mode "default"
-  bindsym Shift+s exec xclip -o | sponge /home/ogion/www/_clipboardshare && notify-send "synced to ~/www/_clipboardshare"; mode "default"
-  bindsym s exec curl -s 192.168.1.102/_clipboardshare | xclip -i && notify-send "synced from 192.168.1.102/_clipboardshare"; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -224,16 +237,10 @@ mode "copypasta" {
 
 bindsym Mod4+x mode "extra"
 mode "extra" {
-  bindsym w exec surf http://www.aemet.es/es/eltiempo/observacion/radar; mode "default"
   bindsym s exec surf; mode "default"
   bindsym minus exec /home/ogion/bin/dplay.lsp; mode "default"
   bindsym b exec urxvtc -e bwm-ng; mode "default"
-  bindsym d exec dwb; mode "default"
-  bindsym Shift+d exec luakit; mode "default"
   bindsym p exec dmenu -i -l 10 < /home/ogion/bin/plz.csv; mode "default"
-  bindsym l exec rofi -now; mode "default"
-  bindsym t exec surf http://127.0.0.1/cgitesting/todo.cgi; mode "default"
-  bindsym Shift+t exec gvim ~/www/cgitesting/todo.css ~/www/todo.mkd -c 'split | bn'; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
