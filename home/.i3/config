@@ -27,15 +27,21 @@ bindsym Mod4+b exec mpc prev
 bindsym Mod4+n exec mpc next
 bindsym Mod4+m exec mpc toggle
 bindsym Mod4+Shift+m exec mpc stop
-bindsym Mod4+comma exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+period exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+minus exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
+#bindsym Mod4+comma exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
+#bindsym Mod4+period exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
+#bindsym Mod4+minus exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+comma exec  "pactl set-sink-volume 1 -5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+period exec "pactl set-sink-volume 1 +5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+minus exec "pactl set-sink-mute 1 toggle; pkill -SIGRTMIN+10 i3blocks"
 bindsym Mod4+Shift+minus exec notify-send -t 2000 "Current song in mpd: " "$(mpc current --format  %file%)"
 
 # XF86 Funktionstasten, der Lenovo M30 hat die Folgenden:
-bindsym XF86AudioMute exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
-bindsym XF86AudioLowerVolume exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
-bindsym XF86AudioRaiseVolume exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
+#bindsym XF86AudioMute exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
+#bindsym XF86AudioLowerVolume exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
+#bindsym XF86AudioRaiseVolume exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioMute exec "pactl set-sink-mute 1 toggle; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec  "pactl set-sink-volume 1 -5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 1 +5% ; pkill -SIGRTMIN+10 i3blocks"
 
 bindsym XF86TouchpadOff exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned off"
 bindsym XF86TouchpadOn  exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned on"
