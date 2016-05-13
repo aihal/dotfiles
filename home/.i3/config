@@ -216,7 +216,7 @@ bindsym Mod4+y mode $i3menu
 
 mode $i3menu {
   bindsym r mode "resize"
-  bindsym e mode $exitmenu
+  bindsym e mode $restarti3menu
   bindsym x exec i3-input; mode "default"
 
   bindsym z workspace empty; exec i3lock -u -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ); mode "default"
