@@ -1,47 +1,14 @@
-!The colors 0-7 are the 'normal' colors, while colors 8-15 are their 'bright' counterparts (used for highlighting, etc.)
-
-
-Xft.lcdfilter:  lcddefault
-Xft.hintstyle:  hintslight
-Xcursor*theme:      Vanilla-DMZ-AA
-urxvt*font:         xft:dejavu sans mono:pixelsize=14:antialias=false
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xcursor*theme: Vanilla-DMZ-AA
+urxvt*font: xft:dejavu sans mono:pixelsize=14:antialias=false
 urxvt*urgentOnBell: true
-urxvt*scrollBar:    false
+urxvt*scrollBar: false
 
 URxvt.perl-ext-common: default,url-select,keyboard-select
-URxvt.keysym.M-u:      perl:url-select:select_next
-URxvt.keysym.M-Escape:  perl:keyboard-select:activate
-URxvt.url-select.launcher:        firefox -new-tab
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.url-select.launcher: firefox -new-tab
 
-
-urxvt*cursorColor:  #567b83
-! change the following four lines to switch between dark and light background theme
-urxvt*background:   #000000
-urxvt*foreground:   #C1C1C1
-!urxvt*background:   #B5B5B5
-!urxvt*foreground:   #000000
-
-!!black like above
-*color0 : #222222
-*color8 : #454545
-!!red
-*color1 : #D61C41
-*color9 : #EF214F
-!!green
-*color2 : #289428
-*color10: #39B939
-!!yellow
-*color3 : #D19F23
-*color11: #E8DF2F
-!!blue
-*color4 : #263FC2
-*color12: #396F9D
-!!magenta
-*color5 : #85599B
-*color13: #8562C7
-!!cyan
-*color6 : #567DBB
-*color14: #3B83D5
-!!white
-*color7 : #FFFFFF
-*color15: #FFFFFF
+!colors
+#include "/home/ogion/.solarized"
