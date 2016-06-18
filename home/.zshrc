@@ -88,6 +88,8 @@ function homeshick() {
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 
 export PATH=$PATH:~/bin
+export GOPATH=~/go
+export PATH=$PATH:~/go/bin
 export PAGER="/bin/less"
 export EDITOR=vim
 autoload -U compinit
