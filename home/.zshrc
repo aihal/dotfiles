@@ -95,6 +95,15 @@ export EDITOR=vim
 autoload -U compinit
 compinit
 #promptinit
+# promptspielereien
+PROMPT='[%F{red}%D{%-d.%-m.%-Y %H:%M:%S}%f] %F{green}%n%f at %F{blue}%m%f in %~ %(?,%B%F{243}:)%f%b,%B%F{1}:°(%f%b)
+%# '
+#RPROMPT=''
+TMOUT=30
+TRAPALRM() {
+  #get's called every TMOUT seconds and resets the prompt, to update the RPROMPT with the timestamp
+  zle reset-prompt
+}
 
 # {{{ 'hash' some often used directories
 #d# start
