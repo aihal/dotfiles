@@ -96,7 +96,7 @@ autoload -U compinit
 compinit
 #promptinit
 # promptspielereien
-PROMPT='[%F{red}%D{%-d.%-m.%-Y %H:%M:%S}%f] %F{green}%n%f at %F{blue}%m%f in %~ %(?,%B%F{243}:)%f%b,%B%F{1}:°(%f%b)
+PROMPT='[%F{red}%D{%-d.%-m.%-Y %H:%M:%S}%f] %F{green}%n%f at %F{blue}%m%f in %~ %(?,%F{green}☺%f,%F{red}☹%f)
 %# '
 #RPROMPT=''
 TMOUT=30
