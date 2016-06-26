@@ -416,6 +416,13 @@ youtube-helper() {
 }
 zle -N youtube-helper
 bindkey "^[Y" youtube-helper
+#### for youtube videos with mpv
+mpv-yout-helper() {
+  BUFFER="  mpv --ytdl-format=18 '$(xclip -o | tr '\n' ' ')'"
+  CURSOR="$#BUFFER"
+}
+zle -N mpv-yout-helper
+bindkey "^[w" mpv-yout-helper
 
 bindkey "\eOd" emacs-backward-word
 bindkey "\eOD" emacs-backward-word
