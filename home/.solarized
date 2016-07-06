@@ -1,3 +1,4 @@
+! vim:ft=xdefaults
 ! Solarized color scheme for the X Window System
 !
 ! http://ethanschoonover.com/solarized
@@ -33,7 +34,8 @@
 #define S_base02        #eee8d5
 #define S_base01        #93a1a1
 #define S_base00        #839496
-#define S_base0         #657b83
+!#define S_base0         #657b83 !! solarized default foreground text color
+#define S_base0         #000000
 #define S_base1         #586e75
 #define S_base2         #073642
 #define S_base3         #002b36

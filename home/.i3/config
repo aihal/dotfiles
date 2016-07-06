@@ -82,29 +82,35 @@ bindsym Mod4+a focus parent
 # change focus between tiling / floating windows
 bindsym Mod4+space focus mode_toggle
 
+set $ws1 1:
+set $ws2 2:
+set $ws3 3:
+set $ws4 4:
+set $ws7 7:
+set $ws10 10:
 # switch to workspace the empty blocks are FontAwesome characters
-bindsym Mod4+1 workspace number 1:
-bindsym Mod4+2 workspace number 2:
-bindsym Mod4+3 workspace number 3:
-bindsym Mod4+4 workspace number 4:
+bindsym Mod4+1 workspace number $ws1
+bindsym Mod4+2 workspace number $ws2
+bindsym Mod4+3 workspace number $ws3
+bindsym Mod4+4 workspace number $ws4
 bindsym Mod4+5 workspace number 5
 bindsym Mod4+6 workspace number 6
-bindsym Mod4+7 workspace number 7:
+bindsym Mod4+7 workspace number $ws7
 bindsym Mod4+8 workspace number 8
 bindsym Mod4+9 workspace number 9
-bindsym Mod4+0 workspace number 10: 
+bindsym Mod4+0 workspace number $ws10
 
 # move focused container to workspace
-bindsym Mod4+Shift+1 move container to workspace number 1:
-bindsym Mod4+Shift+2 move container to workspace number 2:
-bindsym Mod4+Shift+3 move container to workspace number 3:
-bindsym Mod4+Shift+4 move container to workspace number 4:
+bindsym Mod4+Shift+1 move container to workspace number $ws1
+bindsym Mod4+Shift+2 move container to workspace number $ws2
+bindsym Mod4+Shift+3 move container to workspace number $ws3
+bindsym Mod4+Shift+4 move container to workspace number $ws4
 bindsym Mod4+Shift+5 move container to workspace number 5
 bindsym Mod4+Shift+6 move container to workspace number 6
-bindsym Mod4+Shift+7 move container to workspace number 7:
+bindsym Mod4+Shift+7 move container to workspace number $ws7
 bindsym Mod4+Shift+8 move container to workspace number 8
 bindsym Mod4+Shift+9 move container to workspace number 9
-bindsym Mod4+Shift+0 move container to workspace number 10: 
+bindsym Mod4+Shift+0 move container to workspace number $ws10
 
 # moving along the workspaces left and right/u and i
 bindsym Mod4+i workspace next_on_output
@@ -135,7 +141,7 @@ mode "resize" {
 }
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused          #ffffff #ffffff #E57910 #2e9ef4   #285577
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -145,24 +151,28 @@ client.background       #ffffff
 
 # Start i3bar to display a workspace bar
 bar {
-        status_command i3blocks -c /home/ogion/.i3/i3blocks.conf
-        #font pango:Dejavu Sans Mono 9
-        font pango:FontAwesome 10
-        mode dock
-        position top
-        tray_output eDP1
-        workspace_buttons yes
-        strip_workspace_numbers yes
-# brown, grey and orange color scheme
-        colors {
-          #background #464646
-          background #000000
-          statusline #FFFFFF
-          focused_workspace  #E57910 #E57910 #ffffff
-          active_workspace   #4B3621 #4B3621 #ffffff
-          inactive_workspace #4B3621 #4B3621 #000000
-          urgent_workspace   #2f343a #900000 #ffffff
-        }
+  status_command i3blocks -c /home/ogion/.i3/i3blocks.conf
+  #font pango:Dejavu Sans Mono 9
+  font pango:FontAwesome 10
+  mode dock
+  position top
+  tray_output eDP1
+  workspace_buttons yes
+  strip_workspace_numbers yes
+  colors {
+    background #FFFFFF
+    statusline #000000
+    #<colorclass>       <border> <bg>   <text>
+    focused_workspace  #ffffff #ffffff #E57910
+    active_workspace   #000000 #ffffff #000000
+    inactive_workspace #000000 #ffffff #000000
+    urgent_workspace   #900000 #900000 #ffffff
+    # brown, grey and orange color scheme
+    #focused_workspace  #E57910 #E57910 #ffffff
+    #active_workspace   #4B3621 #4B3621 #ffffff
+    #inactive_workspace #4B3621 #4B3621 #000000
+    #urgent_workspace   #2f343a #900000 #ffffff
+  }
 }
 
 
@@ -172,7 +182,7 @@ exec --no-startup-id parcellite
 exec --no-startup-id blueman-applet
 exec --no-startup-id udiskie -t
 exec --no-startup-id mpd ~/mpd/mpd.conf
-exec --no-startup-id i3-msg "workspace number 2:"; i3-msg "workspace number 1:"
+exec --no-startup-id i3-msg "workspace number $ws2"; i3-msg "workspace number $ws1"
 
 
 # setting up workspaces
@@ -183,9 +193,10 @@ hide_edge_borders both
 workspace_auto_back_and_forth no
 
 # assigning windows to workspaces
-assign [class="Firefox"] → 2:
-assign [class="Opera"] → 2:
-assign [class="Sylpheed"] → 7:
+assign [class="Firefox"] → $ws2
+assign [class="Opera"] → $ws2
+assign [class="Sylpheed"] → $ws7
+assign [class="Thunderbird"] → $ws7
 
 # window specific rules
 for_window [title="(?i)Event Tester"] floating enable
@@ -256,6 +267,12 @@ mode "extra" {
   bindsym Escape mode "default"
 }
 
+# TODO: the following doens't work...
+#bindsym Mod4+Insert mode "autotype: "
+#mode "autotype: " {
+#  bindsym k mode "default"; exec "echo 'k.A.'|xclip -i && xdotool key shift+Insert"
+#  bindsym w mode "default"; exec "echo '[Weiteres s. online]'|xclip -i && xdotool key shift+Insert"
+#}
 
 ### nice in theory but i don't seem to have a use for it and choice of programs for the kiosk is non-trivial
 ## implementing a kiosk mode, to effectively lock out my i3 session but still allow a couple of things
