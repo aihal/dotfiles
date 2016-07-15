@@ -28,6 +28,7 @@ au BufNewFile,BufRead *.go set tabstop=8 | set noexpandtab
 au BufNewFile,BufRead *.lua colorscheme zenburn
 au BufNewFile,BufRead *.lsp set ft=newlisp
 au BufNewFile,BufRead *.nim set ft=nimrod
+au BufNewFile,BufRead *.rs set ft=rust
 
 "au BufWritePost /tmp/xclipboardvim :%y+ | :!sleep 1
 au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep 1
