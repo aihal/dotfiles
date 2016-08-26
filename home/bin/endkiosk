@@ -1,11 +1,5 @@
 #!/bin/bash
 # - bin/endkiosk.sh
 
-i3-msg 'mode "default" ;
-bar mode dock ;
-workspace back_and_forth ;
-exec killall sonata ;
-exec killall qasmixer;
-exec killall xclock;
-exec xautolock -time 50 -locker /usr/bin/i3lock -detectsleep;
-'
+i3-msg 'mode "default" ; bar mode dock ; workspace back_and_forth'
+#exec xautolock -time 50 -locker /usr/bin/i3lock -detectsleep;

@@ -23,7 +23,7 @@ au BufNewFile,BufRead *.slim set ft=slim
 au BufRead,BufNewFile /usr/local/nginx/conf/* set ft=nginx 
 au BufNewFile,BufRead *conkyrc set ft=conkyrc
 au FileType pl,pm set filetype=perl
-au BufNewFile,BufRead *.asciidoc colorscheme zenburn | set ft=asciidoc | set textwidth=80
+au BufNewFile,BufRead *.asciidoc set ft=asciidoc | set textwidth=80
 au BufNewFile,BufRead *.go set tabstop=8 | set noexpandtab
 au BufNewFile,BufRead *.lua colorscheme zenburn
 au BufNewFile,BufRead *.lsp set ft=newlisp

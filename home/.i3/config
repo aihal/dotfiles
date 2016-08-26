@@ -278,10 +278,11 @@ mode "extra" {
 ## implementing a kiosk mode, to effectively lock out my i3 session but still allow a couple of things
 ## like having a mpd client open, hide the statusbar (to disallow workspace switching)
 ## a clock, some other windows possibly in prearranged layout
-#bindsym Mod4+Shift+v exec /home/ogion/bin/startkiosk
-#
-#mode "kiosk" {
-#  bindsym Mod4+e exec (SUDO_ASKPASS="/home/ogion/bin/yadaskpassword" sudo -k -A true && /home/ogion/bin/endkiosk)
-## still in here for debugging, will remove for a final version
-#  bindsym Mod4+r exec i3-input
-#}
+bindsym Mod4+Shift+v exec /home/ogion/bin/startkiosk
+
+mode "kiosk" {
+  bindsym Mod4+e exec (SUDO_ASKPASS="/home/ogion/bin/yadaskpassword" sudo -k -A true && /home/ogion/bin/endkiosk)
+# still in here for debugging, will remove for a final version
+  bindsym Mod4+r exec i3-input
+  bindsym Mod4+z exec exec systemctl suspend
+}
