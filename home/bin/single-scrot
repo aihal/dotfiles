@@ -1,2 +1,3 @@
-#!/bin/dash
-sleep 0.03 && scrot -s '%Y-%m-%d-%H_%M_%S.png' -e 'mv $f ~/bilder/Screenshots/2015/' && notify-send -t 1000 "screenshot taken" 
+#!/bin/bash
+year=$(date +%Y)
+sleep 0.03 && scrot -s '%Y-%m-%d-%H_%M_%S.png' -e "mv $f ~/bilder/Screenshots/$year/" && notify-send -t 1000 "screenshot taken"
