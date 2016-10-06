@@ -1,0 +1,7 @@
+#!/bin/bash
+# - ogilock.sh
+set -o nounset
+set -o errexit
+#IFS="`printf '\n\t'`"
+
+i3lock -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" )
