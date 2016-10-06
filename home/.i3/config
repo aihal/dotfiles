@@ -179,7 +179,7 @@ bar {
 # autostart
 #exec --no-startup-id sh /home/ogion/.fehbg
 exec --no-startup-id parcellite
-exec --no-startup-id blueman-applet
+#exec --no-startup-id blueman-applet
 exec --no-startup-id udiskie -t
 exec --no-startup-id mpd ~/mpd/mpd.conf
 exec --no-startup-id i3-msg "workspace number $ws2"; i3-msg "workspace number $ws1"
@@ -278,7 +278,8 @@ mode "extra" {
 ## implementing a kiosk mode, to effectively lock out my i3 session but still allow a couple of things
 ## like having a mpd client open, hide the statusbar (to disallow workspace switching)
 ## a clock, some other windows possibly in prearranged layout
-bindsym Mod4+Shift+v exec /home/ogion/bin/startkiosk
+#bindsym Mod4+Shift+v exec /home/ogion/bin/startkiosk
+bindsym Mod4+Shift+v exec exec i3lock -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" )
 
 mode "kiosk" {
   bindsym Mod4+e exec (SUDO_ASKPASS="/home/ogion/bin/yadaskpassword" sudo -k -A true && /home/ogion/bin/endkiosk)

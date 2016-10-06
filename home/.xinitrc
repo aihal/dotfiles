@@ -10,7 +10,8 @@ xset s off
 xset -dpms
 #bgImg $(tail -n 1 ~/.fehbg | cut -d' ' -f 6-) &
 sh ~/.fehbg
-xautolock -time 10 -locker /home/ogion/bin/startkiosk &
+#xautolock -time 10 -locker /home/ogion/bin/startkiosk &
+xautolock -time 10 -locker i3lock -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ) &
 
 dunst&
 
