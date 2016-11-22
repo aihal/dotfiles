@@ -113,6 +113,7 @@ hash -d tv=$HOME/video/tv
 hash -d screens=$HOME/bilder/Screenshots/2015
 hash -d fanfic=$HOME/documents/fanfic
 hash -d h1=$HOME/documents/vit/h1
+hash -d essay=$HOME/documents/vit/h1/m11/Essay
 #d# end
 # }}}
 

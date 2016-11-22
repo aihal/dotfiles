@@ -42,6 +42,8 @@ bindsym Mod4+Shift+minus exec notify-send -t 2000 "Current song in mpd: " "$(mpc
 bindsym XF86AudioMute exec "pactl set-sink-mute 1 toggle; pkill -SIGRTMIN+10 i3blocks"
 bindsym XF86AudioLowerVolume exec  "pactl set-sink-volume 1 -5% ; pkill -SIGRTMIN+10 i3blocks"
 bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 1 +5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86MonBrightnessDown exec "xbacklight -10%; notify-send -t 100 -a brightness --hint=int:value:$(xbacklight -get) 'Display Helligkeit '"
+bindsym XF86MonBrightnessUp   exec "xbacklight +10%; notify-send -t 100 -a brightness --hint=int:value:$(xbacklight -get) 'Display Helligkeit '"
 
 bindsym XF86TouchpadOff exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned off"
 bindsym XF86TouchpadOn  exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned on"
@@ -180,7 +182,7 @@ bar {
 #exec --no-startup-id sh /home/ogion/.fehbg
 exec --no-startup-id parcellite
 #exec --no-startup-id blueman-applet
-exec --no-startup-id udiskie -t
+exec --no-startup-id udiskie -t -A
 exec --no-startup-id mpd ~/mpd/mpd.conf
 exec --no-startup-id i3-msg "workspace number $ws2"; i3-msg "workspace number $ws1"
 
