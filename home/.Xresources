@@ -12,4 +12,4 @@ URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.url-select.launcher: firefox -new-tab
 
 !colors
-#include "/home/ogion/.solarized"
+#include "/home/ogion/.colors/mycolors"

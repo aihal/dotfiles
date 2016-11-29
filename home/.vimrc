@@ -41,7 +41,7 @@ au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep
 "set t_Co=265
 set background=dark
 "colorscheme jellyx
-colorscheme solarized
+colorscheme ir_black
 filetype on
 filetype plugin on
 syntax on
