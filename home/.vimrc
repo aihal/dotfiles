@@ -29,6 +29,7 @@ au BufNewFile,BufRead *.lua colorscheme zenburn
 au BufNewFile,BufRead *.lsp set ft=newlisp
 au BufNewFile,BufRead *.nim set ft=nimrod
 au BufNewFile,BufRead *.rs set ft=rust
+au BufNewFile,BufRead *.pandoc set ft=markdown.pandoc
 
 "au BufWritePost /tmp/xclipboardvim :%y+ | :!sleep 1
 au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep 1
@@ -41,7 +42,7 @@ au BufWritePost /tmp/xclipboardvim exec '!xclip -i /tmp/xclipboardvim' | :!sleep
 "set t_Co=265
 set background=dark
 "colorscheme jellyx
-colorscheme ir_black
+colorscheme desert
 filetype on
 filetype plugin on
 syntax on
