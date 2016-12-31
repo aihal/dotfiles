@@ -114,6 +114,7 @@ hash -d screens=$HOME/bilder/Screenshots/2015
 hash -d fanfic=$HOME/documents/fanfic
 hash -d h1=$HOME/documents/vit/h1
 hash -d essay=$HOME/documents/vit/h1/m11/Essay
+hash -d doc=$HOME/documents
 #d# end
 # }}}
 
@@ -321,6 +322,10 @@ alias cp="cp -i"
 alias gits="git status"
 
 ### Functions
+
+qr() {
+  qrencode "$@" -o - | feh -    
+}
 
 yout() {
   youtube-dl $@ ; notify-send -u critical youtubedl
