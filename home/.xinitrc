@@ -12,6 +12,7 @@ xset s off
 sh ~/.fehbg
 #xautolock -time 10 -locker /home/ogion/bin/startkiosk &
 xautolock -time 12 -locker /home/ogion/bin/ogilock &
+xhost +local: # to allow for example a browser to be run from a different local user
 
 dunst&
 
