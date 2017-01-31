@@ -30,9 +30,9 @@ bindsym Mod4+Shift+m exec mpc stop
 #bindsym Mod4+comma exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
 #bindsym Mod4+period exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
 #bindsym Mod4+minus exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+comma exec  "pactl set-sink-volume 1 -5% ; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+period exec "pactl set-sink-volume 1 +5% ; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+minus exec "pactl set-sink-mute 1 toggle; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+comma exec  "pactl set-sink-volume 0 -5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+period exec "pactl set-sink-volume 0 +5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+minus exec "pactl set-sink-mute 0 toggle; pkill -SIGRTMIN+10 i3blocks"
 bindsym Mod4+Shift+minus exec notify-send -t 2000 "Current song in mpd: " "$(mpc current --format  %file%)"
 
 # XF86 Funktionstasten, der Lenovo M30 hat die Folgenden:
@@ -196,6 +196,7 @@ workspace_auto_back_and_forth no
 
 # assigning windows to workspaces
 assign [class="Firefox"] → $ws2
+assign [class="Chromium"] → $ws2
 assign [class="Opera"] → $ws2
 assign [class="Sylpheed"] → $ws7
 assign [class="Thunderbird"] → $ws7
