@@ -3,7 +3,6 @@
 #
 
 font pango:DejaVu Sans Mono 9
-#font pango:Linux Libertine 11
 
 # use Mouse+Mod4 to drag floating windows to their wanted position
 floating_modifier Mod4
@@ -17,37 +16,36 @@ bindsym Mod4+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym Mod4+c exec /home/ogion/bin/ogidmenu.sh
-bindsym Mod4+p exec notify-send -t 1000 "transitional dummy" "use mod4+c instead"
 
 # blank screen
 bindsym Mod4+z exec "sleep 0.5 ; xset dpms force off"
 
-# mpd and volume controls
+# mpd controls
 bindsym Mod4+b exec mpc prev
 bindsym Mod4+n exec mpc next
 bindsym Mod4+m exec mpc toggle
 bindsym Mod4+Shift+m exec mpc stop
-#bindsym Mod4+comma exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
-#bindsym Mod4+period exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
-#bindsym Mod4+minus exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+comma exec  "pactl set-sink-volume 0 -5% ; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+period exec "pactl set-sink-volume 0 +5% ; pkill -SIGRTMIN+10 i3blocks"
-bindsym Mod4+minus exec "pactl set-sink-mute 0 toggle; pkill -SIGRTMIN+10 i3blocks"
 bindsym Mod4+Shift+minus exec notify-send -t 2000 "Current song in mpd: " "$(mpc current --format  %file%)"
 
+# audio controls
+set $mutetoggle exec "pactl set-sink-mute 0 toggle; pkill -SIGRTMIN+10 i3blocks"
+set $leiser exec "pactl set-sink-volume 0 -5% ; pkill -SIGRTMIN+10 i3blocks"
+set $lauter exec "pactl set-sink-volume 0 +5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym Mod4+comma $leiser
+bindsym Mod4+period $lauter
+bindsym Mod4+minus $mutetoggle
+bindsym XF86AudioMute $mutetoggle
+bindsym XF86AudioLowerVolume $leiser
+bindsym XF86AudioRaiseVolume $lauter
+
 # XF86 Funktionstasten, der Lenovo M30 hat die Folgenden:
-#bindsym XF86AudioMute exec "/home/ogion/bin/alsaToggleSpeaker; pkill -SIGRTMIN+10 i3blocks"
-#bindsym XF86AudioLowerVolume exec  "amixer set Master -q 5%- ; pkill -SIGRTMIN+10 i3blocks"
-#bindsym XF86AudioRaiseVolume exec "amixer set Master -q 5%+ ; pkill -SIGRTMIN+10 i3blocks"
-bindsym XF86AudioMute exec "pactl set-sink-mute 1 toggle; pkill -SIGRTMIN+10 i3blocks"
-bindsym XF86AudioLowerVolume exec  "pactl set-sink-volume 1 -5% ; pkill -SIGRTMIN+10 i3blocks"
-bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 1 +5% ; pkill -SIGRTMIN+10 i3blocks"
 bindsym XF86MonBrightnessDown exec "xbacklight -10%; notify-send -t 100 -a brightness --hint=int:value:$(xbacklight -get) 'Display Helligkeit '"
 bindsym XF86MonBrightnessUp   exec "xbacklight +10%; notify-send -t 100 -a brightness --hint=int:value:$(xbacklight -get) 'Display Helligkeit '"
 
 bindsym XF86TouchpadOff exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned off"
 bindsym XF86TouchpadOn  exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist turned on"
 
+# there is a hardwired Airplanemode toggle key, it also sends XF86WLAN
 bindsym XF86WLAN  exec notify-send -t 1000 "AirplaneModeToggle" "Airplanemode has been toggled"
 
 # change focus
