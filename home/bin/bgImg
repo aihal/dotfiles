@@ -63,10 +63,8 @@ factor = [xScreen/xImg, yScreen/yImg].min
 # finally, do something with the information
 if factor < 1
   system("convert -resize #{factor*100}% #{originalImage} #{target}")
-  system("mogrify #{target} -gravity center -background black -extent #{xScreen}x#{yScreen} #{target}")
-  system("feh --bg-center #{target}")
 else
-  # also needs to become a png and so on for i3lock
-  system("feh --bg-center '#{originalImage}'")
+  system("convert #{originalImage} #{target}")
 end
-
+system("mogrify #{target} -gravity center -background black -extent #{xScreen}x#{yScreen} #{target}")
+system("feh --bg-center '#{target}'")
