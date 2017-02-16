@@ -320,6 +320,7 @@ alias mv="mv -i"
 alias rm="rm -i"
 alias cp="cp -i"
 alias gits="git status"
+alias sleepnoise="play -n synth brownnoise synth pinknoise mix synth sine amod 0.1 5"
 
 ### Functions
 
