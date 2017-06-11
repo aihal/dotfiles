@@ -47,7 +47,7 @@ class Eieruhr
   end
 
   def startmusic
-    `amixer set Speaker unmute`
+    #`amixer set Speaker unmute`
     `mpc load #{@playlist}` if `mpc playlist` == ""
     `mpc play`
   end

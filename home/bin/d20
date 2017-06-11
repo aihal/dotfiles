@@ -2,14 +2,17 @@
 # coding: utf-8
 # d20.rb
 
-class Dice
-    def initialize
-        @range = 20
+def roll würfel
+  r = /([0-9]+)d([0-9]+)/
+  if match = würfel.match(r)
+    anzahl, würfelgröße = match.captures
+    result = Array.new(anzahl.to_i) do
+      rand würfelgröße.to_i
     end
-
-    def roll
-        rand(@range)
-    end
+    puts result.sum.to_s + " (" + result.join("+") + ")"
+  else
+    abort "Das Format für Würfelangaben ist: [0-9]+d[0-9]+ oder kein Argument gibt den default d20."
+  end
 end
 
-puts Dice.new.roll
+ARGV[0] ? roll(ARGV[0]) : roll("1d20")
