@@ -263,6 +263,7 @@ mode "extra" {
   bindsym minus exec /home/ogion/bin/dplay.lsp; mode "default"
   bindsym b exec urxvtc -e bwm-ng; mode "default"
   bindsym p exec dmenu -i -l 10 < /home/ogion/bin/plz.csv; mode "default"
+  bindsym l exec surf http://www.leagueoflegendsmath.com/itemop.html; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
