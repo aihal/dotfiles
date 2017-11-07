@@ -5,13 +5,10 @@
 # as a target directory for resized images
 # and feh to set the background
 
-if ARGV.length == 0
-  puts "needs an image as argument, aborting..."
-  exit 1
-end
-
-originalImage = ARGV[0]
+abort "needs an image as argument, aborting..." unless ARGV.length == 1
 targetDir="/home/ogion/bilder/Wallpaper/resized/"
+abort "Target directoy #{targetDir} does not exist!" unless Dir.exists?(targetDir)
+originalImage = ARGV[0]
 
 screenGeometry = [0,0]
 originalImageGeometry = [0,0]

@@ -183,13 +183,15 @@ exec --no-startup-id parcellite
 exec --no-startup-id udiskie -t -A
 exec --no-startup-id mpd ~/mpd/mpd.conf
 exec --no-startup-id i3-msg "workspace number $ws2"; i3-msg "workspace number $ws1"
+exec --no-startup-id  compton -C -G --inactive-opacity=0.9 --inactive-dim 0.2
 
 
 # setting up workspaces
 workspace_layout tabbed
 hide_edge_borders both
-#workspace 1 output eDP-0
-#workspace 9 output VGA1
+workspace 1 output eDP1
+workspace 5 output HDMI1
+workspace 9 output VGA1
 workspace_auto_back_and_forth no
 
 # assigning windows to workspaces
@@ -210,6 +212,8 @@ for_window [class="Steam"] floating enable
 for_window [class="(?i)Speedcrunch"] floating enable
 for_window [class="(?i)Speedcrunch"] border none
 for_window [class="(?i)sylpheed"] border none
+for_window [class="(?i)pinentry"] floating enable
+for_window [class="Thunderbird"] border none
 
 
 ### modes
@@ -235,8 +239,8 @@ mode $i3menu {
   bindsym e mode $restarti3menu
   bindsym x exec i3-input; mode "default"
 
-  bindsym z workspace empty; exec i3lock -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ); mode "default"
-  bindsym Shift+z exec i3lock -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" ); exec systemctl suspend; mode "default"
+  bindsym z workspace empty; exec i3lock -i $(awk -F"'" '{print $6}' ~/.fehbg); mode "default"
+  bindsym Shift+z exec i3lock -i $(awk -F"'" '{print $6}' ~/.fehbg); exec systemctl suspend; mode "default"
   bindsym b border toggle
   bindsym l layout toggle
 
@@ -281,7 +285,6 @@ mode "extra" {
 ## like having a mpd client open, hide the statusbar (to disallow workspace switching)
 ## a clock, some other windows possibly in prearranged layout
 #bindsym Mod4+Shift+v exec /home/ogion/bin/startkiosk
-bindsym Mod4+Shift+v exec exec i3lock -i $(tail -n 1 ~/.fehbg | cut -d' ' -f 6- | tr -d "'" )
 
 mode "kiosk" {
   bindsym Mod4+e exec (SUDO_ASKPASS="/home/ogion/bin/yadaskpassword" sudo -k -A true && /home/ogion/bin/endkiosk)

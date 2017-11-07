@@ -26,7 +26,7 @@ locales  = {
       "%0", "fünf nach %0", "zehn nach %0", "viertel nach %0",
       "zwanzig nach %0", "fünf vor halb %1", "halb %1", "fünf nach halb %1",
       "zwanzig vor %1", "viertel vor %1", "zehn vor %1", "fünf vor %1",
-      "%1 uhr"
+      "%1"
     ]
   },
   :fr => {
