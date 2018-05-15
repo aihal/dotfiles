@@ -119,6 +119,7 @@ hash -d vit=$HOME/documents/vit
 hash -d essay=$HOME/documents/vit/h1/m11/Essay
 hash -d diplomarbeit=$HOME/documents/vit/praktikum3/diplomarbeit
 hash -d doc=$HOME/documents
+hash -d mootcourt=$HOME/documents/vit/h3/m35/mootcourt/fallA/
 #d# end
 # }}}
 
@@ -326,6 +327,8 @@ alias cp="cp -i"
 alias gits="git status"
 alias sleepnoise="play -n synth brownnoise synth pinknoise mix synth sine amod 0.1 5"
 
+### custom command tabcompletions
+compdef _youtube-dl yout
 ### Functions
 
 qr() {

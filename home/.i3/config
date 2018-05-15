@@ -184,6 +184,7 @@ exec --no-startup-id udiskie -t -A
 exec --no-startup-id mpd ~/mpd/mpd.conf
 exec --no-startup-id i3-msg "workspace number $ws2"; i3-msg "workspace number $ws1"
 exec --no-startup-id  compton -C -G --inactive-opacity=0.9 --inactive-dim 0.2
+exec --no-startup-id sonata --hidden
 
 
 # setting up workspaces
@@ -214,6 +215,7 @@ for_window [class="(?i)Speedcrunch"] border none
 for_window [class="(?i)sylpheed"] border none
 for_window [class="(?i)pinentry"] floating enable
 for_window [class="Thunderbird"] border none
+for_window [class="qt-recordMyDesktop"] floating enable
 
 
 ### modes
@@ -239,7 +241,7 @@ mode $i3menu {
   bindsym e mode $restarti3menu
   bindsym x exec i3-input; mode "default"
 
-  bindsym z workspace empty; exec i3lock -i $(awk -F"'" '{print $6}' ~/.fehbg); mode "default"
+  bindsym z workspace empty; exec i3lock -i $(awk -F"'" '{print $2}' ~/.fehbg); mode "default"
   bindsym Shift+z exec i3lock -i $(awk -F"'" '{print $6}' ~/.fehbg); exec systemctl suspend; mode "default"
   bindsym b border toggle
   bindsym l layout toggle
