@@ -14,5 +14,7 @@ xset s off
 xset -dpms
 sh ~/.fehbg
 
+dbus-update-activation-environment --systemd DISPLAY
+
 dunst&
 exec i3

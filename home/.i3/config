@@ -242,7 +242,7 @@ mode $i3menu {
   bindsym x exec i3-input; mode "default"
 
   bindsym z workspace empty; exec i3lock -i $(awk -F"'" '{print $2}' ~/.fehbg); mode "default"
-  bindsym Shift+z exec i3lock -i $(awk -F"'" '{print $6}' ~/.fehbg); exec systemctl suspend; mode "default"
+  bindsym Shift+z exec i3lock -i $(awk -F"'" '{print $2}' ~/.fehbg); exec "sleep 1; systemctl suspend"; mode "default"
   bindsym b border toggle
   bindsym l layout toggle
 
