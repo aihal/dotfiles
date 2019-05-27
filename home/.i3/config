@@ -48,6 +48,9 @@ bindsym XF86TouchpadOn  exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist 
 # there is a hardwired Airplanemode toggle key, it also sends XF86WLAN
 bindsym XF86WLAN  exec notify-send -t 1000 "AirplaneModeToggle" "Airplanemode has been toggled"
 
+# take a Screenshot
+bindsym Mod4+Shift+s exec scrot_ogi.sh
+
 # change focus
 bindsym Mod4+h focus left
 bindsym Mod4+j focus down
