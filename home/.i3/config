@@ -186,8 +186,7 @@ exec --no-startup-id parcellite
 exec --no-startup-id udiskie -t -A
 exec --no-startup-id mpd ~/mpd/mpd.conf
 exec --no-startup-id i3-msg "workspace number $ws2"; i3-msg "workspace number $ws1"
-exec --no-startup-id  compton -C -G --inactive-opacity=0.9 --inactive-dim 0.2
-exec --no-startup-id sonata --hidden
+#exec --no-startup-id  compton -C -G --inactive-opacity=0.9 --inactive-dim 0.2
 
 
 # setting up workspaces
