@@ -49,7 +49,8 @@ bindsym XF86TouchpadOn  exec notify-send -t 1000 "TouchpadToggle" "Touchpad ist 
 bindsym XF86WLAN  exec notify-send -t 1000 "AirplaneModeToggle" "Airplanemode has been toggled"
 
 # take a Screenshot
-bindsym Mod4+Shift+s exec scrot_ogi.sh
+#bindsym Mod4+Shift+s exec scrot_ogi.sh
+bindsym Mod4+Shift+s exec flameshot gui
 
 # change focus
 bindsym Mod4+h focus left
