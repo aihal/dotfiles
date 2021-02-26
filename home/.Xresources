@@ -1,8 +1,8 @@
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintslight
 Xcursor*theme: Vanilla-DMZ-AA
-urxvt*font: xft:dejavu sans mono:pixelsize=13:antialias=true
-urxvt*boldFont: xft:dejavu sans mono:bold:pixelsize=13:antialias=true
+urxvt*font: xft:cousine:pixelsize=16:antialias=true
+urxvt*boldFont: xft:cousine:bold:pixelsize=16:antialias=true
 urxvt*urgentOnBell: true
 urxvt*scrollBar: false
 
