@@ -301,7 +301,7 @@ alias free='free -m'
 #alias mpv='mpv --fs --stop-screensaver --msg-color --msg-module --no-osc --volume=100' # outsourced to config
 alias crontab='crontab -e'
 alias ph='ping heise.de'
-alias p=pacman
+alias p='pacman --color always'
 alias grep="grep --color"
 alias l='ls -CF --color=auto'
 alias la='ls -aCF --color=auto'

@@ -6,10 +6,12 @@ urxvt*boldFont: xft:cousine:bold:pixelsize=16:antialias=true
 urxvt*urgentOnBell: true
 urxvt*scrollBar: false
 
-URxvt.perl-ext-common: default,url-select,keyboard-select
+URxvt.perl-ext-common: default,url-select,keyboard-select,bell-command
 URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.url-select.launcher: firefox -new-tab
+URxvt.bell-command: canberra-gtk-play -i bell
+
 
 !colors
 #include "/home/ogion/.colors/mycolors"
